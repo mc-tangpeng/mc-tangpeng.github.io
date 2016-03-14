@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>唐鹏个人网站</title>
+	<meta name="author" content="智能社 - zhinengshe.com" />
+	<meta name="description" content="专注于用户体验的前端开发者" />
+	<meta name="keywords" content="个人主页，web前端">
+	<link rel="stylesheet" type="text/css" href="style/index.css">
+	
+	
+</head>
+<body>
+	<!--[if lte IE 9]> 
+	<script type="text/javascript">
+	     var Sys = {};
+	     var ua = navigator.userAgent.toLowerCase();
+	     var s;
+	     (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+	     (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+	     (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+	     (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+	     (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+	
+	     //以下进行测试
+	     if (Sys.ie<=9) {
+	     	var oBody=document.getElementsByTagName('body')[0]
+	     	var oDiv=document.createElement('div');
+	     	oDiv.className="sorry";
+	     	var oP=document.createElement('p');
+	     	oP.innerHTML='<a href="http://rj.baidu.com/soft/detail/23360.html?ald" target="_blank" title="ie11"></a><a href="http://www.firefox.com.cn/download/" target="_blank" title="火狐"></a><a href="http://rj.baidu.com/soft/detail/14744.html?ald" target="_blank" title="谷歌"></a>'
+	     	oDiv.appendChild(oP)
+	     	oBody.appendChild(oDiv);
+	     	console.log(11)
+	     }
+	 </script>
+	 <![endif]-->
+	<section id="main" class="main">
+		<div id="loading" class="loading">
+	    	<div></div>
+	        <div></div>
+	        <span></span>
+	    </div>
+		<div class="header" id="header">
+			<div class="headerMain">
+				<h1><a href="http://www.abouttangpeng.com" title="about唐鹏"></a></h1>
+				<ul id="nav" class="nav">
+					<li>
+						<div class="up"><img src="img/home.png"></div>
+						<div><img src="img/home_gruen.png"></div>
+					</li>
+					<li>
+						<div class="up">js案例</div>
+						<div>js案例</div>
+					</li>
+					<li>
+						<div class="up">我的技能</div>
+						<div>我的技能</div>
+					</li>
+					<li>
+						<div class="up">学习计划</div>
+						<div>学习计划</div>
+					</li>
+					<li>
+						<div class="up">关于我</div>
+						<div>关于我</div>
+					</li>
+				</ul>
+				<div class="downArrow" id="downArrow"></div>
+			</div>
+		</div>
+		<div class="container" id="container">
+			<ul id="menu" class="menu">
+	        	<li class="active"></li>
+	            <li></li>
+	            <li></li>
+	            <li></li>
+	            <li></li>
+        	</ul>
+			<div id="contentMain" class="contentMain">
+				<div id="home" class="home column">
+					<div class="columnContent">
+						<div class="columnContent1">
+							<ul>
+							<!-- 	<li class="active leftShow">
+									<h3>
+										<span>{white-space:nowrap}</span><br />
+										<span>前端，一条不归路~</span>
+									</h3>
+								</li>
+								<li class="rightHidden">
+									<h3>
+										<span></span><br />
+										<span>不断的学习，才能变强~</span>
+									</h3>
+								</li>
+								<li>
+									<h3>
+										<span>&lt;h5&gt; 你可知道？ &lt;/h5&gt;</span><br />
+										<span>江湖上的传说，都不属于我</span>
+									</h3>
+								</li> -->
+								
+							</ul>
+						</div>
+						<div class="columnContent2">
+							<ul>
+								<!-- <li class="active"></li>
+								<li></li>
+								<li></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="case" class="case column">
+					<div class="columnContent">
+						<div class="columnContent1">
+							<h2>
+								<span>不积跬步</span><br />
+								<span>无以至千里</span>
+							</h2>
+						</div>
+						<div class="columnContent2 columnContentText">
+							<p> 每面对一个bug，意味着有机会掌握一个新技能，<br />
+								每面对一次失败，意味着没有任何理由停止学习，<br />
+								每当想放弃时，你可以告诉自己：脚步达不到的额地方，目光可以达到；目光达不到的地方，梦想可以到达！ 
+							</p>
+						</div>
+						<div class="columnContent3">
+							<!-- <div class="caseLine" style="left:0"></div>
+							<div class="caseLine" style="left:120px"></div>
+							<div class="caseLine" style="left:240px"></div>
+							<div class="caseLine" style="left:360px"></div>
+							<div class="caseLine" style="left:480px"></div> -->
+							<ul class="jsCase">
+								<!-- <li>
+									<div class="caseBefore"></div>
+									<div class="caseAfter">测试文字啊 啊111111</div>
+								</li>
+								<li>
+									<div class="caseBefore"></div>
+									<div class="caseAfter">测试文字啊 啊111111</div>
+								</li>
+								<li>
+									<div class="caseBefore"></div>
+									<div class="caseAfter">测试文字啊 啊111111</div>
+								</li>
+								<li>
+									<div class="caseBefore"></div>
+									<div class="caseAfter">测试文字啊 啊111111</div>
+								</li>
+								<li>
+									<div class="caseBefore"></div>
+									<div class="caseAfter">1111</div>
+								</li> -->
+							</ul>
+						</div>
+						<div class="plane1"></div>
+	                    <div class="plane2"></div>
+	                    <div class="plane3"></div>
+					</div>
+				</div>
+				<div id="notes" class="notes column">
+					<div class="columnContent">
+						<div class="columnContent1">
+							<h2>
+								<span>好好学习</span><br />
+								<span>天天向上</span>
+							</h2>
+						</div>
+						<div class="columnContent2">
+							<div class="notesImgParent">
+								<img class="notesImg" src="img/js.jpg">
+							    <div class="notesImgMark">
+							    	<a href="miaov.html" target="_blank">
+							    	<span>JavaScript妙味课堂</span> <!--span放文字，div放图标-->
+							        <div></div>
+							        </a>
+							    </div>
+							</div>
+							<div class="notesImgParent">
+								<img class="notesImg" src="img/html5.jpg">
+							    <div class="notesImgMark">
+							    	<a target="_blank" href="jq/aboutme.html">
+							    		<span>jQuery</span> <!--span放文字，div放图标-->
+										<div></div>
+							    	</a>
+							    	
+							    </div>
+							</div>
+							<div class="notesImgParent">
+								<img class="notesImg" src="img/practice.jpg">
+							    <div class="notesImgMark">
+							    	<a target="_blank" href="ajax/waterfall.html">
+							    		<span>AJAX & JSONP</span> <!--span放文字，div放图标-->
+										<div></div>
+							    	</a>
+							    	
+							    </div>
+							</div>
+							<div class="notesImgParent">
+								<img class="notesImg" src="img/moble.jpg">
+							    <div class="notesImgMark">
+							    	<a href="bsWx.html">
+					    		    	<span>bootstrap && 微信页面</span> <!--span放文字，div放图标-->
+					    				<div></div>
+							    	</a>
+							    	
+							    </div>
+							</div>
+						</div>
+						<div class="columnContent3">
+							<img src="img/robot.png">
+						</div>
+						<div class="pencel1"></div>
+                    	<div class="pencel2"></div>
+                    	<div class="pencel3"></div>
+					</div>
+				</div>
+				<div id="plan" class="plan column">
+					<div class="columnContent">
+						<div class="columnContent1">
+							<h2>
+								<span>学会做计划</span><br />
+								<span>才不会茫然</span>
+							</h2>
+						</div>
+						<div class="columnContent2 columnContentText">
+							<p>我相信随着对web前端的深入，会有许多许多需要学习的东西，行于前端，但不止于前端。目前的职业技能，html(5)和css(3)，熟练偏上；JavaScript熟练偏上；JQuery熟练；Ajax熟练偏下一点；Bootstrap熟练偏下；Ps熟练。我的目前计划是将那些熟练或者偏下的技能，通过实践提升到熟练偏上，将熟练偏上的做到精通，整个职业规划是3年达到web前端中级，5年到达高级。自学之路是坎坷的，但前途是光明的！</p>
+						</div>
+						<div class="columnContent3">
+							<div class="planImg" >
+								<img src="img/pic1.jpg"  class="img"/>
+								 <ul data-src="img/pic2.jpg">
+									<!-- <li></li>
+									<li></li>
+									<li></li>
+									<li></li> -->
+								</ul>
+							</div>
+							<div class="planImg">
+								<img src="img/pic3.jpg" class="img" />
+								<ul data-src="img/pic4.jpg">
+									<!-- <li></li>
+									<li></li>
+									<li></li>
+									<li></li> -->
+								</ul> 
+							</div>
+						</div>
+						<div class="planLine"></div>
+					</div>
+
+				</div>
+				<div id="me" class="me column">
+					<div class="columnContent">
+						<!-- <div id="stage" class="stage">
+							<ul id="stageWrap" class="stageWrap">
+								<li>
+									<h2>我的爱好</h2>
+									<p>你好! 我是...</p>
+								</li>
+							</ul>
+							<input type="button" value="查看更多" class="more" id="more" >
+						</div> -->
+						<div class="columnContent1">
+							<img src="img/1.png" />
+							<img src="img/2.png" />
+							<img src="img/3.png" />
+							<img src="img/4.png" />
+							<img src="img/5.png" />
+						</div>
+						<div class="columnContent2">
+							<ul>
+								<li class="active">
+									<h3>基本情况:</h3>
+									<p>你好! 我叫唐鹏，男，今年22岁，就读湘潭大学兴湘学院，本科学历，电子商务专业，一名2016年的应届毕业生，求职方向是web前端开发实习生。本人性格开朗，和他人聊得开。对待生活，积极乐观；对待他人，热情、尊重。对待工作，细心，负责。我相信没有沟通解决不了的争论。我的爱好也很广泛，最大的爱好是钓鱼。</p>
+								</li>
+								<li>
+									<h3>目前技能：</h3>
+									<p>html(5)和css(3)，熟练偏上<br />JavaScript熟练偏上<br/>JQuery熟练<br />Ajax熟练偏下一点<br />Bootstrap熟练偏下<br />Ps熟练</p>
+								</li>
+								<li>
+									<h3>所追求的：</h3>
+									<p>编程是一门艺术。不管什么类型的网站，最后设计出来，落脚点都是用户。所以，我追求的设计理念是：简约、专注、极致、注重用户体验、用户思维。</p>
+								</li>
+								<li>
+									<h3>联系方式：</h3>
+									<p>如果您有一份工作，觉得我合适，您可以通过电话联系我：15974469194，或者：QQ：1210255803。不胜感激！</p>
+								</li>
+								<li>
+									<h3>说的都是猿粪：</h3>
+									<p>Hi, 相见不如偶遇！交个朋友吧，咱们可以秉烛夜谈、从诗词歌赋，聊到人生哲理~~^ ~~ ^</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>
