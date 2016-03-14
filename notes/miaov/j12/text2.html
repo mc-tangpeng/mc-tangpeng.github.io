@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+
+	#div1 {background: yellow;width: 50px;height: 50px;padding: 50px;position: relative;}
+	#div2 {background: blue;width: 50px;height: 50px;position: relative;}
+	</style>
+	
+</head>
+<body>
+	<div id="div1">
+		<div id="div2" ></div>
+	</div>
+	<script type="text/javascript">
+	var oDiv2=document.getElementById('div2');
+	//当div1和div2时都有定位，标准下：div1.
+	alert(oDiv2.offsetParent.id);
+	</script>
+</body>
+</html>

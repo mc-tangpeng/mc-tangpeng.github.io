@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	function show(num){
+		if (num==1) { //停止条件
+			return 1;
+		};
+		return arguments.callee(num-1)*num;
+	}
+	console.log(show(6))
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜索</title>
+</head>
+<body>
+	<input type="button" value="切换" id="btn1">
+	<input type="button" value="停止" id="btn2">
+	<script type="text/javascript">
+	var arr=['red','yellow','blue'];
+	var btn=document.getElementsByTagName('input');
+	var num=0;
+	var timer=null;
+	/*btn[0].onclick=function(){
+		clearInterval(timer); 
+		 因为25的清除定时器是清除的onclick后的最后一个，所以前面的定时器一直在运行，因此在onclick的时候先把上一个清除掉，再开一个，这样才能保证当前只有一个定时器在运行
+		timer=setInterval(function(){
+			num=num%3;
+			document.body.style.background=arr[num];
+			num++;   
+		},1000)
+	}*/
+	btn[0].onclick=function(){
+		clearInterval(timer)
+		timer=setInterval(function(){
+			document.getElementsByTagName('body')[0].style.background=arr[num];
+			num++;
+			if (num>arr.length) {
+				num=0;
+			};
+		},1000)
+	}
+	btn[1].onclick=function(){
+	clearInterval(timer);
+	}
+	</script>
+</body>
+</html>

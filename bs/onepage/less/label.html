@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0; padding: 0; }
+	.dropdow:after {
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		border-bottom: 12px solid #0cf;
+	}
+	.box {list-style: none;border: 1px solid #000; width:440px; height: 120px}
+	.box li {position:relative; float: left; margin: 10px 5px; width: 100px; height: 100px;background: red}
+	.box li:hover {outline: 1px solid #0cf}
+	.box li:after {
+		position: absolute;
+		display: block;
+		border-top: 28px solid #4390df;
+		border-left: 28px solid transparent;
+		right: 0;
+		top: 0;
+		content: "";
+		z-index: 101; 
+	}
+	.box li:hover:before {
+		position: absolute;
+		display: block;
+		content: "√";
+		color: #fff;
+		font-size: 20px;
+		right: 0;top: 0;
+		z-index: 102;
+	}
+	</style>
+</head>
+<body>
+	<form>
+		<label>
+			<input type="text" />
+		</label>
+		<label>
+			<input type="text" />
+		</label>
+		<label>
+			<input type="text" />
+		</label>
+	</form>
+	<ul>
+		<li class="dropdown">下拉</li>
+		<li class="dropdown">下拉</li>
+		<li>1111111</li>
+	</ul>
+	<ul class="box">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+</body>
+</html>

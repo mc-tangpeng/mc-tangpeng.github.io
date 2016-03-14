@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var len=9;
+	var str='';
+	for (var i = 1; i <= len; i++) {
+		for (var j = 1; j <= i; j++) {
+			str+= j+'*'+i+'='+j*i+' ';
+		}
+		str+='<br />';
+	}
+	document.body.innerHTML=str
+	</script>
+</body>
+</html>

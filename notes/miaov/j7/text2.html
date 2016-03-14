@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	* {margin: 0;padding: 0}
+	#box {width: 200px;height:200px;height: 200px;margin: 30px auto;border: 1px solid #000;position: relative;}
+	#box ul {width: 100%;height: 100%;list-style: none;position: absolute;left: 0;top: 0}
+	#box ul li {width: 200px;height: 200px;position: absolute;left: 0;top: 0}
+	#box input {width: 60px;height: 30px;border: none;position: absolute;top: 70px;z-index: 5}
+	#btn1 {left: -85px;top: 70px;}
+	#btn2 {position: absolute;right: -85px;}
+	#tip {width: 400px;height: 200px;background: #ccc;position: absolute;top: 50%;left:50%;margin:10px 0 0 -200px;border: 5px solid #fff;z-index: 11;text-align: center;display: none;}
+	#tip input {width: 60px;height: 30px;}
+	#bg {width: 100%;height: 100%;position: absolute;z-index: 10;background: #ccc;left: 0;top: 0;opacity: 0.3;display: none;}
+	</style>
+	<script type="text/javascript" src="startMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aInp=oBox.getElementsByTagName('input');
+		var oUl=oBox.getElementsByTagName('ul')[0];
+		var aLi=oBox.getElementsByTagName('li');
+		var oTip=document.getElementById('tip');
+		var oBtn=oTip.getElementsByTagName('input')[0];
+		var oBg=document.getElementById('bg');
+
+		var num=0;
+		var zIndex=4;
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].style.zIndex=zIndex-i;
+		};
+		console.log(aInp.length)
+		aInp[0].onclick=function(){     //并不是点了没反应，而是更本没点到按钮，li 的left改变后，层级比ann高，所以怎么点都没用。
+			if (num < aLi.length-1) {
+				startMove(aLi[num],{left:-200,opacity:0})
+				num++;
+			}else{
+				again();
+			}
+		}
+		aInp[1].onclick=function(){
+			
+			if (num < aLi.length-1) {
+				startMove(aLi[num],{left:200,opacity:0})
+				num++;
+			}else{
+				again();
+			}
+			
+		}
+		function again(){
+			oBg.style.display="block";
+			oTip.style.display="block";
+
+			oBtn.onclick=function(){
+				oBg.style.display="none";
+				oTip.style.display="none";
+				for (var i = 0; i < aLi.length; i++) {
+					startMove(aLi[i],{left:0,opacity:100})
+				};
+				num=0;
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="←" id="btn1">
+		<input type="button" value="→" id="btn2">
+		<ul>
+			<li><img src="0.jpg" /></li>
+			<li><img src="1.jpg" /></li>
+			<li><img src="2.jpg" /></li>
+			<li><img src="3.jpg" /></li>
+		</ul>
+	</div>
+	<div id="tip">
+		<p>重来一次</p>
+		<input type="button" value="ok" />
+	</div>
+	<div id="bg"></div>
+</body>
+</html>

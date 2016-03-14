@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" value="睡眠神器" id="text">
+	<script type="text/javascript">
+	var oText=document.getElementById('text');
+	var val=oText.value;
+	var onOff=true;
+	oText.onfocus=function(){
+		if (onOff) {
+			this.value='';
+			onOff=false
+		};
+		
+	}
+	oText.onblur=function(){
+		if (this.value=='') {
+			onOff=true;
+			this.value=val;
+		};
+	}
+	</script>
+</body>
+</html>

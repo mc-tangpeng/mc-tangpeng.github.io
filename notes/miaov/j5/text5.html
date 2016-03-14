@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>猜数字</title>
+	<style type="text/css">
+	body {background: url(4.jpg) 0 0;}
+	#box {width: 300px;margin: 50px auto}
+	#box h1 {font-size: 36px;color: #fff;width: 300px;text-align: center;margin: 20px 0}
+	#box span,#box input {display: block;width: 300px;background: #b5bed6;margin-top:20px }
+	#box input {height: 50px;border:none;font-size: 20px}
+	#box input:nth-of-type(1){text-align: center;}
+	#box span:nth-of-type(1){height:85px;text-align: center;line-height: 85px}
+	#box span:nth-of-type(2){height:250px;border: 10px solid #fff;width: 280px}
+
+	#dl {width: 200px;position: absolute;left：10px;top:100px;background: #fff;padding: 10px}
+	#dl label {display: block;}
+	b {font-size: 20px;color: red}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oTips=document.getElementById('tips');
+		var oBtn=document.getElementById('btn');
+		var oText=document.getElementById('text');
+		var oB=document.getElementsByTagName('b');
+		var oDl=document.getElementById('dl');
+		var aInput=oDl.getElementsByTagName('input');
+		var count=parseInt(oB[2].innerHTML);
+		var countNow=0;
+		var firstNum=parseInt(oB[0].innerHTML);
+		var lastNmu=parseInt(oB[1].innerHTML);
+		var randomValue=getRandom(firstNum,lastNmu);
+		console.log(!123)
+		aInput[3].onclick=function(){
+			dl(); //自定义
+		}
+		
+		oText.onclick=function(){
+			this.value='';
+		}
+		oBtn.onclick=function(){
+			
+			guess();
+		}
+		function getRandom(one,two){
+			return Math.floor(Math.random()*(two-one+1)+one);
+		}
+		function dl(){
+			if(aInput[0].value=='' || aInput[1].value==''){
+				alert('自定义模式下，请输入你的开始值与结束值！')
+				return;
+			}else if(parseInt(aInput[0].value)>=parseInt(aInput[1].value)){
+				alert('大哥，咱别闹好么，第一个数字应该小于第二个数字');
+				return;
+			}else if(aInput[2].value==''){
+				aInput[2].value=oB[2].innerHTML;
+			}else{
+				oB[0].innerHTML=aInput[0].value;
+				firstNum=parseInt(oB[0].innerHTML);
+				oB[1].innerHTML=aInput[1].value;
+				lastNmu=parseInt(oB[1].innerHTML);
+				oB[2].innerHTML=aInput[2].value;
+				count=parseInt(oB[2].innerHTML);
+			}
+			randomValue=getRandom(firstNum,lastNmu);
+			oText.value='';
+			oTips.innerHTML="不要走，决战到天亮！！";
+			//alert(oB[0].innerHTML);
+		}
+		function guess(){
+
+			var yourValue=oText.value;
+			if(count==0){
+				alert('明天再来吧，今天次数用完了！多么遗憾，里正确答案 [ '+randomValue+' ] 仅一步之遥！！');
+				//alert('你敢相信，正确答案是：'+randomValue);
+				return;
+			}else{
+				if(oText.value=='' || !Number(yourValue)){
+					alert('请输入规范的数字吧，不要放弃治疗！！');
+					return;
+				}else{
+					if(parseInt(yourValue)==randomValue){
+						oTips.innerHTML="恭喜你答对了！！";
+						return;
+					}else if(parseInt(yourValue) > randomValue){
+						oTips.innerHTML="大哥，咱们低点行吗？？"
+					}else{
+						oTips.innerHTML="大哥，这也太便宜了吧！！"
+					}
+				}
+			}
+			
+			count--;
+		}
+	}
+	</script>
+</head>
+<body>
+<div id="dl">
+	<h3>我要自定义</h3>
+	<label for="one">第一个数字：
+		<input type="text" id="one">
+	</label>
+	<label for="two">第二个数字：
+		<input type="text" id="two">
+	</label>
+	<label for="count">次数：
+		<input type="text" id="count">
+	</label>
+	<input type="button" value="速来" id="btn1"> 
+</div>
+<div id="box">
+	<h1>猜数字游戏</h1>
+	<span id="tips">你要相信你的运气</span>
+	<input type="text" id="text" value="随便猜猜，反正你猜不准">
+	<input type="button" value="确定" id="btn"> 
+	<span>
+		游戏规则：
+		<p>系统随机产生一个 <b>0</b> ~ <b>100</b> 之间的随机数，玩家共有<b>10</b>次机会去猜，系统会提示相对于真实值的高低。</p>
+	</span> 	
+</div>	
+</body>
+</html>

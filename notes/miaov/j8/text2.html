@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oText=document.getElementById('text');
+		var oBtn=document.getElementById('btn');
+		var oDiv=document.getElementsByTagName('div')[0];
+		var aSpan=document.getElementsByTagName('span');
+		var str=oDiv.innerHTML;
+		var result='';
+		for (var i = 0; i < str.length; i++) {
+			result+='<span>'+str[i]+'</span>';
+		};
+		oDiv.innerHTML=result;
+		//ar arr=str.split(''); 转数组来做，不行，因为无法处理多个文字。
+		//console.log(arr);
+		oBtn.onclick=function(){
+			var val=oText.value;
+			var arr=[];
+			var num=-1; //为虾米是-1？？
+			//for (var i = 0; i < str.length; i++) {
+				//此方法针对单个字母有效，多个无效。
+				// if(str[i]==val){
+					// arr.push(i)
+				// }
+			//};
+			findNum();
+			function findNum(){
+				num=str.indexOf(val,num+1);
+				if(num != -1){
+					arr.push(num);
+
+					findNum();
+				}
+			}
+			//console.log(arr)
+			for (var i = 0; i < aSpan.length; i++) {
+				aSpan[i].style.background="";
+			};
+
+			for (var i = 0; i < arr.length; i++) {
+
+				change(arr[i]);
+			};
+			function change(index){
+				for (var i = 0; i < val.length; i++) {
+					aSpan[index+i].style.background="red";
+				};
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<input type="text" id="text" /><input type="button" value="查询" id="btn" />
+	<div>asdasd;asikwqi;scadnsv;cbbd</div>
+</body>
+</html>

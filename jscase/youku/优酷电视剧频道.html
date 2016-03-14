@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	a {outline: none;blr:expression(this.onFocus=this.blur());}
+	img {border: none;}
+	body {background: #333}
+	#box {width: 1190px;height: 270px;margin: 40px auto;position: relative;overflow: hidden;}
+	#box ul {width: width: 1190px;height: 270px;list-style: none;position: absolute;left: 0;top: 0}
+	#box ul li {position: absolute;}
+	/*#box ul li img {box-shadow: 0 0 10px 5px #ccc }*/
+	/*根本就没有控制到图片的宽与高,加了一个宽高只是方便定位，重要的是宽要和图片一致*/
+	#box ul .img1 {left: 0px;top: 75px;z-index: 1;opacity: 0}
+	#box ul .img2 {left: 0px;top: 22px;z-index: 2;opacity: 0.6}
+
+	#box ul .img5 {-height: 270px;left: 275px;top: 0px;z-index: 3;opacity: 1}
+
+	#box ul .img4 {left: 658px;top: 22px;z-index: 2;opacity: 0.6}
+	#box ul .img3 {left: 814px;top: 75px;z-index: 1;opacity: 0}
+	
+	#box div {width:45px;height: 45px;position: absolute;z-index: 6;top: 112px;}
+	#btnL {background: #fff url(img/btnL.png) 0 0 no-repeat; left: 50px}
+	#btnR {background:#fff url(img/btnR.png) 0 0 no-repeat;right:50px }
+	</style>
+	<script type="text/javascript" src="startMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aLi=oBox.getElementsByTagName('li');
+		var aBtn=oBox.getElementsByTagName('div');
+		var arr=[];
+		for (var i = 0; i < aLi.length; i++) {
+			var oImg=aLi[i].getElementsByTagName('img')[0];
+			arr[i]={
+				'left': parseInt(getStyle(aLi[i],'left')),
+				'top': parseInt(getStyle(aLi[i],'top')),
+				'opacity':getStyle(aLi[i],'opacity')*100,
+				'width':oImg.width,
+				'zIndex': getStyle(aLi[i],'zIndex')
+			}
+		}
+		//console.dir(arr)
+		aBtn[1].onclick=function(){
+			arr.push(arr[0]);    //把第一个加到arr最后
+			arr.shift();   
+			console.dir(arr)
+			for (var i = 0; i < aLi.length; i++) {
+				var img=aLi[i].getElementsByTagName('img')[0];
+				
+				startMove(aLi[i],5,{'left':arr[i].left,'top':arr[i].top,'opacity':arr[i].opacity})
+				// aLi[i].style.left=arr[i].left+'px';
+				// aLi[i].style.top=arr[i].top+'px';
+				aLi[i].style.zIndex=arr[i].zIndex;
+				// aLi[i].style.opacity=arr[i].opacity/100;
+				startMove(img,5,{'width':arr[i].width})
+				//img.width=arr[i].width;
+			};
+		}
+
+		aBtn[0].onclick=function(){
+			arr.unshift(arr[arr.length-1]);    //把第一个加到arr最后
+			arr.pop();   
+			console.dir(arr)
+			for (var i = 0; i < aLi.length; i++) {
+				var img=aLi[i].getElementsByTagName('img')[0];
+				startMove(aLi[i],5,{'left':arr[i].left,'top':arr[i].top,'opacity':arr[i].opacity})
+				// aLi[i].style.left=arr[i].left+'px';
+				// aLi[i].style.top=arr[i].top+'px';
+				aLi[i].style.zIndex=arr[i].zIndex;
+				// aLi[i].style.opacity=arr[i].opacity/100;
+				startMove(img,5,{'width':arr[i].width})
+				//img.width=arr[i].width;
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div id="btnL"></div>
+		<div id="btnR"></div>
+		<ul id="banner">
+			<li class="img1"><a href="javascript:;"><img src="img/1.png" width='376' /></a></li>
+			<li class="img1"><a href="javascript:;"><img src="img/2.png" width='376'  /></a></li>
+			<li class="img1"><a href="javascript:;"><img src="img/6.jpg" width="376"  /></a></li>
+			<li class="img2"><a href="javascript:;"><img src="img/4.jpg" width="532"  /></a></li>
+
+			<li class="img5"><a href="javascript:;"><img src="img/7.jpg" width="640" /></a></li>
+
+			<li class="img4"><a href="javascript:;"><img src="img/3.jpg" width='532' /></a></li>
+			<li class="img3"><a href="javascript:;"><img src="img/5.jpg" width='376' /></a></li>
+			<li class="img3"><a href="javascript:;"><img src="img/8.jpg" width='376' /></a></li>
+			<li class="img3"><a href="javascript:;"><img src="img/9.jpg" width="376" /></a></li>
+		</ul>
+		
+	</div>
+</body>
+</html>

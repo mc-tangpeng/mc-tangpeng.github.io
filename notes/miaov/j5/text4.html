@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		input {margin: 0 10px}
+		em {margin:0 10px;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('list');
+		var aLi=oUl.getElementsByTagName('li');
+		var aGoods=document.getElementById('goods');
+		var aSum=document.getElementById('sum');
+		
+		for (var i = 0; i < aLi.length; i++) {
+			fn1(aLi[i]);
+		};
+
+		function fn1(oLi){
+			var aInput=oLi.getElementsByTagName('input');
+			var aSpan=oLi.getElementsByTagName('span');
+			var oEm=oLi.getElementsByTagName('em')[0];
+			var n1=parseInt(aSpan[0].innerHTML);  //'0' string
+			var n2=parseFloat(oEm.innerHTML); //'6元'
+			aInput[0].onclick=function(){
+				
+				if(n1==0){
+					alert('请先选择商品，此商品数量为0');
+					return;
+				}else{
+					n1--;
+					aSpan[0].innerHTML=n1+'件';
+					aInput[2].value=n1*n2+'元';
+				}
+				fullSum(oUl,aSum,aGoods);
+				//fullGoods(oUl,aGoods);
+				
+			}
+
+			aInput[1].onclick=function(){
+				n1++;
+				aSpan[0].innerHTML=n1+'件';
+				aInput[2].value=n1*n2+'元';
+				fullSum(oUl,aSum,aGoods);
+				//fullGoods(oUl,aGoods);
+			}
+		}
+		function fullSum(obj,oSum,oGoods){   //总件数和总金额
+			var aInput=obj.getElementsByTagName('input');
+			var aSpan=obj.getElementsByTagName('span');
+			var str=0;
+			var str2=0;
+			for (var i = 0; i < aInput.length; i++) {
+				if(i%3==2){ 
+					str+=parseFloat(aInput[i].value);
+				}
+				
+			};
+
+			for (var i = 0; i < aSpan.length; i++) {
+				if(i%2==0){
+					str2+=parseInt(aSpan[i].innerHTML)
+				}
+				
+			};
+			
+			oSum.value=str+'元';
+			oGoods.value=str2+'件';
+		}
+		
+	}
+	</script>
+</head>
+<body>
+<ul id="list">
+	<li>
+		辣椒炒肉：
+		<input type="button" value="-">
+		<span>0件</span>
+		<input type="button" value="+">
+		<span>单价</span>
+		<em>6元</em>
+		结果: <input type="text" value="0元"></li>
+	</li>
+	<li>
+		土豆烧肉：
+		<input type="button" value="-">
+		<span>0件</span>
+		<input type="button" value="+">
+		<span>单价</span>
+		<em>12.3元</em>
+		结果: <input type="text" value="0元"></li>
+	</li>
+	<li>
+		辣椒炒蛋：
+		<input type="button" value="-">
+		<span>0件</span>
+		<input type="button" value="+">
+		<span>单价</span>
+		<em>3元</em>
+		结果: <input type="text" value="0元"></li>
+	</li>
+	<li>
+		辣椒炒肉：
+		<input type="button" value="-">
+		<span>0件</span>
+		<input type="button" value="+">
+		<span>单价</span>
+		<em>9元</em>
+		结果: <input type="text" value="0元"></li>
+	</li>
+
+</ul>	
+<label for="goods">商品总计：
+	<input type="text" id="goods">
+</label>
+<label for="sum">价格总计：
+	<input type="text" id="sum">
+</label>
+</body>
+</html>

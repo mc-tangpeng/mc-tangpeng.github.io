@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {position: absolute;bottom: 0;width: 100%;text-align: center;}
+	#box img {width: 64px;border-bottom: 1px solid #000}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aImg=oBox.getElementsByTagName('img');
+		var aInp=document.getElementsByTagName('input');
+
+		document.onmousemove=function(ev){
+			var ev=ev || window.event;
+			for (var i = 0; i < aImg.length; i++) {
+				var c=toCon(ev,aImg[i]);
+				// aInp[i].value=c;
+				var scaleX=1-c/300;
+				if (scaleX<0.5) {
+					scaleX=0.5;
+				};
+				aInp[i].value=scaleX;
+				aImg[i].style.width=scaleX*128+'px';
+			};
+		}
+		// function nearImg(ev){  不需要
+		// 	var value=9999;
+		// 	var index=-1;
+
+		// 	for (var i = 0; i < aImg.length; i++) {
+		// 		var c=toCon(ev.clientx,aImg[i]);
+		// 		if (value>c) {
+		// 			value=c;
+		// 			index=i;
+		// 		};
+		// 	};
+		// 	return aImg[index];
+		// }
+		function toCon(ev,obj){
+			var a=ev.clientX-posLeft(obj)-obj.offsetWidth/2;
+			var b=ev.clientY-posTop(obj)-obj.offsetHeight/2;
+			var c=Math.sqrt(a*a+b*b);
+
+			return c;
+		}
+		function posLeft(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+	}
+	</script>
+</head>
+<body>
+	<input type="text" />
+	<input type="text" />
+	<input type="text" />
+	<input type="text" />
+	<input type="text" />
+	<div id="box">
+		<img src="images/1.png">
+		<img src="images/2.png">
+		<img src="images/3.png">
+		<img src="images/4.png">
+		<img src="images/5.png">
+	</div>
+</body>
+</html>

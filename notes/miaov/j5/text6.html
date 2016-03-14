@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInput=document.getElementsByTagName('input');
+		var aCity=document.getElementById('box').getElementsByTagName('li');
+		//alert(aCity.length)
+		aInput[1].onclick=function(){
+			reset();
+			if(toCon(aInput[0].value)){
+				toCon(aInput[0].value).style.background="red";
+			}else{
+				alert('不在服务区！！')
+			}
+			
+		}
+		function toCon(value){
+			//var valve=aInput[0];
+			for (var i = 0; i < aCity.length; i++) {
+				if(value==aCity[i].innerHTML){
+					return aCity[i];
+				}
+					
+			};
+			return false;
+		}
+		function reset(){
+			for (var i = 0; i < aCity.length; i++) {
+				aCity[i].style.background="";
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+<input type="text" >
+<input type="button" value="搜索">
+<ul id="box">
+	<li>北京</li>
+	<li>上海</li>
+	<li>广州</li>
+	<li>武汉</li>
+	<li>深圳</li>
+</ul> 	
+</body>
+</html>

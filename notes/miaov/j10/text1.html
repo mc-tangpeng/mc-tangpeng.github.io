@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr=[32,45,23,56,12,5,89,3];
+	function bubblingSort(arr){
+		for (var i = 0; i < arr.length; i++) {
+			for (var j = 0; j < arr.length-1; j++) {
+				toCom(j,j+1)
+			};
+		};
+		function toCom(prev,next){
+		
+			var temp='';
+			if (arr[prev]>arr[next]) {
+				temp=arr[prev];
+				arr[prev]=arr[next];
+				arr[next]=temp;
+			};
+			
+		}
+		return arr;
+	}
+	
+	console.log(bubblingSort(arr));
+	</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	var json = {"name" : "bobo" , "job" : "web", "age" : 56}
+	var url = 'getTime.php';
+	var str = '';
+	for(var key in json) {
+		str += encodeURI(key)+'='+encodeURI(json[key])+'&';
+	}
+	console.log(url+'?'+str)
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+
+	#box {position: relative;top: 60px;left: 120px}
+	#box img {position: absolute;top: 0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aImg=document.getElementsByTagName('img');
+		
+		getDate();
+		function getDate(){
+			var oDate=new Date();
+			var iH=oDate.getHours();
+			var iMin=oDate.getMinutes();
+			var iS=oDate.getSeconds();
+
+			var str=toZero(iH)+':'+toZero(iMin)+ ':' + toZero(iS);
+			for (var i = 0; i < aImg.length; i++) {
+				aImg[i].oldSrc=aImg[i].src;  //第一次src都是0，执行到28行时，src则 不同了。
+				aImg[i].style.left=(i*50)+'px';
+				if(i!=2 && i!=5){
+					aImg[i].src='img/'+ str.charAt(i)+'.png';
+				}
+				
+			};
+
+			for (var i = 0; i < aImg.length; i++) {
+				if(i!=2 && i!=5 && aImg[i].src != aImg[i].oldSrc){
+					aImg[i].style.top=0;  //每次跳动，会获取当前的top值，不初始化，取得的值是变换后的。
+					shake(aImg[i],'top',10)
+				}
+			};
+		}
+		setInterval(getDate,1000);
+		function shake(obj,attr,iSpeed,endFn){
+			var iCur=parseInt(getStyle(obj,attr));
+			
+			var arr=[];
+			var num=0;
+			for (var i = iSpeed; i>0; i-=5) {
+				arr.push(i,-i)
+			};
+			clearInterval(obj.timer)
+			obj.timer=setInterval(function(){
+				obj.style[attr]=iCur+arr[num]+'px';
+				num++;
+			},40)
+		}
+		function toZero(num){
+			if(num < 10){
+				return '0' + num; 
+			}
+			else{
+				return '' + num;
+			}
+		}
+		function getStyle(obj,attr){
+			return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<img src="img/0.png">
+		<img src="img/0.png">
+		<img src="img/second.png">
+		<img src="img/0.png">
+		<img src="img/0.png">
+		<img src="img/second.png">
+		<img src="img/0.png">
+		<img src="img/0.png">
+	</div>
+	
+</body>
+</html>

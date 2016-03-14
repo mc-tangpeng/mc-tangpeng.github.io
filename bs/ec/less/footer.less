@@ -1,0 +1,48 @@
+//
+//footer
+//----------
+footer[role="footer"] {
+	padding-top:10px;
+	padding-bottom:20px;
+	font-size: @font-size-small;
+	background-color: darken(@navbar-inverse-bg, 18%);
+	color: darken(@navbar-inverse-color, 18%);
+	a {
+		color: @navbar-inverse-color;
+		&:focus,
+		&:hover,
+		&:active {
+			color: @navbar-inverse-link-hover-color;
+		}
+	}
+	.socail {
+		width:100%;
+		list-style:none;
+		text-align: center;
+		li {
+			display: inline-block;
+			>a {
+				display: inline-block;
+				font-size: 18px;
+				line-height:30px;
+				.square(30px);
+				border-radius: 50%;
+				background-color: darken(@navbar-inverse-bg, 27%);
+				color:darken(@navbar-inverse-color, 18%);
+				margin: 0 3px 3px 0;
+				&:hover {
+					text-decoration: none;
+					background-color: darken(@navbar-inverse-bg, 32%);
+					color:@navbar-inverse-link-hover-color;
+				}
+			}
+		}
+	}
+	.footer-brand {
+		width: 100%;
+		text-align: center;
+	}
+	.btn-default {
+		color: darken(@navbar-inverse-bg, 18%) !important;
+	}
+}

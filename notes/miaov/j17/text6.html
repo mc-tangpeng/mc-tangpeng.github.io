@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	#div1 {width: 100px;height: 100px;background: red;position: absolute;top: 700px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		var clientW=document.documentElement.clientWidth;
+		var clientH=document.documentElement.clientHeight;
+		drag(oDiv)
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev || window.event;
+				var disX=ev.clientX-posLeft(obj); 
+				var disY=ev.clientY-posTop(obj);
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					var iLeft=ev.clientX-disX;
+					var iTop=ev.clientY-disY;
+					if (iLeft>clientW-oDiv.offsetWidth-30) {
+						iLeft=clientW-oDiv.offsetWidth;
+					}
+					if (iLeft<0+30) {
+						iLeft=0
+					};
+
+					if (iTop<0+getScrollY()+30) {   //注意有滚动条的时候
+						iTop=0+getScrollY();
+					};
+					if (iTop>clientH-oDiv.offsetHeight+getScrollY()-30) {
+						iTop=clientH-oDiv.offsetHeight+getScrollY();
+					};
+					oDiv.style.left=iLeft+'px';
+					oDiv.style.top=iTop+'px';
+
+
+
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onkeyup=null;
+					if (obj.releaseCapture) {
+						obj.releaseCapture();
+					};
+				}
+				return false; //阻止默认事件，如图片拖拽
+			}
+		}
+		function posLeft(obj){  
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function getScrollY(){
+			return document.body.scrollTop || document.documentElement.scrollTop;
+		}
+	}
+	</script>
+</head>
+<body>
+	111111111111
+	<div id="div1">1111111111111</div>
+</body>
+</html>

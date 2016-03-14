@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button" value="新建" />
+	<input type="button" value="关闭" />
+	<script type="text/javascript">
+	var aInp=document.getElementsByTagName('input');
+	var newWindow=null;
+	aInp[0].onclick=function(){
+		newWindow=window.open('http://www.baidu.com')
+		newWindow.location.hash=11;  //没乱用
+	}
+	aInp[1].onclick=function(){
+		newWindow.close()
+	}
+	</script>
+</body>
+</html>

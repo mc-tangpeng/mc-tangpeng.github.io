@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	总金额：<input type="text" />
+	份数：<input type="text" />
+	<input type="button" value="确定" />
+	<div id="box">
+		
+	</div>
+	<script type="text/javascript">
+	var aInp=document.getElementsByTagName('input');
+	var oBox=document.getElementById('box');
+
+	aInp[2].onclick=function(){
+		oBox.innerHTML='';
+		var sum=+aInp[0].value;
+		var len=+aInp[1].value;
+		sum-=len;
+		for (var i = 0; i < len-1; i++) {
+			var num=getRandom(0,sum/2);
+			oBox.innerHTML+='<p>'+(num+1)+'</p>';
+			sum-=num;
+		};
+		oBox.innerHTML+='<p>'+(sum+1)+'</p>'
+	}
+	// function getRandom(one,two){
+	// 	return Math.random()*(two-one)+one;
+	// }
+	function getRandom(a,b){
+		return Math.floor(Math.random()*(b-a+1)+a);
+	} 
+	</script>
+</body>
+</html>

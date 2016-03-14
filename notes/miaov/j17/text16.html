@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#img {position: absolute;left: 100px;top: 20px;width: 200px;height: 300px}
+	</style>
+
+</head>
+<body>
+	<img src="1.png" id="img">
+	<script type="text/javascript">
+	window.onload=function(){
+		var oImg=document.getElementById('img');
+		oImg.onmousedown=function(ev){
+			var ev=ev || window.event;
+			var iL=posLeft(oImg);
+			var iT=posTop(oImg);
+			var offsetW=oImg.offsetWidth;
+			var offsetH=oImg.offsetHeight;
+			var disX=ev.clientX;
+			var disY=ev.clientY;
+			// console.log(offsetH,offsetW);  //不断变化
+			document.onmousemove=function(ev){
+				var ev=ev || window.event;
+				var iW=ev.clientX-disX+offsetW;
+				var iH=ev.clientY-disY+offsetH;
+
+				oImg.style.left=iL+'px';
+				oImg.style.top=iT+'px';
+
+				oImg.style.width=iW+'px';
+				oImg.style.height=iH+'px';
+				console.log(oImg.offsetWidth,ev.clientX,disX,offsetW,iW)  // 630 705 275 200 630
+			}
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			}
+			return false;
+
+		}
+	}
+	function posLeft(obj){  
+		var result=0;
+		while(obj){
+			result+=obj.offsetLeft;
+			obj=obj.offsetParent;
+		}
+		return result;
+	}
+	function posTop(obj){
+		var result=0;
+		while(obj){
+			result+=obj.offsetTop;
+			obj=obj.offsetParent;
+		}
+		return result;
+	}
+	</script>
+</body>
+</html>

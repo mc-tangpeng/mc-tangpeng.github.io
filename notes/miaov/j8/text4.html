@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin:0;padding: 0}
+	ul {list-style: none;}
+	img {border: none;outline: none;display: block;}
+	ul {width: 720px;height: 690px}
+	ul li {width: 220px;height: 210px;float: left;margin-right:10px;display: inline;position: relative;overflow: hidden;}
+	ul li div {width: 220px;height: 210px;position: absolute;left: 10px;top: 0px;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aDiv=document.getElementsByTagName('div');
+
+		for (var i = 0; i < aDiv.length; i++) {
+			aDiv[i].step=-4;
+			doMove(aDiv[i],'top');
+		};
+		// 
+		function doMove(obj,attr){
+			setTimeout(function(){
+				obj.timer=setInterval(function(){    //如果把暂停条件和关闭定时器写在一起，会出现top值拉的效果，
+													//因为跑过了0，再拉回来
+					var icur=parseInt(getStyle(obj,attr));
+					obj.style[attr]=icur+obj.step+'px';
+
+					if (icur<-210) {
+						obj.style[attr]=-210+'px';
+						clearInterval(obj.timer);
+						obj.step=4;
+						doMove(obj,attr)
+					}else if(icur>0){
+						obj.style[attr]=0+'px';
+						clearInterval(obj.timer);
+						obj.step=-4;
+						doMove(obj,attr)
+					};
+				},30)
+			},Math.round(Math.random()*9)*1000)
+		}
+		// function doMove(obj,attr){
+		
+		// 	setTimeout(function(){   //既然每人拥有了一个setTimeout，也是意味着每人拥有了一个setInterval。
+
+		// 		//obj.timer=setInterval(function(){
+		// 		var timer=setInterval(function(){
+		// 			var icur=parseInt(getStyle(obj,attr));
+		// 			obj.style[attr]=icur+obj.step+'px';
+
+		// 			if (icur < -210) {
+		// 				obj.style[attr]=-210+'px';
+		// 			}else if(icur>0){
+		// 				obj.style[attr]=0+'px';
+		// 			};
+
+		// 			if (parseInt(getStyle(obj,attr))==-210) {
+		// 				clearInterval(timer);
+		// 				obj.step=4;
+		// 				doMove(obj,attr);
+		// 			}else if (parseInt(getStyle(obj,attr))==0){
+		// 				clearInterval(timer);
+		// 				obj.step=-4;
+		// 				doMove(obj,attr);
+		// 			};
+		// 		},30)
+
+		// 	},Math.round(Math.random()*9)*1000)
+
+		// }
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+	}
+	</script>
+</head>
+<body>
+	<ul>
+		<li>
+			<div>
+				<img src="img/1.jpg">
+				<img src="img/2.jpg">
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="img/3.jpg">
+				<img src="img/4.jpg">
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="img/5.jpg">
+				<img src="img/6.jpg">
+			</div>
+		</li>
+		
+	</ul>
+</body>
+</html>

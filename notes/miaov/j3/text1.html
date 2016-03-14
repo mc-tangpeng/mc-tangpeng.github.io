@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随机数</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInput=document.getElementsByTagName('input');
+		var oBox=document.getElementById('box');
+
+		aInput[2].onclick=function(){
+			var value1=parseInt(aInput[0].value,10);
+			var value2=parseInt(aInput[1].value,10)
+			oBox.innerHTML=getRandom(value1,value2).toFixed(2); //toFixed(2)保留两位小数
+		}
+	}
+	function getRandom(value1,value2){
+		var choices=value2-value1;
+		return Math.random()*choices+value1;
+	}
+	</script>
+</head>
+<body>
+	<p>数值范围</p>
+<input type="text" ><input type="text" >	<input type="button" value="确定">	
+<div id="box"></div>
+</body>
+</html>

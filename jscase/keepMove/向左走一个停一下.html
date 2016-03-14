@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding:0;}
+	#box {width: 800px;height: 200px;margin: 20px auto;position: relative;border: 1px solid #000;overflow: hidden;}
+	#ul1 {list-style: none;height: 200px;position: absolute;}
+	#ul1 li {width: 200px;height: 200px;float: left;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+		oUl.innerHTML+=oUl.innerHTML;
+		oUl.style.width=aLi.length*200+'px';
+		var iNow=1;
+		
+		doMove()
+		function doMove(){
+			var timer=setInterval(function(){
+				var iCur=parseInt(getStyle(oUl,'left'));
+
+				if (iCur == -iNow*200) {
+					clearInterval(timer);
+					iNow++;
+					setTimeout(doMove,500);
+					
+				};
+				if (iCur < -oUl.offsetWidth/2) {
+					oUl.style.left=0;
+					iNow=1;   //勿忘初心，，^ ^
+				}else{
+					oUl.style.left=iCur-2+'px';
+				};
+				//console.log(iCur+':::'+-iNow*200)
+			},30)
+		}
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr]
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul1">
+			<li><img src="img/2.jpg" /></li>
+			<li><img src="img/3.jpg" /></li>
+			<li><img src="img/4.jpg" /></li>
+			<li><img src="img/7.jpg" /></li>
+			<li><img src="img/8.jpg" /></li>
+		</ul>
+	</div>
+</body>
+</html>

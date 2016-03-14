@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding:0;}
+	#box {width: 800px;height: 200px;margin: 20px auto;position: relative;border: 1px solid #000;overflow: hidden;}
+	#ul1 {list-style: none;height: 200px;position: absolute;}
+	#ul1 li {width: 200px;height: 200px;float: left;}
+	#box input {position: absolute;top: 50%}
+	#leftBtn {left: 3px;}
+	#rightBtn {right: 3px;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+		var aInp=document.getElementsByTagName('input')
+		oUl.innerHTML+=oUl.innerHTML;
+		oUl.style.width=aLi.length*200+'px';
+		var timer=null;
+		var val=0;
+		var bBtn=true;
+		var iSpeed=-2;
+		console.log(-oUl.offsetWidth/2)
+		aInp[0].onclick=function(){
+			iSpeed=-2;
+			bBtn=true;
+			doMove();  //速度需要保持一致，不然出bug
+		}
+		aInp[1].onclick=function(){
+			iSpeed=2;
+			bBtn=false;
+			doMove()
+		}
+		doMove()
+		function doMove(){
+			// var iSpeed=0;
+			
+			// if (bBtn) {
+			// 	iSpeed=-2;
+			// }else{
+			// 	iSpeed=2;
+			// };
+			clearInterval(timer);
+
+			timer=setInterval(function(){
+				var iCur=parseInt(getStyle(oUl,'left'));
+				if(iSpeed<0){                                  //往左
+					val=Math.ceil(Math.abs(iCur)/200)*200;     //当icur=-380时，val=400；也就是-400时停一下
+					if (iCur == -val ) {
+						clearInterval(timer);
+						val=Math.abs(iCur)+200;                //更新val值
+						setTimeout(doMove,500);
+						//console.log(val+'^^^'+iCur)
+					};
+					
+					if (iCur <= -oUl.offsetWidth/2) {         //拉回。
+						oUl.style.left=0;
+						
+					}else{
+						oUl.style.left=iCur+iSpeed+'px';
+					};
+					
+				}else if (iSpeed>0) {                         //往右
+					val=Math.abs(iCur)-Math.abs(iCur%200);
+					if (iCur == -val ) {
+						clearInterval(timer);
+						val=Math.abs(iCur)-200;
+						setTimeout(doMove,500);
+						//console.log(val+'^^^'+iCur)
+					};
+					if (iCur == 0) {
+						oUl.style.left=-oUl.offsetWidth/2+'px';
+						
+					}else{
+						oUl.style.left=iCur+iSpeed+'px';
+					};
+				}
+			},30)
+		}
+		
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr]
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul1">
+			<li><img src="img/2.jpg" /></li>
+			<li><img src="img/3.jpg" /></li>
+			<li><img src="img/4.jpg" /></li>
+			<li><img src="img/7.jpg" /></li>
+			<li><img src="img/8.jpg" /></li>
+		</ul>
+		<input type="button" value="←" id="leftBtn"> 
+		<input type="button" value="→" id="rightBtn"> 
+	</div>
+</body>
+</html>

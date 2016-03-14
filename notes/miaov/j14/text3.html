@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 1000px}
+	#box {width: 340px;border: 5px solid #000;position: absolute;top: 550px;left: 500px}
+	#box ul {width: 320px;padding-left: 20px}
+	#box ul li {width: 150px;float: left;margin: 5px;cursor: pointer;position:height:30px;background: yellow }
+	#box ul li a {display: inline-block;height: 30px;width: 150px}
+	#tips {width: 150px;height: 200px;position: absolute;border: 1px solid #000;background: #0cf;z-index: 99}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aLinks=oBox.getElementsByTagName('a');
+		var clientH=document.documentElement.clientHeight;
+		for (var i = 0; i < aLinks.length; i++) {
+			change(aLinks[i])
+		};
+		function change(obj){
+			var oTip=null;
+			obj.onmouseover=function(){
+				if (!oTip) {
+					oTip=document.createElement('div');
+					oTip.id="tips";
+					oTip.innerHTML=obj.getAttribute('tips')
+					
+				};
+				document.body.appendChild(oTip);
+				if ( toCon(obj) ) {
+
+					oTip.style.left=GetRect(obj).left+'px';
+					oTip.style.top=posTop(obj)+obj.offsetHeight+5+'px'; //5是父级的border-top
+				}else{
+					oTip.style.left=GetRect(obj).left+'px';
+					oTip.style.top=posTop(obj)-oTip.offsetHeight+5+'px';
+				}
+			}
+
+			obj.onmouseout=function(){
+				document.body.removeChild(oTip);
+				oTip=null;
+			}
+			
+			function toCon(obj){
+			
+				if (clientH-GetRect(obj).bottom > oTip.offsetHeight) {
+					return true;
+				}else{
+					return false
+				}
+			}
+		}
+		
+		function GetRect(obj){
+
+			var rect=obj.getBoundingClientRect();
+			var top=document.documentElement.clientTop;
+			var left=document.documentElement.clientLeft;
+			return {
+				top:rect.top-top,
+				left:rect.left-left,
+				right:rect.right-left,
+				bottom:rect.bottom-top
+			}
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent
+			}
+			return result;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<h2>搜索风云榜</h2>
+		<ul id="list">
+			<li>
+				<a href="javascript:;" tips="导读:男大学生峨眉山跳崖毕业后找工作不顺失联数月 楚秀网讯:近日,有报道称,辽宁26岁毕业大学生在悬..">男大学生峨眉山跳崖</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="图为越南北方永福省投资1300多万美元在建的孔庙近日,越南北方永福省投资1300多万美元在建的孔庙,被..">越南投千万建孔庙</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="内鬼车牌高达5000张,前后长达十年。几乎自上海开始拍卖车牌之时,国税局里的蛀虫就开始搞内外勾结的..">上海内鬼车牌</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="股市大热让很多人都挣了一笔。而一名村妇炒股赚12万依然让不少人羡慕。在南留村,陕西省兴平市这不起...">村妇炒股赚12万</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="西安一公交车现最帅售票员 颜值爆表走红网络发布时间 : 2015-06-11 15:20:07来源:华商网作者:本网微...">西安最帅售票员走红</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="男子在黑道火并现场淡定吃面论吃货的自我修养台湾男子在黑道火并现场淡定吃面被警方误以为老大抓捕...">火并现场淡定吃面</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="夫妇发现楼房开裂 据央视新闻,6月9日凌晨1点多,贵州遵义市汇川区高桥镇鱼芽村一栋七层楼房坍塌,早上...">夫妇发现楼房开裂</a>
+			</li>
+			<li>
+				<a href="javascript:;" tips="马方指责裸照引地震称冒犯神山(图)马来西亚基纳巴卢山6月5日发生地震,造成16人死亡,有2人至今失踪。...">马方指责裸照引地震</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

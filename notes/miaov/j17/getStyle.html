@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 100px;height: 100px;background: red}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+	<script type="text/javascript">
+	var div1=document.getElementById('div1');
+	alert(getStyle(div1,'width'))
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+	}
+	</script>
+</body>
+</html>

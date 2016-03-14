@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 100px;height: 100px;background:red;position: absolute;}
+	</style>
+</head>
+<body>
+	<div id="div1"></div>
+	<script type="text/javascript">
+	var oDiv=document.getElementById('div1');
+	var timer=null;
+	var iSpeed=0;
+	document.onkeydown=function(ev){
+		var ev=ev || window.event;
+		if (!timer) {
+			timer=setInterval(show,30)
+		};
+		if (ev.keyCode==37) {
+			iSpeed=-10;
+		}else if(ev.keyCode==39){
+			iSpeed=10;
+		}
+	}
+	document.onkeyup=function(){
+		clearInterval(timer);
+		timer=null;
+		iSpeed=0;  //因为第一次按下左右健时，ispeed就赋值了，而按其他健时，ispeed不等于0，也会对小方块造成移动
+	}
+	function show(){
+		oDiv.style.left=oDiv.offsetLeft+iSpeed+'px';
+	}
+	</script>
+</body>
+</html>

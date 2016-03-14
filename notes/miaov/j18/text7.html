@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {position: absolute;left: 50px;top: 50px;width: 30px;height: 300px;background: #ccc}
+	#div2 {position: absolute;left: 0;top: 0;width: 30px;background: #0cf}
+	#div3 {position: absolute;left: 150px;top:50px;width:200px;height: 300px;border: 1px solid #000;overflow: hidden;}
+	#div4 {position: absolute;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		var oDiv3=document.getElementById('div3');
+		var oDiv4=document.getElementById('div4');
+		if (oDiv4.offsetHeight>oDiv3.offsetHeight) {
+			oDiv2.style.height=oDiv1.offsetHeight*oDiv3.offsetHeight/oDiv4.offsetHeight+'px';
+
+		}else{
+			oDiv2.style.height=0;
+		}
+		oDiv2.onmousedown=function(ev){
+			var ev=ev || window.event;
+			var disY=ev.clientY-oDiv2.offsetTop;
+			if (ev.setCapture) {
+				ev.setCapture();
+			};
+			document.onmousemove=function(ev){
+				var ev=ev || window.event;
+				var T=ev.clientY-disY;
+				if (T<0) {
+					T=0;
+				}
+				if (T > oDiv1.offsetHeight-oDiv2.offsetHeight) {
+					T=oDiv1.offsetHeight-oDiv2.offsetHeight
+				};
+				oDiv2.style.top=T+'px';
+				var scale=T/(oDiv1.offsetHeight-oDiv2.offsetHeight);
+				document.title=scale;
+
+				oDiv4.style.top=-scale*(oDiv4.offsetHeight-oDiv3.offsetHeight)+'px';
+
+
+			}
+
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+				if (ev.releaseCapture) {
+					ev.releaseCapture();
+				};
+			}
+			return false;
+		}
+		if (oDiv4.addEventListener) {
+			oDiv4.addEventListener('DOMMouseScroll',show,false);
+		};
+		oDiv4.onmousewheel=show;
+
+		function show(ev){
+			var ev=ev || window.event;
+			var bBtn=true;
+		
+			if (ev.detail) {
+				bBtn=ev.detail < 0 ? true : false; 
+			}else{
+				bBtn=ev.wheelDelta > 0 ? true : false; 
+			}
+			if (bBtn) {  //up
+				var T=oDiv2.offsetTop-10;
+				if (T<0) {
+					T=0;
+				};
+				
+			}else{  //down
+				var T=oDiv2.offsetTop+10;
+				if (T>oDiv1.offsetHeight-oDiv2.offsetHeight) {
+					T=oDiv1.offsetHeight-oDiv2.offsetHeight
+				};
+				
+			}
+			var scale=T/(oDiv1.offsetHeight-oDiv2.offsetHeight)
+			oDiv2.style.top=T+'px';
+			oDiv4.style.top=-scale*(oDiv4.offsetHeight-oDiv3.offsetHeight)+'px';
+			if (ev.preventDefault) {
+				ev.preventDefault();
+			}else{
+				return false;
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			
+		</div>
+	</div>
+	<div id="div3">
+		<div id="div4">
+			中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.中关村在线IT产品报价库提供所有IT产品最新最权威的报价,包括手机数码,、DIY配件、笔记本整机、网络设备、办公外设、数字家庭等IT产品最新报价,为您购买IT产品提供最有.
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	//参考自定义菜单
+	function preDefault(ev){
+		var ev=ev || window.event;
+		if (ev.preventDefault) {
+			ev.preventDefault() //绑定事件  ie6-8是ev.returnValue=false;
+		}else{
+			return false;  //普通事件
+		}
+	}
+	document.oncontextmenu=function(ev){
+		if (ev.preventDefault) {
+			ev.preventDefault() //绑定事件  ie6-8是ev.returnValue=false;
+		}else{
+			return false;  //普通事件
+		}
+	}
+	</script>
+</body>
+</html>

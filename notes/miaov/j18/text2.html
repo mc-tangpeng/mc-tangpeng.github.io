@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#ul1 {position: absolute;left: 100px;background:#ccc;}  /*//不能给ul加left，会出问题*/
+	#ul1 li {width: 100px;height: 100px;border: 1px solid #000;margin:100px;float: left;list-style: none;}
+	#div1 {width: 100px;height: 100px;background:red;position: absolute}
+	</style>
+	
+</head>
+<body>
+	<ul id="ul1">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+	<div id="div1">box</div>
+		<script>
+
+	var oDiv = document.getElementById('div1');
+	var aLi = document.getElementsByTagName('li');
+	alert(aLi[0].offsetLeft)
+	var disX = 0;
+	var disY = 0;
+	oDiv.onmousedown = function(ev){
+		var ev = ev || window.event;
+		disX = ev.clientX - oDiv.offsetLeft;
+		disY = ev.clientY - oDiv.offsetTop;
+		document.onmousemove = function(ev){
+			var ev = ev || window.event;
+			oDiv.style.left = ev.clientX - disX + 'px';
+			oDiv.style.top = ev.clientY - disY + 'px';
+			
+			for(var i=0;i<aLi.length;i++){
+				if( pz( oDiv , aLi[i] ) ){
+					aLi[i].style.background = 'blue';
+				}
+				else{
+					aLi[i].style.background = 'yellow';
+				}
+			}
+			
+		};
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		};
+	};
+
+	function pz(obj1,obj2){
+		var L1 = obj1.offsetLeft;
+		var R1 = obj1.offsetLeft + obj1.offsetWidth;
+		var T1 = obj1.offsetTop;
+		var B1 = obj1.offsetTop + obj1.offsetHeight;
+		
+		var L2 = obj2.offsetLeft;
+		var R2 = obj2.offsetLeft + obj2.offsetWidth;
+		var T2 = obj2.offsetTop;
+		var B2 = obj2.offsetTop + obj2.offsetHeight;
+		console.log(L2)
+		if( R1<L2 || L1>R2 || B1<T2 || T1>B2 ){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
+	</script>
+</body>
+</html>

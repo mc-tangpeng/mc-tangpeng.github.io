@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 100px;height: 100px;background: red} 
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		// function bindEvent(obj,events,fn){
+		// 	if (obj.addEventListener) {
+		// 		return obj.addEventListener(events,fn,false);   //没有return，因为它是直接可以执行，不需要定义一个变量接受结果
+		// 	}else{
+		// 		return obj.attachEvent('on'+events,fn);   //没有return，因为它是直接可以执行，不需要定义一个变量接受结果
+		// 	}
+		// }
+		// function getStyle(obj,attr){
+		// 	if (obj.currentStyle) {
+		// 		return obj.currentStyle[attr];
+		// 	}else{
+		// 		return getComputedStyle(obj,false)[attr];
+		// 	}
+		// }
+		// alert(getStyle(oDiv,'width') )
+
+
+		bindEvent(oDiv,'click',aa);
+		// removeEvent(oDiv,'click',aa);  //放在这里会在bindEvent没有执行前就取消了绑定时间，也就无法执行了，所以该放在函数里
+		function removeEvent(obj,events,fn){
+			if (obj.removeEventListener) {
+				obj.removeEventListener(events,fn,false)
+			}else{
+				obj.detachEvent('on'+events,fn)
+			}
+		}
+		function bindEvent(obj,events,fn){
+			if (obj.addEventListener) {
+				obj.addEventListener(events,fn,false)
+			}else{
+				obj.attachEvent('on'+events,fn)
+			}
+		}
+		function aa(){
+			alert(this);  //ie6-10指向window；addEventListener指向元素。用call或者apply改变this指向
+			removeEvent(oDiv,'click',aa);  //普通事件，用odiv.onclick=null取消
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		
+	</div>
+</body>
+</html>

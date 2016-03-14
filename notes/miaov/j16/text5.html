@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	document.onkeydown=function(ev){
+		var ev=ev || window.event;
+		// alert(ev.keyCode);
+		//三个特殊健：ctrlKey、shiftKey、altKey
+		if (ev.ctrlKey) {
+			alert('ctrlKey')
+		}else if(ev.shiftKey){
+			alert('shiftKey')
+		}
+	}
+	</script>
+</body>
+</html>

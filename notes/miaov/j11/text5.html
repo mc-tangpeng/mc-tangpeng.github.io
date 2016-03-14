@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	.del {background: red}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInp=document.getElementsByTagName('input');
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+		aInp[1].onclick=function(){
+			if (aInp[0].value) {
+				var oLi=document.createElement('li');
+				oLi.innerHTML=aInp[0].value;
+
+				var del=document.createElement('a');
+				del.href="#";
+				del.innerHTML="删除";
+				del.onclick=function(){
+					oUl.removeChild(this.parentNode)
+				}
+
+				oLi.appendChild(del);
+				// oUl.appendChild(oLi);
+				oUl.insertBefore(oLi,oUl.children[0] || null)  //当oUl.children[0] 不存在时，以appendChild形式添加，加null是为了解决ie678下报错的问题（当oUl.children[0]不存在时）
+
+				if (aLi.length>6) {  //限制条数
+					oUl.removeChild(lastNode(oUl))
+				};
+
+				setColor();  //选择要删除的信息
+			}else{
+				alert('请先输入数据！！')
+			}
+		}
+		aInp[2].onclick=function(){
+			delAll();
+		}
+		function setColor(){
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].onOff=true;
+				aLi[i].onclick=function(){
+					
+					if (this.onOff) {
+						this.className="del";
+						onOff=false;
+					}else{
+						this.className="";
+						onOff=true;
+					}
+				}
+			};
+		}
+		function delAll(){
+
+			for (var i = 0; i < aLi.length; i++) {
+				if(aLi[i].className=='del'){
+					
+					oUl.removeChild(aLi[i]);
+					console.log(i)
+					i-=1;  //至关重要,当比如选择了第0和第1；第一次删除了第0的元素，而此时本身是第1的元素会向前挪一个，变成了第0，也就删不掉了
+				}
+			};
+		}
+		function lastNode(obj){
+			if (!obj.lastChild) {
+				return false;
+			};
+			return obj.lastElementChild || (obj.lastChild.nodeType==1 ? obj.lastChild : prevNode(obj.lastChild) )
+		}
+		function prevNode(obj){
+			if (!obj.previousSibling) {
+				return false;
+			};
+			return obj.previousElementSibling || (obj.previousSibling.nodeType==1 ? obj.previousSibling : prevNode(obj.previousSibling))
+		}
+	}
+	</script>
+</head>
+<body>
+	<input type="text" ><input type="button" value="提交"><input type="button" value="批量删除">
+	<ul id="ul1">
+		
+	</ul>
+</body>
+</html>

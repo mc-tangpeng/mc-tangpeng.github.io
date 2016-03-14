@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 187px;height: 400px;background: red;margin: 40px auto}
+	#time {font-size:12px;font-style: normal;height: 30px;background: #ccc;width: 187px;display: block;text-align: center;line-height: 30px}
+	#img {width: 187px;height: 340px;background: yellow;position: relative;top: 0}
+	#box input {width: 187px;height: 30px;font-size:18px; border: none;disabled:disabled}
+	#img p {font-size: 20px;color: #fff;text-align: center;margin-top: 380px}
+	</style>
+	<script type="text/javascript" src="startMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oTime=document.getElementById('time');
+		var oImg=document.getElementById('img');
+		var oBtn=oBox.getElementsByTagName('input')[0];
+		var newDate=new Date(2015,4,6,23,56,20);
+		getTime();
+
+		var timer=setInterval(getTime,1000);
+
+		function getTime(){
+
+			var nowDate=new Date();
+			 var t=Math.floor((newDate-nowDate)/1000);  //秒
+			 var iDate=Math.floor(t/86400);
+			 var iH=Math.floor(t%86400/3600);
+			 var iM=Math.floor(t%86400%3600/60);
+			 var iS=Math.floor(t%60);
+			if (t>=0) {
+				
+				var str=toZero(iDate)+'天'+toZero(iH)+'小时'+toZero(iM)+'分钟'+toZero(iS)+'秒';
+				oTime.innerHTML='还剩'+str;
+			 	
+			}else{
+				
+				oTime.innerHTML="再不抢，就没了哦！";
+			 	oBtn.disabled=false;
+			
+			 	clearInterval(timer);
+			 	startMove(oImg,{top:120,opacity:0},function(){
+			 		alert('已售完！')
+			 	})
+			}
+		}
+		
+		
+		function toZero(num){
+			if ( num < 10 ) {
+				return '0'+num;  //str类型
+			}else{
+				return ''+num; //为了保持一致，str
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+	
+	<div id="box">
+		<em id="time">11111</em>
+		<div id="img"><img src="img/aa.gif" /></div>
+		<input type="button" value="购买" disabled  />
+	</div>
+</body>
+</html>

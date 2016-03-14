@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr=[12,2,34,56,31,55,5,22,56,93,160]
+	function quickSort(arr){
+		if (arr.length<=0) {
+			return arr;
+		};
+		var index=Math.floor(arr.length/2);
+		var iFlag=arr[index];
+		var arrL=[];
+		var arrC=arr.splice(index,1);
+		var arrR=[];
+		for (var i = 0; i < arr.length; i++) {
+			if(arr[i]>iFlag){
+				arrR.push(arr[i])
+			}else if(arr[i]<iFlag){
+				arrL.push(arr[i])
+			}else{
+				arrC.push(arr[i])
+			}
+		};
+		return quickSort(arrL).concat(arrC,quickSort(arrR))
+	}
+	console.log(quickSort(arr))
+	</script>
+</body>
+</html>

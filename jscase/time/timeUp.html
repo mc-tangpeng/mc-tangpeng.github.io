@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 1000px;margin: 190px auto; }
+	#ul1 {background: blue;width: 1000px;height: 172px;position: relative;overflow: hidden;}
+	#ul1 li {float: left;list-style: none;position: absolute;top: 0px} 
+	#ul1 li img {display: block;}
+	</style>
+	<script type="text/javascript" src="startMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+		var aUp=getClass(oUl,'up');
+		var aCenter=getClass(oUl,'center');
+		var aDown=getClass(oUl,'down');
+		var oldStr='';
+		for (var i = 0; i < aLi.length; i++) {  //定位li
+			aLi[i].style.left=i*122+'px'
+		};
+		console.log(parseInt(getStyle(aLi[0],'top')));
+		getTime();
+		setInterval(getTime,1000)
+		function getTime(){
+			var oDate=new Date();
+			var str=toZero(oDate.getHours())+':'+toZero(oDate.getMinutes())+':'+toZero(oDate.getSeconds());
+			for (var i = 0; i < aUp.length; i++) {
+				aUp[i].src="img/"+(str.charAt(i))+".JPG";
+				aCenter[i].src="img/"+(str.charAt(i))+".JPG";
+				aDown[i].src="img/"+(str.charAt(i))+".JPG";
+			}
+			for (var i = 0; i < aLi.length; i++) {
+				if( str.charAt(i) != oldStr.charAt(i) ){
+					startMove(aLi[i],{top:-172})
+					if (parseInt(getStyle(aLi[i],'top'))<=-172) {
+						aLi[i].style.top=0+'px';
+					}
+				}
+			}
+			// console.log(oldStr+';;'+str+',,'+iTarget.index)
+			oldStr=str;
+		}
+
+	}
+	function toZero(num){
+		if (num<10) {
+			return '0'+num;
+		}else{
+			return ''+num;
+		};
+	}
+	function getClass(oParent,sClass){
+		var elems=oParent.getElementsByTagName('*');
+		var result=[];
+		for (var i = 0; i < elems.length; i++) {
+			if(elems[i].className==sClass){
+				result.push(elems[i]);
+			}
+		};
+		return result;	
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr]
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul1">
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/colon.JPG" class="up" />
+				<img src="img/colon.JPG" class="center" />
+				<img src="img/colon.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/colon.JPG" class="up" />
+				<img src="img/colon.JPG" class="center" />
+				<img src="img/colon.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+			<li>
+				<img src="img/0.JPG" class="up" />
+				<img src="img/0.JPG" class="center" />
+				<img src="img/0.JPG" class="down" />
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	html,body {overflow-x: hidden;}
+	#wrap {margin: 20px auto; width: 1100px; height: auto;list-style: none;overflow: hidden;}
+	#wrap li {float: left;margin:0 8px; width: 245px;}
+	#wrap li div {padding: 10px;width: 225px;margin: 10px 0;border: 1px solid #000;}
+	#wrap li img {display: block;border: none;width: 225px;}
+	#wrap li p {width: 225px;height: 14px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;font-size: 12px}
+
+	#loading {margin: 20px auto; width: 1100px;height: 30px;border:1px solid #0cf; text-align: center;}
+	#loading img {width: 30px;height:30px;}
+
+	</style>
+	<script type="text/javascript" src="ajaxTP.js"></script>
+
+	<script type="text/javascript">
+	window.onload = function () {
+		var oLoading = document.getElementById('loading');
+		var oUl = document.getElementById('wrap');
+		var aLi = oUl.getElementsByTagName('li');
+		var viewHeight = document.documentElement.clientHeight;
+		var iPage = 0;
+		var isLoading = true;
+		getImg(iPage);
+		window.onscroll = scrollFn;
+		function getImg(iPage) {
+			ajax({
+				method : 'GET',
+				url : 'getPics.php',
+				data : {"cpage" : iPage},
+				async : true,
+				timeout : function(){},
+				success : function(data){
+					var d = JSON.parse(data);
+					if (!d.length) {
+						oLoading.innerHTML = '<p>已结加载完了</p>';
+						return
+					};
+					
+					for (var i = 0; i < d.length; i++) {
+						var _index = getShort();  //最短的那个li
+						var div = document.createElement('div');
+						div.innerHTML = '<img src="'+d[i].image+'" height="'+225*d[i].height/d[i].width+'" /><p>'+d[i].title+'</p>';
+						aLi[_index].appendChild(div);
+					};
+					isLoading = true;
+					if (isLoading) {
+						oLoading.style.display = "none";
+					};
+
+				},
+				error : function(){}
+			})
+		}
+		function getShort() {
+			var _index = 0;
+			var initHeight = aLi[_index].offsetHeight;
+			for (var i = 0; i < aLi.length; i++) {
+				if (aLi[i].offsetHeight < initHeight) {
+					initHeight = aLi[i].offsetHeight;
+					_index = i;
+				}
+			}
+			return _index;
+		}
+		function scrollFn() {
+			var scrollY = document.body.scrollTop || document.documentElement.scrollTop;
+			var _index = getShort();
+			if (aLi[_index].offsetHeight - 50 < scrollY + viewHeight) {
+				// console.log('可以加载l')
+				if (isLoading) { //先一次加载完在加载下一次，避免滚动时重复加载
+					isLoading = false;
+					oLoading.style.display = "block";
+					iPage++;
+					getImg(iPage)
+				};
+				
+			};
+		}
+
+	}
+	</script>
+</head> 
+<body>
+<div id="header">
+	<ul>
+		<li><a href="javascript:;" style="background:#0cf; color:#fff">瀑布流</a></li>
+		<li><a href="baidu.html" target="_blank">百度一下</a></li>
+		<li><a href="jsonpdouban.html" target="_blank">jsonp豆瓣搜索</a></li>
+		<li><a href="guest2/index.html" target="_blank">留言版</a></li>
+	</ul>
+</div>
+	<ul id="wrap">
+		<li>
+			<div>
+				<img src="img/1.jpg" />
+				<p>爆款</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="img/1.jpg" />
+				<p>爆款</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="img/1.jpg" />
+				<p>爆款</p>
+			</div>
+		</li>
+		<li>
+			<div>
+				<img src="img/1.jpg" />
+				<p>爆款</p>
+			</div>
+		</li>
+	</ul>
+	<div id="loading">
+		<img src="img/loading.gif">
+	</div>
+</body>
+</html>

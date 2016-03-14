@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 100px;height: 100px;background: red;position: absolute;left: 100px;top: 100px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		var iSpeed=10;
+		var iSpeed1=10;
+		var timer=null;
+		document.onkeydown=function(ev){
+			var ev=ev || window.event;
+			var keydode=ev.keyCode;
+			if (!timer) {
+			timer=setInterval(startMove,30);
+
+			};
+
+			switch(keydode){
+				case 37:
+				iSpeed=-10;
+				iSpeed1=0;
+				break;
+
+				case 39:
+				iSpeed=10;
+				iSpeed1=0;
+				break;
+
+				case 38:
+				iSpeed1=-10;
+				iSpeed=0;
+				break;
+
+				case 40:
+				iSpeed1=10;
+				iSpeed=0;
+				break;
+
+				default:
+				break;
+			}
+			console.log(1)  //持续执行
+		}
+		document.onkeyup=function(){
+			clearInterval(timer);
+			timer=null;
+			iSpeed1=iSpeed=0; //然并卵
+		}
+		function startMove(){
+			oDiv.style.left=oDiv.offsetLeft+iSpeed+'px';
+			oDiv.style.top=oDiv.offsetTop+iSpeed1+'px';
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>

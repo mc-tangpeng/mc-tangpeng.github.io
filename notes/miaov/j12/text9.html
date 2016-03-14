@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	#div1 {width: 50px;height: 200px;position: absolute;right: 0;background: red;opacity: 0.4;filter:alpha(opacity:40);}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		var scrollTop=getScrollY();
+		var iTop=parseInt( scrollTop+(document.documentElement.clientHeight-oDiv.offsetHeight)/2 );
+		oDiv.style.top=iTop+'px';
+		// startMove(oDiv,{top:iTop})
+		window.onscroll=function(){
+			scrollTop=getScrollY();
+			iTop=parseInt( scrollTop+(document.documentElement.clientHeight-oDiv.offsetHeight)/2 );
+			startMove(oDiv,{top:iTop})
+		}
+		oDiv.onclick=function(){
+			startMove(this,{height:300,opacity:100},function(){
+				startMove(oDiv,{width:100})
+			})
+		}
+		function startMove(obj,json,fn){
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function(){
+				var bBtn=true;
+				for(var attr in json){
+					var iCur=0;
+					if (attr=='opacity') {
+						iCur=Math.round( parseFloat(getStyle(obj,'opacity')*100) ) 
+					}else{
+						iCur=parseInt( getStyle(obj,attr) );
+					}
+					var iSpeed=(json[attr]-iCur)/7;
+					iSpeed=iSpeed>0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+					if (json[attr] != iCur) bBtn=false;
+
+					if (attr=='opacity') {
+						obj.style.opacity=(iCur+iSpeed)/100;
+						obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')'
+					}else{
+						obj.style[attr]=iCur+iSpeed+'px';
+					}
+				}
+				if (bBtn) {
+					clearInterval(obj.timer);
+					fn && fn();
+				};
+
+			},30)
+		}
+		function getScrollY(){
+			return document.body.scrollTop || document.documentElement.scrollTop;
+		}
+		function getStyle(obj,attr){
+			return obj.currentStyle ? obj.currentStyle[attr] :　getComputedStyle(obj,false)[attr];
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>

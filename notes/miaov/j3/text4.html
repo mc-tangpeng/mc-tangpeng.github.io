@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扩展选项卡</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		#tab {list-style: none;margin:20px 0 10px 30px;width: 408px;}
+		#tab li {width: 100px;height: 28px;background:#ff0;float: left;border: 1px solid #000;text-align: center;line-height: 28px;cursor: pointer;}
+		#tab li.current {background: red}
+		#box {clear:both;width: 408px;position: relative;height: 400px;overflow: hidden;left: 30px;border: 1px solid #000;}
+		/***
+			此处注意层级
+		**/
+		#box span {display:block;width: 50px;height: 20px;position: absolute;background: #ccc;z-index: 2}
+		#box span:nth-of-type(1){left: 0;top:190px; }
+		#box span:nth-of-type(2){right: 0;top:190px; }
+		#box div {width: 388px;height: 380px;position: absolute;display: none;padding:10px;}
+		#box .active {display: block;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aLi=document.getElementById('tab').getElementsByTagName('li');
+		var aDiv=document.getElementById('box').getElementsByTagName('div');
+		var aSpan=document.getElementById('box').getElementsByTagName('span');
+		var count=0;
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].index=i;
+			aLi[i].onclick=function(){
+				count=this.index;
+				tab(count);
+			}
+		};
+		aSpan[0].onclick=function(){
+			if(count!=0){
+				count--;
+				tab(count)
+				
+			}else{
+				alert('已结第一张咯！')
+			}
+			
+		}
+		aSpan[1].onclick=function(){
+			if(count!=3){
+				count++;
+				tab(count)
+				
+			}else{
+				alert('已结最后一张咯！')
+			}
+			
+		}
+		function tab(now){
+			
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].className="";
+				aDiv[i].className="";
+			}
+			aLi[now].className="current";
+			aDiv[now].className="active"; 
+		}
+	}
+	</script>
+</head>
+<body>
+<ul id="tab">
+	<li class="current">选项一</li>
+	<li>选项二</li>
+	<li>选项三</li>
+	<li>选项四</li>
+</ul>
+<div id="box">
+	<span>前一张 </span>
+	<span>后一张</span>
+	<div class="active">11111111111111111111111111111111111111111111111111111111w我们么么么么么么么么么么么</div>
+	<div>222222222222222222222222222222222222222222222222222222222</div>
+	<div>3333333333333333333333333333333333333333333333333333333</div>
+	<div>4444444444444444444444444444444444444444444444444444444</div>
+</div>
+</body>
+</html>

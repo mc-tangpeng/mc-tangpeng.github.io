@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >  <!--ie使用最新的渲染引擎,如果安装了chrome，使用chrome frame-->
+	<meta name="renderer" content="webkit">  <!--html打开强制为极速模式-->
+	<meta name="viewport" content="width=device-width,initinal-scale=1, user-scalable=no, target-densityDpi=device-dpi">
+	<title>企业网站</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	
+	
+	
+</head>
+<body>
+	<header role="banner">
+		<div class="container">
+			<a href="javascript:;" class="banner-banner visible-md visible-lg" ><img src="img/newLogo.png" width="160"></a>
+			<div class="utility-nav">
+				<ul>
+					<li>
+						<a href="#dialog" data-toggle="modal"><i class="icon icon-user icon-large"></i> <span>登陆</span></a> | <a href="#"><span>注册</span></a>
+					</li>
+					<li>
+						 <a href="#"><i class="icon icon-shopping-cart icon-large"></i> <span>购物车</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<nav class="navbar navbar-static-top navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="javascript:;" class="navbar-brand visible-xs visible-sm" ><img src="img/newLogo.png" width="120"></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="index.html">
+						    <span class="icon-home"></span> Home
+						</a></li>
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						    <span class="icon-calendar"></span> Portfolio <span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu"> 
+								<li><a href="#">产品支持</a></li>
+								<li><a href="#">咨询服务</a></li>
+								<li><a href="#">客户体验管理</a></li>
+								<li><a href="#">OSS从支撑到使能</a></li>
+							</ul>
+						</li>
+						<li><a href="#">
+						    <span class="icon-group"></span> Team
+						</a></li>
+						<li><a href="#">
+						    <span class=" icon-coffee"></span> Contact
+						</a></li>
+						<li><a href="#">
+						    <span class="icon-group"></span> Product
+						</a></li>
+						<li class="dropdown">
+							<a href="#" data-toggle="dropdown">
+							    <span class="icon-inbox"></span> service <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu"> 
+								<li><a href="#">产品支持</a></li>
+								<li><a href="#">咨询服务</a></li>
+								<li><a href="#">客户体验管理</a></li>
+								<li><a href="#">OSS从支撑到使能</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-right hidden-sm">
+						<div class="input-group">
+							<input type="text" class="form-control" />
+							<span class="input-group-btn"><button class="btn btn-default" type="button">Search</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container">
+			<div class="row">
+				<section class="content-primary col-md-5">
+					<div class="carousel slide" id="h-f" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="img/1.jpg"  />
+								<div class="carousel-caption">
+									<h3>标题1</h3>
+									<p>内容描述</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="img/2.jpg"  />
+								<div class="carousel-caption">
+									<h3>标题2</h3>
+									<p>内容描述</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="img/3.jpg"/>
+								<div class="carousel-caption">
+									<h3>标题3</h3>
+									<p>内容描述</p>
+								</div>
+							</div>
+						</div>
+
+						<ol class="carousel-indicators">
+							<li data-slide-to="0" data-target="#h-f" class="active"></li>
+							<li data-slide-to="1" data-target="#h-f"></li>
+							<li data-slide-to="2" data-target="#h-f"></li>
+						</ol>
+
+						<a href="#h-f" class="left carousel-control" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</a>
+						<a href="#h-f" class="right carousel-control" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div>
+					<h2>Featured Content</h2>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget.</p>
+					<p><a class="btn btn-feature btn-lg pull-right" href="#">Learn more <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+				</section>
+
+				<section class="content-secondary col-md-4" >
+					<h3>Welcome!</h3>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><a class="btn btn-primary pull-right" href="#">Read more <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+
+					<h3>Recent Updates</h3>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><a class="btn btn-primary pull-right" href="#">Read more <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+
+					<h3>And another thing</h3>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><a class="btn btn-primary pull-right" href="#">Read more <span class="glyphicon glyphicon-arrow-right"></span></a></p>
+				</section>
+				
+				<section class="content-tertiary col-md-3">
+					<h4>Don't Miss!</h4>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><button type="button" class="btn btn-defaul btn-xs  pull-right">Read more <span class="glyphicon glyphicon-arrow-right"></span></button></p>
+
+					<h4>Check it out</h4>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><button type="button" class="btn btn-defaul btn-xs   pull-right">Read more <span class="glyphicon glyphicon-arrow-right"></span></button></p>
+
+					<h4>Finally</h4>
+					<p>Suspendisse et arcu felis, ac gravida turpis. Suspendisse potenti. Ut porta rhoncus ligula, sed fringilla felis feugiat eget. In non purus quis elit iaculis tincidunt. Donec at ultrices est.</p>
+					<p><button type="button" class="btn btn-defaul btn-xs   pull-right">Read more <span class="glyphicon glyphicon-arrow-right"></span></button></p>
+				</section>
+			</div>
+		</div>
+	</main>
+	
+ 	<footer role="contentinfo">
+ 		<div class="container">
+ 			<div class="row">
+ 				<div class="col-md-2 col-sm-4">
+ 					<h3>Categories</h3>
+ 					<ul>
+ 					  <li><a href="#">Shoes</a></li>
+ 					  <li><a href="#">Clothing</a></li>
+ 					  <li><a href="#">Accessories</a></li>
+ 					  <li><a href="#">Men</a></li>
+ 					  <li><a href="#">Women</a></li>
+ 					  <li><a href="#">Kids</a></li>
+ 					  <li><a href="#">Pets</a></li>
+ 					</ul>
+ 				</div>
+ 				<div class="col-md-2 col-sm-4">
+ 					<h3>Styles</h3>
+ 					<ul>
+ 					  <li><a href="#">Athletic</a>  </li>
+ 					  <li><a href="#">Casual</a></li>
+ 					  <li><a href="#">Dress</a></li>
+ 					  <li><a href="#">Everyday</a></li>
+ 					  <li><a href="#">Other Days</a></li>
+ 					  <li><a href="#">Alternative</a></li>
+ 					  <li><a href="#">Otherwise</a></li>
+ 					</ul>
+ 				</div>
+ 				<div class="col-md-2 col-sm-4">
+ 					<h3>Other</h3>
+ 					<ul>
+ 					  <li><a href="#">Link</a></li>
+ 					  <li><a href="#">Another link</a></li>
+ 					  <li><a href="#">Link again</a></li>
+ 					  <li><a href="#">Try this</a></li>
+ 					  <li><a href="#">Don't you dare</a></li>
+ 					  <li><a href="#">Oh go ahead</a></li>
+ 					</ul>
+ 				</div>
+
+ 				<!-- Add the extra clearfix for only the required viewport -->
+ 				<div class="clearfix visible-sm"></div>
+
+ 				<div class="about col-sm-12 col-md-6">
+ 					<h3>About Us</h3>
+ 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse euismod congue bibendum. Aliquam erat volutpat. Phasellus eget justo lacus. Vivamus pharetra ullamcorper massa, nec ultricies metus gravida egestas. Duis congue viverra arcu, ac aliquet turpis rutrum a. Donec semper vestibulum dapibus. Integer et sollicitudin metus. Vivamus at nisi turpis. Phasellus vel tellus id felis cursus hendrerit.</p>
+ 					<p><a class="btn btn-default btn-xs pull-right" href="#">Learn more <span class="fa fa-arrow-circle-right"></span></a></p>
+ 				</div>
+ 			</div><!-- /.row -->
+ 			<ul class="socail">
+ 			  <li><a href="#" title="Twitter Profile"><span class="icon-twitter-sign"></span></a></li>
+ 			  <li><a href="#" title="Facebook Page"><span class=" icon-facebook-sign"></span></a></li>
+ 			  <li><a href="#" title="LinkedIn Profile"><span class=" icon-linkedin-sign"></span></a></li>
+ 			  <li><a href="#" title="Google+ Profile"><span class=" icon-google-plus-sign"></span></a></li>
+ 			  <li><a href="#" title="GitHub Profile"><span class="icon-github-alt"></span></a></li>
+ 			</ul>
+
+ 			<p class="footer-brand"><a href="index.html"><img src="img/logo.png" width="80" alt="Bootstrappin'"></a></p>
+ 		</div><!-- /.container -->
+ 	</footer>
+ 	<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+ 	<script type="text/javascript">
+ 	$(function() {
+ 		$(".carousel-inner").swipe({
+ 			swipeRight:function(event, direction, distance, duration, fingerCount) {
+ 				$(this).parent().carousel("prev");
+ 			},
+ 			swipeLeft : function() {
+ 				$(this).parent().carousel("next");
+ 			},
+ 			threshold:0
+ 		});
+ 	})
+ 	</script>
+</body>
+</html>

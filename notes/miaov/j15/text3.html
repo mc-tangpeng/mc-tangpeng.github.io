@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 300px;margin: 30px auto}
+	#btn {width: 100px;height: 30px;border: 1px solid #ccc;background: #0cf} 
+	#text {height: 30px;}
+	#box ul {width: 100px;list-style: none;display: none;}
+	#box ul li {width: 98px;height:30px;border: 1px solid #ccc;text-align: center;line-height: 30px;border-top: 0;cursor: pointer;}
+	#box ul li:hover {background: #0cf;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aInp=oBox.getElementsByTagName('input');
+		var oUl=oBox.getElementsByTagName('ul')[0];
+		var aLi=oBox.getElementsByTagName('li');
+		var onOff=true;
+		aInp[0].onclick=function(ev){
+			var ev=ev || window.event;
+			ev.cancelBubble=true;
+			oUl.style.display="block";
+		}
+		for (var i = 0; i < aLi.length; i++) {
+		
+			aLi[i].onclick=function(){
+				aInp[0].value=this.innerHTML;
+				aInp[1].value=[];
+				aInp[1].focus();
+				aInp[1].tips=this.getAttribute('tips');
+				
+			}
+		};
+
+		aInp[1].onfocus=function(){
+			if (onOff) {
+				aInp[1].value='';
+				onOff=false;
+			};
+		}
+		aInp[1].onblur=function(){
+
+			if (aInp[1].value=='') {
+				aInp[1].value=aInp[1].tips;
+				onOff=true;
+			};
+		}
+		document.onclick=function(){
+			oUl.style.display="none";
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		
+	<input type="button" value="歌曲" id="btn" /> 
+	<input type="text" id="text" value="大海" />
+		
+	<ul>
+		<li tips="大海">歌曲</li>
+		<li tips="不信你听">专辑</li>
+		<li tips="张惠妹">歌手</li>
+		<li tips="bigbigword">mv</li>
+		<li tips="你总这么说">歌词</li>
+		<li tips="悉尼歌剧院">票务</li>
+	</ul>
+	</div>
+</body>
+</html>

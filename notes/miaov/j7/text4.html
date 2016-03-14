@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	* {margin: 0;padding: 0}
+	#div {width: 1px;background: red;position: absolute;left: 299px;height: 500px}
+	#img {display: block;position: absolute;left: 300px;top: 120px}
+	#div1 {width: 1000px;height: 1px;position: absolute;top: 119px;background: red}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oImg=document.getElementById('img');
+		var old=getStyle(oImg,'top');
+		oImg.onclick=function(){
+			// this.style.top=old;  //为了封装函数，所以肯定不能再外面还放些参数什么的。
+			shake(this,'top')
+		}
+		function shake(obj,attr){   //每次点击，图片位置抖动，是因为每次点都会获取当前的值，而当前值并不是初始值，所以出问题
+						//解决办法：只有当第一次抖动完成了，点击才有效，在重新抖动。
+			// alert(obj.oBtn)	 	undefined	
+			if (obj.oBtn) return;
+			obj.oBtn=true;	  //只有当完成一次完整的抖动，obj.obt才会等于false					
+			var num=0;
+			var arr=[];
+			var iCur=parseInt(getStyle(obj,attr));
+			for (var i = 20; i > 0; i-=2) {
+				arr.push(i,-i)
+			};
+			arr.push(0);
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function(){
+				obj.style[attr]=iCur+arr[num]+'px';
+				num++;
+				console.log(iCur)
+				if (num==arr.length) {
+					clearInterval(obj.timer);
+					obj.oBtn=false;
+					num=0;
+				};
+			},30)
+			
+		}
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr]
+	}
+	</script>
+</head>
+<body>
+	<div id="div">
+		
+	</div>
+	<div id="div1">
+		
+	</div>
+	<img src="img/shake.gif" id="img" />
+</body>
+</html>

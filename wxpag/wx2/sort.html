@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr = [3,5,4,3,9,1,23,21,11]
+	alert(sortBubble(arr));
+	function sortBubble (arr) {
+		for (var i = 0; i < arr.length; i++) {
+			for (var j = 0; j < arr.length-1; j++) {
+				toCom(j,j+1)
+			};
+		};
+		function toCom(prev,next) {
+			if (arr[prev] > arr[next]) { // 7>5
+				var temp = arr[next];
+				arr[next] = arr[prev];
+				arr[prev] = temp;
+			};
+			
+		}
+		return arr
+	}
+	</script>
+</body>
+</html>

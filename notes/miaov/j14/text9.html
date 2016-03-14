@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {margin: 0;padding: 0}
+		#btn {position: absolute;right: 10px}
+		#btn a {display:block;width: 20px;height: 20px;background: #0cf;border-radius: 20px;margin-top: 10px}
+		#btn a.active {background: #000}
+		.tips {width: 70px;height: 30px;border: 1px solid #000;text-align: center;line-height: 30px;color: #fff;position: absolute;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBtn=document.getElementById('btn');
+		var aBtn=oBtn.getElementsByTagName('a');
+		var columns=getByClass('column');
+		var colorArr=['#DBEAF9','#FFCC00','#BD2D30','#E0DAFC','#F1E085']
+		var clientW=document.documentElement.clientWidth;
+		var clientH=document.documentElement.clientHeight;
+		oBtn.style.top=parseInt( (clientH-oBtn.offsetHeight)/2 )+'px';
+		for (var i = 0; i < columns.length; i++) {
+			columns[i].style.background=colorArr[i];
+			columns[i].style.width=clientW+'px';
+			columns[i].style.height=clientH+'px';
+
+		};
+		for (var i = 0; i < aBtn.length; i++) {
+			aBtn[0].className="active"
+			aBtn[i].index=i;
+			aBtn[i].onclick=function(){
+				for (var i = 0; i < aBtn.length; i++) {
+					aBtn[i].style.background="#0cf"
+				};
+				this.style.background="#000";
+				setScrollY(this.index*clientH)
+			}
+		};
+		window.onscroll=function(){
+			oBtn.style.top=parseInt( (clientH-oBtn.offsetHeight)/2 )+getScrollY()+'px';
+			var iNow=Math.floor( (getScrollY()+clientH/2) / clientH) //改变inow
+			for (var i = 0; i < aBtn.length; i++) {
+				aBtn[i].className="";
+			};
+			aBtn[iNow].className="active";
+				
+		}
+		
+		
+		function getByClass(sClass){
+			var elems=document.body.getElementsByTagName('*');
+			var result=[];
+			for (var i = 0; i < elems.length; i++) {
+				if(elems[i].className==sClass){
+					result.push(elems[i])
+				}
+			}
+			return result;
+		}
+		function getScrollY(){
+			return document.body.scrollTop ||　document.documentElement.scrollTop;
+		}
+		function setScrollY(num){
+			document.body.scrollTop=document.documentElement.scrollTop=num;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="btn">
+		<a href="javascript:;" tips="男装"></a>
+		<a href="javascript:;" tips="女装"></a>
+		<a href="javascript:;" tips="男鞋"></a>
+		<a href="javascript:;" tips="女鞋"></a>
+		<a href="javascript:;" tips="数码"></a>
+	</div>
+	<div class="column">11111</div>
+	<div class="column">22222</div>
+	<div class="column">3333333</div>
+	<div class="column">44444</div>
+	<div class="column">5555555</div>
+</body>
+</html>

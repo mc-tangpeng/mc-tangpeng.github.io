@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{ margin:0; padding:0;}
+	#div1{ margin:20px auto; position:relative;}
+	.box1{ width:50px; height:50px; background:black; float:left;}
+	.box2{ width:50px; height:50px; background:white; float:left;}
+	.box3{ width:50px; height:50px; background:yellow; float:left; text-align:center; line-height:50px;}
+	.box4{ width:50px; height:50px; background:blue; float:left; text-align:center; line-height:50px;}
+	.gw1{ width:50px; height:50px; background:url(gw1.jpg) no-repeat; position:absolute;}
+	.active{ background:red;}
+	.pt1{ width:50px; height:50px; background:url(pt1.jpg) no-repeat; float:left;}
+	.bullet1{ width:5px; height:5px; background:blue; position:absolute;}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.js" ></script>
+	<script type="text/javascript">
+	$(function() {
+		var Game = {
+			arrMap : [   //地图
+				1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+				1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+				1,1,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,
+				1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,
+				1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,
+				1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,1,1,
+				1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,
+				1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,1,1,1,
+				1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,
+				1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1
+			],
+			arrRoute : [  //方向
+				0,0,'1B',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,'2R',0,0,0,0,0,0,'3B',0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,'4R',0,0,0,0,0,0,'5B',0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,'7B',0,0,0,0,0,0,0,0,0,'6L',0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,'8B',0,0,0,0,0,0,0,0,0,0,0,0,0
+			],
+			colNum : 20,   //一行网格的总数
+			gridWidth : 50,  //网格的大小
+			ptStyle : 'pt1',  //炮塔样式
+			ptMoney : 50, //炮塔价格
+			$start : null,
+			$end : null,
+			gwStyle : 'gw1',  //怪物样式
+			gwSpeed : 10, //怪物运行速度
+			gwBlood : 100,  //怪物血量
+			gwMoney : 10 ,    //怪物的金额
+			routeArr : [] ,  //收集路线
+			speedArr : [] ,   //收集速度
+			targetArr : [] ,   //收集目标点
+			buRange : 100, //攻击范围
+			buStyle : 'bullet1', //子弹样式
+			buSpeed : 10, //子弹的速度
+			buttlePower : 10, //子弹威力
+			init : function () {  //初始化游戏
+				this.elements();
+				this.createMap();
+				this.events();
+				this.listens();
+			},
+			elements : function () {  //收集元素
+				this.$parent = $('#div1');
+				this.$play = $('#start');
+				this.$money = $('#money');
+			},
+			createMap : function () {  //创建地图
+				// var oFarg = document.createDocumentFragment();
+				// var oFarg = '';
+				this.$parent.css("width" , this.colNum*this.gridWidth)
+				
+				for (var i = 0; i < this.arrMap.length; i++) {
+					var $div = $('<div class="box1"></div>');
+					if (this.arrMap[i] == 2) {
+						$div.attr('class','box2');
+
+					} else if (this.arrMap[i] == 3){
+						$div.attr('class','box3');
+						$div.html('开始');
+						this.$start = $div; 
+					} else if(this.arrMap[i] == 4) {
+						$div.attr('class','box4');
+						$div.html('结束');
+						this.$end = $div; 
+					}
+					// oFarg+=$div
+					// oFarg.append($div)
+					this.$parent.append($div)
+				};
+				this.routes();
+				// this.$parent.get(0).innerHTML = oFarg;
+				// this.$parent.append(oFarg)
+			},
+			events : function () {  //事件集合
+				var This = this;
+				this.$parent.delegate('.box1','mouseover',function() {
+					$(this).addClass('active')
+				});
+				this.$parent.delegate('.box1','mouseout',function() {
+					$(this).removeClass('active')
+				});
+				this.$parent.delegate('.box1','click',function() {
+					// $(this).attr('class',this.ptStyle)
+					This.createPT( $(this) )
+					// alert($(this).)
+				});
+
+				this.$play.on('click',function () {
+					// This.createGW();
+					This.createWGs();
+					
+				})
+
+			},
+			createPT : function ($elem) {  //创建炮塔
+
+				if ( parseInt(this.$money.val()) >= this.ptMoney) {
+					$elem.attr('class',this.ptStyle);
+					this.setMoney(-this.ptMoney)
+				};
+				
+				
+			},
+			setMoney : function (num) {  //设置金额
+				var val = parseInt(this.$money.val()) + num
+				this.$money.val(val+'￥');
+			},
+			createGW : function () {  //创建怪物
+				var $gw = $('<div class="'+ this.gwStyle +'"></div>');
+				$gw.data('blood',this.gwBlood)
+				$gw.css({ left : this.$start.position().left , top : this.$start.position().top })
+				this.$parent.append( $gw );
+				this.runGW($gw);
+				
+			},
+			createWGs : function() {
+				var iNow = 8;
+				var This = this;
+				var timer = setInterval(function() {
+					if (iNow == 0) {
+						clearInterval(timer)
+					}else{
+						iNow--;
+						This.createGW()
+					}
+					
+				},300)
+			},
+			runGW : function ($gw) {  //怪物运行
+				var iNow = 0;
+				var This = this;
+				$gw.get(0).timer=setInterval(function() {
+					
+					// var icur = parseInt(getStyle($gw,This.routeArr[iNow]) ) + This.speedArr[iNow]; 原生js
+					var val = $gw.position()[ This.routeArr[iNow] ] + This.speedArr[iNow];
+					$gw.css( This.routeArr[iNow] , val)
+					if (val == This.targetArr[iNow]) {
+						if (iNow == This.routeArr.length-1) {
+							
+							clearInterval($gw.get(0).timer)
+							alert('Game over');
+						}else{
+							iNow++;
+						}
+						
+					};
+					// $gw.style[This.routeArr[iNow]] = icur + 'px';
+				},30)
+
+				
+			},
+			routes : function () {  //收集路线
+				// arrRoute
+				var This = this;
+				var arr = [];
+				var $aDiv = this.$parent.find('div');  //这里确实应该找mapdiv，包括box1、2、3、4，不然会找错位置，但是找的div也包括了怪物，不过没关系，gw是最后添加的，对取位置没有影响
+
+				$.each(this.arrRoute,function(i,val) {
+					if (val != 0) {
+						arr.push({ dir : val , xy : i})
+					};
+				});
+				
+				arr.sort(function(val1,val2) {
+					return val1.dir.substring(0,1) - val2.dir.substring(0,1)
+				})
+				// arr :  { dir="1B",  xy=2}  { dir="2B",  xy=42}
+				// console.log(arr)
+				$.each(arr,function(i,val) {
+					// console.log(val.dir.substring(1))
+					if (i == arr.length-1) {return false};
+					var dir = val.dir.substring(1);
+					
+					switch(dir){
+						case 'T' :
+						This.routeArr.push('top');
+						This.speedArr.push(-This.gwSpeed);
+						This.targetArr.push( $aDiv.eq(arr[i+1].xy).position().top );
+
+						break;
+
+						case 'R' :
+						This.routeArr.push('left');
+						This.speedArr.push(This.gwSpeed);
+						This.targetArr.push( $aDiv.eq(arr[i+1].xy).position().left );
+						break;
+
+						case 'B' :
+						This.routeArr.push('top');
+						This.speedArr.push(This.gwSpeed);
+						This.targetArr.push( $aDiv.eq(arr[i+1].xy).position().top);
+						break;
+
+						case 'L' :
+						This.routeArr.push('left');
+						This.speedArr.push(-This.gwSpeed);
+						This.targetArr.push( $aDiv.eq(arr[i+1].xy).position().left);
+						break;
+					}
+
+				})
+				// console.log(This.routeArr)   ["top", "left", "top", "left", "top", "left", "top"]
+				// console.log(This.speedArr)   [10, 10, 10, 10, 10, -10, 10]
+				// console.log(This.targetArr)  [100, 450, 250, 800, 350, 350, 450]
+			},
+			listens : function () {
+				var This = this;
+				setTimeout(function() {
+					This.listenPT();
+					This.listens();
+				},100)
+
+			},
+			listenPT : function () {
+				var $pts = this.$parent.find('.'+this.ptStyle);
+				var This = this;
+				$.each($pts,function(i,pt) {
+					This.listenGW( pt )
+				})
+			},
+			listenGW : function (pt) {
+				var $gws = this.$parent.find('.'+this.gwStyle);
+
+				pt.arr = [];
+				var This = this;
+				$.each($gws,function(i,gw) {
+					if (This.buttleRange(gw,pt) <= This.buRange) {
+						
+						pt.arr.push($(gw));
+						This.createButtle(pt);
+					};
+				})
+				// console.log(pt.arr)
+				if( !pt.arr.length ){  //当炮塔下的lenth没有了则清空
+					$(pt).empty();
+				}
+
+			},
+			buttleRange : function (gw,pt) {  //攻击距离
+				var a = $(gw).position().left - $(pt).position().left;
+				var b = $(gw).position().top - $(pt).position().top;
+				return Math.sqrt(a*a + b*b)
+			},
+			createButtle : function (pt) {  //创建子弹
+				var $bu = $('<span class="' +this.buStyle+ '" ></span>');
+				$bu.css({left : $(pt).position().left + $(pt).width()/2 , top : $(pt).position().top + $(pt).height()/2});
+				
+				$(pt).append($bu);
+				this.runButtle(pt,$bu);
+			},
+			runButtle : function (pt,$bu) {
+				var This = this;
+				var timer = setInterval(function() {
+					if (!pt.arr.length) {return false};
+					var $gw = pt.arr[pt.arr.length-1]
+					
+					// var a = $gw.position().left() - $bu.position().left;
+					// var b = $gw.position().top() - $bu.position().top;
+					var a = $gw.offset().left + $gw.width()/2 - $bu.offset().left;
+					var b = $gw.offset().top + $gw.height()/2 - $bu.offset().top;
+					var c = Math.sqrt(a*a + b*b);
+
+					var sX = This.buSpeed * a/c;
+					var sY = This.buSpeed * b/c;
+
+					$bu.css({ left : $bu.position().left + sX, top :$bu.position().top + sY });
+
+					if (This.pz($bu,$gw)) {
+						$bu.remove();
+						clearInterval(timer);
+
+						var blood = $gw.data('blood')-This.buttlePower;
+						$gw.data('blood',blood);
+						if (blood <= 0) {
+							
+							$gw.remove();
+							This.setMoney(This.gwMoney)
+
+						};
+
+						
+					};
+				},30)
+				 
+			},
+			pz : function($obj1,$obj2){  //碰撞检测
+				var T1 = $obj1.offset().top;
+				var B1 = $obj1.offset().top + $obj1.height();
+				var L1 = $obj1.offset().left;
+				var R1 = $obj1.offset().left + $obj1.width();
+				var T2 = $obj2.offset().top;
+				var B2 = $obj2.offset().top + $obj2.height();
+				var L2 = $obj2.offset().left;
+				var R2 = $obj2.offset().left + $obj2.width();
+				if(T1>B2 || B1<T2 || L1>R2 || R1<L2){
+					return false;
+				}
+				else{
+					return true;
+				}
+			} 
+		}
+			
+		Game.init()  //游戏开始
+	})
+	</script>
+</head>
+<body>
+	<input type="button" value="开始" id="start" />
+	<input type="button" value="150￥" id="money" />
+	<div id="div1">
+		
+	</div>
+</body>
+</html>

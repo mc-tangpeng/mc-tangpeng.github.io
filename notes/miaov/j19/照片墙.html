@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	img {display: block;}
+	#ul1 {margin: 20px auto;width: 630px;position: relative;height: 480px;background:#ccc }
+	#ul1 li {float: left;margin: 5px;list-style: none;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl1=document.getElementById('ul1');
+		var aLi=oUl1.getElementsByTagName('li');
+		var arr=[];
+		var zIndex=1;
+		for (var i = 0; i < aLi.length; i++) {
+			arr.push([aLi[i].offsetLeft,aLi[i].offsetTop]);
+		};
+		// console.log(arr)
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].style.left=arr[i][0]+'px';
+			aLi[i].style.top=arr[i][1]+'px';
+			aLi[i].style.position="absolute";
+			aLi[i].style.margin=0;
+		};
+
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].index=i;
+			drag( aLi[i] )
+		};
+		function drag(obj){
+			var disX=0;
+			var disY=0;
+			obj.onmousedown=function(ev){
+				var ev=ev || window.event;
+				zIndex++;
+				obj.style.zIndex=zIndex;
+				disX=ev.clientX-obj.offsetLeft; //
+				disY=ev.clientY-obj.offsetTop;
+				if(ev.setCapture){
+					ev.setCapture();
+				}
+				
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					var iLeft=ev.clientX-disX;
+					var iTop=ev.clientY-disY;
+					if (iLeft<0) {
+						iLeft=0;
+					};
+					if (iLeft>obj.offsetParent.offsetWidth-obj.offsetWidth) {
+						iLeft=obj.offsetParent.offsetWidth-obj.offsetWidth
+					};
+	
+					if (iTop<0) {
+						iTop=0
+					};
+					console.log(iTop,oUl1.offsetHeight,obj.offsetHeight)  //  473 660 150
+
+					if (iTop>oUl1.offsetHeight-obj.offsetHeight) {
+						iTop=oUl1.offsetHeight-obj.offsetHeight;
+					};
+					obj.style.left=iLeft+'px';
+					obj.style.top=iTop+'px';
+
+					// for (var i = 0; i < aLi.length; i++) {  //碰撞检测
+					// 	if(toCon(obj,aLi[i]) ){
+					// 		aLi[i].style.border="1px solid #f00"
+					// 	}
+					// };
+					var nL=nearLi(obj);
+					for (var i = 0; i < aLi.length; i++) {
+						aLi[i].style.border="";
+					};
+					if (nL) {
+						nL.style.border="1px solid #f00"
+					};
+					
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+
+					var nL=nearLi(obj);
+					var temp=0;
+
+					if (nL) {
+						// console.log(arr)
+						obj.style.left=arr[nL.index][0]+'px';
+						obj.style.top=arr[nL.index][1]+'px';
+
+						nL.style.left=arr[obj.index][0]+'px';
+						nL.style.top=arr[obj.index][1]+'px';
+
+						nL.style.border="";
+						// console.log(arr)
+						temp=obj.index;
+						obj.index=nL.index;
+						nL.index=temp;
+					};
+					
+
+					if (ev.releaseCapture) {
+						ev.releaseCapture();
+					};
+				}
+				return false;
+			}
+		}
+		function nearLi(obj){
+			var value=9999;
+			var index=-1;
+			for (var i = 0; i < aLi.length; i++) {
+				if(toCon(obj,aLi[i]) && obj!=aLi[i] ){
+					var c=j1(obj,aLi[i]);
+					if (value>c) {
+						value=c;
+						index=i;
+					};
+				}
+
+			};
+			if (index==-1) {
+				return false;
+			}else{
+				return aLi[index];
+			}
+
+
+		}
+		function j1(obj1,obj2){
+			var a=obj1.offsetLeft-obj2.offsetLeft;
+			var b=obj1.offsetTop-obj2.offsetTop;
+			var c=Math.sqrt(a*a+b*b);
+			return c;
+		}
+		function toCon(obj1,obj2){
+			var L1 = obj1.offsetLeft;
+			var R1 = obj1.offsetLeft + obj1.offsetWidth;
+			var T1 = obj1.offsetTop;
+			var B1 = obj1.offsetTop + obj1.offsetHeight;
+			
+			var L2 = obj2.offsetLeft;
+			var R2 = obj2.offsetLeft + obj2.offsetWidth;
+			var T2 = obj2.offsetTop;
+			var B2 = obj2.offsetTop + obj2.offsetHeight;
+			
+			if( R1<L2 || L1>R2 || B1<T2 || T1>B2 ){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function posLeft(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+	}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li><img src="images/1.jpg" /></li>
+		<li><img src="images/2.jpg" /></li>
+		<li><img src="images/3.jpg" /></li>
+		<li><img src="images/4.jpg" /></li>
+		<li><img src="images/5.jpg" /></li>
+		<li><img src="images/1.jpg" /></li>
+		<li><img src="images/2.jpg" /></li>
+		<li><img src="images/3.jpg" /></li>
+		<li><img src="images/4.jpg" /></li>
+	</ul>
+</body>
+</html>

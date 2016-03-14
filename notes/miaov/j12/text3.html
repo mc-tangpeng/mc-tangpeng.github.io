@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 1000px}
+	#div1 {width: 200px;height: 200px;position: absolute;top: 670px;left: 300px;background: red;border: 10px solid #000}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		111
+	</div>
+	<script type="text/javascript">
+	var oDiv1=document.getElementById('div1');
+	//getBoundingClientRect()到可视区，并不是整个页面，区分offsetTop
+	// alert(oDiv1.getBoundingClientRect().top)  // 标准下：270,没包括border-top,必须是270，不然就有问题；  ie7及以下：272,
+	// alert(oDiv1.getBoundingClientRect().left)  // 标准下：300,没包括border-left,   ie7及以下：302,
+	// alert(oDiv1.getBoundingClientRect().right)  // 标准下：520    ie7及以下：522,
+
+	//解决ie下多了2像素
+	// alert(document.documentElement.clientTop)  //标准下 ：0  ，ie7及以下：2，document.documentElement.clientLeft也是如此
+	function getRect(obj){
+		var rect=obj.getBoundingClientRect();
+		var top=document.documentElement.clientTop;
+		var left=document.documentElement.clientLeft;  //ie7及以下：2
+		return {
+			top:rect.top-top,
+			left:rect.left-left,
+			right:rect.right-left,
+			bottom:rect.bottom-top
+		}
+	}
+	window.onscroll=function(){
+		console.log(getRect(oDiv1).top)
+	}
+	// alert( getRect(oDiv1).top)
+	</script>
+</body>
+</html>

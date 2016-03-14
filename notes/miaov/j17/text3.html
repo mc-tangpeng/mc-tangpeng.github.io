@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	#div1 {width: 100px;height: 100px;background: red;position: absolute;top: 700px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		drag(oDiv)
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev || window.event;
+				var disX=ev.clientX-obj.offsetLeft; //注意有滚动条的时候
+				var disY=ev.clientY-obj.offsetTop;
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					obj.style.left=ev.clientX-disX+'px';
+					obj.style.top=ev.clientY-disY+'px';
+
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onkeyup=null;
+					if (obj.releaseCapture) {
+						obj.releaseCapture();
+					};
+				}
+				return false; //阻止默认事件，如图片拖拽
+			}
+		}
+		function posLeft(obj){  
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function getScrollY(){
+			return document.body.scrollTop || document.documentElement.scrollTop;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>

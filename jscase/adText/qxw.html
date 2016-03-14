@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	img {border:none;outline: none;display: block;}
+	a {text-decoration: none;outline: none;blr:expression(this.onFours=this.blur())}
+	#list {width: 1260px;height: auto;margin: 20px auto}
+	#list ul {list-style: none;}
+	#list ul li {width: 420px;height: 220px;float: left;position: relative;overflow: hidden;}
+	#list ul li a {display: block;width: 420px;height: 220px;color: #fff;background: #1c97c6;position: absolute;left: 0;top: 220px;opacity: 1;filter:alpha(opacity:100);}
+	
+	</style>
+	<script type="text/javascript" src="doMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oList=document.getElementById('list');
+		var aLi=oList.getElementsByTagName('li');
+
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onmouseover=function(){
+				var oA=this.getElementsByTagName('a')[0];
+				
+				doMove(oA, 'top', 0)
+			}
+
+			aLi[i].onmouseout=function(){
+				var oA=this.getElementsByTagName('a')[0];
+
+				doMove(oA,'top',220)
+			}
+		};
+	}
+	</script>
+</head>
+<body>
+	<div id="list">
+		<ul>
+			<li>
+				<img src="img/pic02.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+			<li>
+				<img src="img/pic01.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+			<li>
+				<img src="img/pic03.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+			<li>
+				<img src="img/pic04.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+			<li>
+				<img src="img/pic05.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+			<li>
+				<img src="img/pic06.jpg">
+				<a href="javascript:;">
+					<h3>平面设计学院</h3>
+					<p>本学院以培养学员室内设计实战技能为教学重点，通过大量的案例教学，让学员熟练掌握室内方案设计、施工工艺、材料应用、软装配饰设计、工程预算、效果表现和CAD施工图绘制技艺。由经验丰富的讲师和业内牛人授课，培养富有想象力和创造力以及艺术素养的室内装饰设计人才。
+					 </p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

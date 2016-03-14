@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js案例</title>
+	<style type="text/css">
+	body,ul,div,ol,h1,h2,h3,h4,a,p,span {margin:0;padding: 0;font: '微软雅黑'}
+	img {border: none;display: block;}
+	li {margin-top:10px }
+	a {text-decoration: none;outline: none;text-decoration: none;font-size: 18px;color: #BD2D30}
+	a:hover {text-decoration: underline;}
+	a:active {color: #009ee0}
+	#box {width: 600px;margin: 20px auto;border: 1px solid #000}
+	#box ul {padding-left: 20px;margin: 20px 0; border-bottom: 5px solid #009ee0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aLink=document.getElementsByTagName('a');
+		for (var i = 0; i < aLink.length; i++) {
+			aLink[i].target="_blank";
+		};
+		
+	}
+	</script>
+</head>
+<body>
+	<div class="box" id="box">
+		<ul>
+			<li><a href="jscase/memory/memory.html">凭记忆消除相同图片</a></li>
+			<li><a href="jscase/snake.html">贪吃蛇</a></li>
+			<li><a href="jscase/bee.html">小蜂蜜</a></li>
+			<li><a href="jscase/puzzle.html">拼图</a></li>
+		</ul>
+		<ul>
+			<li><a href="jscase/time/timeUp.html">图片时钟向上运动切换</a></li>
+			<li><a href="jscase/time/timeSnake.html">图片时钟抖动切换</a></li>
+			<li><a href="jscase/time/qianggou.html">抢购</a></li>
+			<li><a href="jscase/time/rotate.html">结合css3实现翻转</a></li>
+		</ul>
+		<ul>
+			<li><a href="jscase/adText/qxw.html">鼠标经过，文字层出现</a></li>
+		</ul>
+		<ul>
+			<li>无缝滚动</a></li>
+			<li><a href="jscase/keepMove/leftright.html">向左向右</a></li>
+			<li><a href="jscase/keepMove/step1.html">向左向右走一个停一下</a></li>
+		</ul>
+		<ul>
+			<li><a href="jscase/huawei/huawei.html">华为官网图片轮播，图片的居中，自适应，定时器的关闭不会出现空白</a></li>
+			<li><a href="jscase/youku/youku.html">优酷电视剧频道轮播图</a></li>
+			<li><a href="jscase/scale/scale.html">图片缩小放大</a></li>
+			<li><a href="jscase/delqq/delqq.html">消灭表情</a></li>
+			
+		</ul>
+	</div>
+
+</body>
+</html>

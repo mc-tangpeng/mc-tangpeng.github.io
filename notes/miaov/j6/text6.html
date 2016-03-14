@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1,#div2 {width: 400px;height: 400px;border:1px solid #ccc;position: relative;margin: 20px;float: left;}
+	#div1 ul,#div2 ul {width: 100%;height: 40px;position: absolute;left: 0;top: 0;list-style: none;}
+	#div1 ul li,#div2 ul li {width: 75px;height: 100%;line-height: 40px;float:left;text-align: center;background: #0fc;border-right: 1px solid #ccc}
+	#div1 ul li.current,#div2 ul li.current {background: red}
+	#div1 div,#div2 div {position: absolute;left: 0;top: 40px;width: 400px;height: 360px;background: red;display: none;}
+	#div1 div.active,#div2 div.active {display: block;}
+	#div1 .btnL,#div2 .btnL {position: absolute;left: 5px;top: 190px;z-index: 5;width: 70px;}
+	#div1 .btnR,#div2 .btnR {position: absolute;right: 5px;top: 190px;z-index: 5;width: 70px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		/*
+		重用代码：
+			1、尽量保证 HTML 代码结构一致，可以通过父级选取子元素
+			2、把核心主程序实现，用函数包起来
+			3、把每组里不同的值找出来，通过传参实现
+		*/
+		fnTab(oDiv1);
+		fnTab(oDiv2);
+	}
+	function fnTab(obj){
+		var aLi=obj.getElementsByTagName('li');
+		var aDiv=obj.getElementsByTagName('div');
+		var aBtn=obj.getElementsByTagName('input');
+		var iNow=0;
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].index=i;
+			aLi[i].onclick=function(){
+				iNow=this.index;
+				show(aLi[iNow])
+				
+			}
+		};
+		function show(ali){
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].className='';
+				aDiv[i].className='';
+			}
+			ali.className='current';
+			aDiv[iNow].className='active'
+		}
+		aBtn[1].onclick=function(){
+			next();
+		}
+		function next(){
+			iNow++;
+			if (iNow==aLi.length) {
+				iNow=0;
+			};
+			show(aLi[iNow])
+		}
+		aBtn[0].onclick=function(){
+			prev();
+		}
+		function prev(){
+			iNow--;
+			if (iNow<0) {
+				iNow=aLi.length-1;
+			};
+			show(aLi[iNow])
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<input type="button" value="左" class="btnL" onFocus='this.blur()'/>
+		<input type="button" value="右" class="btnR" onFocus='this.blur()'/>
+		<ul>
+			<li class="current">最新动态</li>
+			<li>国际新闻</li>
+			<li>国内新闻</li>
+			<li>国际动态</li>
+			<li>国内动态</li>
+		</ul>
+		<div class="active">11111111111</div>
+		<div>222222222222</div>
+		<div>333333333333</div>
+		<div>4444444444444</div>
+		<div>55555555555</div>
+	</div>
+	<div id="div2">
+		<input type="button" value="左" class="btnL" />
+		<input type="button" value="右" class="btnR" />
+		<ul>
+			<li class="current">最新动态</li>
+			<li>国际新闻</li>
+			<li>国内新闻</li>
+			<li>国际动态</li>
+			<li>国内动态</li>
+		</ul>
+		<div class="active">11111111111</div>
+		<div>222222222222</div>
+		<div>333333333333</div>
+		<div>4444444444444</div>
+		<div>55555555555</div>
+	</div>
+</body>
+</html>

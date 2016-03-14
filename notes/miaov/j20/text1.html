@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="ul1">
+		<li>11111<span>span</span></li>
+		<li>22222<span>span</span></li>
+		<li>3333<span>span</span></li>
+		<li>44444<span>span</span></li>
+		<li>55555<span>span</span></li>
+	</ul>
+	<script type="text/javascript">
+	var oUl=document.getElementById('ul1');
+	var aLi=oUl.getElementsByTagName('li');
+	oUl.onclick=function(ev){
+		var ev=ev || window.event;
+		var target=ev.target || ev.srcElement;
+		if (toCon(target,'li')) {
+			toCon(target,'li').style.background="red"
+		};
+		// target.style.background="red";
+	}
+	function toCon(target,nodeName){
+		var arr=[];
+		while(target){
+			arr.push(target);
+			console.log(target)
+			target=target.parentNode;
+		}
+		for (var i = 0; i < arr.length; i++) {
+		console.log(arr)
+			
+			if(arr[i].nodeName.toLowerCase()==nodeName){
+				return arr[i]
+			}
+		};
+		return false;
+	}
+	</script>
+</body>
+</html>

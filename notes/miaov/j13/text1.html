@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#box {width: 300px;height: 300px;border: 1px solid #000;position: relative;}
+	#box div {width: 100%;height: 100%;display:none;position: absolute;left: 0;top: 0; }
+	#box div.active {display: block;}
+	input.active {background: yellow}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oCheckBox=document.getElementById('checkbox');
+		var aCb=oCheckBox.getElementsByTagName('input');
+		var oBtn=document.getElementById('btn');
+		var aBtn=oBtn.getElementsByTagName('input');
+		var oBox=document.getElementById('box');
+		var aBox=oBox.getElementsByTagName('div');
+		aInp()
+		function aInp(){  //创建按钮和内容
+
+			for (var i = 0; i < aCb.length; i++) {
+				// if(aCb[i].checked==true){
+				// 	var btn=document.createElement('input');
+				// 	btn.type="button";
+				// 	btn.value=aCb[i].value;
+
+				// 	oBtn.appendChild(btn);
+
+				// 	var box=document.createElement('div');
+				// 	box.index=aCb[i].value;
+				// 	box.innerHTML=aCb[i].value;
+
+				// 	oBox.appendChild(box);
+				// }
+
+				toCon(aCb[i])  //第一次时，obj.checked为false时会走else。但是aBtn[i].value==obj.value为假了，所以不会走if
+			}
+			btns()
+			
+		}
+		for (var i = 0; i < aCb.length; i++) {
+			aCb[i].onclick=function(){
+				toCon(this)
+			}
+		};
+		function toCon(obj){
+			if (obj.checked==true) {
+				var btn=document.createElement('input');
+				btn.type="button";
+				btn.value=obj.value;
+				oBtn.appendChild(btn);
+
+				var box=document.createElement('div');
+				box.index=obj.value;
+				box.innerHTML=obj.value;
+				oBox.appendChild(box);
+			}else{
+				for (var i = 0; i < aBtn.length; i++) {
+					// console.log(aBtn[i].value,obj.value);此时的obj.value不是第一个，而是第4个，所以if条件为假
+					if(aBtn[i].value==obj.value){
+						oBtn.removeChild(aBtn[i])
+						oBox.removeChild(aBox[i]);
+						
+					}
+				}
+				
+			}
+			btns()
+		}
+		function btns(){
+			var oBtn=true;
+			for (var i = 0; i < aBtn.length; i++) {
+				if(aBtn[i].className == 'active'){
+					oBtn=false;
+				}
+			}
+			if (oBtn && aBtn.length) {
+				aBtn[0].className="active";
+				aBox[0].className="active";
+				
+			}
+			for (var i = 0; i < aBtn.length; i++) {
+				aBtn[i].index=i;
+				aBtn[i].onclick=function(){
+					for (var i = 0; i < aBtn.length; i++) {
+						aBox[i].className="";
+						aBtn[i].className='';
+					}
+					this.className="active";
+					aBox[this.index].className="active";
+				}
+			};
+			
+			
+		}
+		
+	}
+	</script>
+</head>
+<body>
+	<div id="checkbox">
+		<input type="checkbox" value="1111" checked=true>1111
+		<input type="checkbox" value="2222" checked=true>2222
+		<input type="checkbox" value="3333" checked=true>3333
+		<input type="checkbox" value="4444">4444
+		<input type="checkbox" value="5555">5555
+	</div>
+	
+	<div id="btn">
+<!-- 		<input type="button" value="1111" class="active">
+		<input type="button" value="2222" >
+		<input type="button" value="3333" > -->
+
+	</div>
+	<div id="box">
+<!-- 		<div class="active">
+			1111111
+		</div>
+		<div>
+			22222222
+		</div>
+		<div>
+			3333333
+		</div> -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {margin: 0;padding: 0}
+	</style>
+</head>
+<body>
+	<div id="div1" style="background:red"></div>
+	<script type="text/javascript">
+	var oDiv=document.getElementById('div1');
+	var clientW=document.documentElement.clientWidth;
+	var clientH=document.documentElement.clientHeight;
+	console.log(clientW,clientH)  //标准下，正常，ie7：1345(没有包括滚动条21像素) 669 ; ie8：1362 669  ，左右各有2像素。能接收
+	oDiv.style.width=clientW+'px';
+	oDiv.style.height="400px"
+	</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	ul {width: 200px;height: auto;list-style: none;border: 1px solid #000;border-bottom:none;position: absolute;left: 195px;top: 0px;display: none;z-index: 99;background: #fff}
+	ul li {height: 30px;line-height: 30px;border-bottom: 1px solid #000;position: relative;}
+	ul li span {float: right;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+
+		document.oncontextmenu=function(ev){
+			var ev=ev || window.event;
+			oUl.style.display="block";
+			oUl.style.left=ev.clientX+'px';
+			oUl.style.top=ev.clientY+getScrollY()+'px';
+
+			for (var i = aLi.length - 1; i >= 0; i--) {
+				aLi[i].onmouseover=function(){
+					
+					this.style.background="#0cf";
+					var childUl=this.getElementsByTagName('ul')[0];
+					if (childUl) {
+						childUl.style.display="block";
+					};
+				}
+				aLi[i].onmouseout=function(){
+					this.style.background="";
+					var childUl=this.getElementsByTagName('ul')[0];
+					if (childUl) {
+						childUl.style.display="none";
+					};
+				}
+			};
+			return false;
+		}
+		document.onclick=function(){
+			oUl.style.display="none";
+
+		}
+		function getScrollY(){
+			return document.body.scrollTop || document.documentElement.scrollTop;
+		}
+	}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li> 女鞋/男鞋/箱包
+			<span>→</span>
+			<ul>
+				<li>鱼嘴单鞋</li>
+				<li>尖头单鞋</li>
+				<li>圆头单鞋
+					<span>→</span>
+					<ul>
+						<li>机械表</li>
+						<li>石英表</li>
+						<li>防水表</li>
+						<li>学生表</li>
+						<li>陶瓷表</li>
+						<li>时装表</li>
+					</ul>
+				</li>
+				<li>帆布鞋</li>
+				<li>乐福鞋</li>
+				<li>牛津鞋</li>
+			</ul>
+		</li>
+		<li>化妆品/个人护理
+			<span>→</span>
+			<ul>
+				<li>1111111</li>
+				<li>22222222</li>
+				<li>3333333333
+					<span>→</span>
+					<ul>
+						<li>鱼嘴单鞋</li>
+						<li>尖头单鞋</li>
+						<li>圆头单鞋</li>
+						<li>帆布鞋</li>
+						<li>乐福鞋</li>
+						<li>牛津鞋</li>
+					</ul>
+				</li>
+				<li>4444444444</li>
+				<li>5555555</li>
+				<li>66666666
+					<span>→</span>
+					<ul>
+						<li>机械表</li>
+						<li>石英表</li>
+						<li>防水表</li>
+						<li>学生表</li>
+						<li>陶瓷表</li>
+						<li>时装表</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>母婴玩具</li>
+		<li>家具建材</li>
+		<li>腕表/珠宝饰品/眼镜
+			<span>→</span>
+			<ul>
+				<li>机械表</li>
+				<li>石英表</li>
+				<li>防水表</li>
+				<li>学生表
+					<span>→</span>
+					<ul>
+						<li>鱼嘴单鞋</li>
+						<li>尖头单鞋</li>
+						<li>圆头单鞋</li>
+						<li>帆布鞋</li>
+						<li>乐福鞋</li>
+						<li>牛津鞋</li>
+					</ul>
+				</li>
+				<li>陶瓷表</li>
+				<li>时装表</li>
+			</ul>
+
+		</li>
+		<li>家纺/布艺/鲜花</li>
+		<li>医药保健</li>
+
+	</ul>
+</body>
+</html>

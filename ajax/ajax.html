@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload = function () {
+		var oText = document.getElementById('text');
+		var oBtn = document.getElementById('btn');
+		oBtn.onclick = function() {
+			var val = oText.value;
+			ajax('post','ajax.txt',val,function() {
+				alert(1111)
+			})
+		
+		}
+		function ajax(method,url,data,success) {
+			var xhr = null;
+			if (window.XMLHttpRequest) {
+				xhr = new XMLHttpRequest();
+			} else {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			if (method == 'get' && data) {
+				url+'?'+data;
+			}
+
+			xhr.open(method,url,true);
+
+			if (method == 'get') {
+				xhr.send();
+			}else {
+				xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+				xhr.send(data)
+			}
+			
+
+			xhr.onreadyStatechange = function () {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						success && success();
+						console.log(xhr.responseText)
+					}else{
+						alert('出错了： '+xhr.status )
+					}
+				};
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<input type="text" id="text" /><input type="button" value="提交" id="btn" />
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width:520px;margin: 30px auto;background: green;overflow: hidden;padding: 10px}
+	#box ul {width: 200px;border: 1px solid #000;float: left;margin: 0 5px;list-style: none;}
+	#box div input {width: 80px;}
+	#box div {width: 80px;float: left;}
+	.select {background: red}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aUl=oBox.getElementsByTagName('ul');
+		var aInp=oBox.getElementsByTagName('input');
+		var arr1=[];
+		var arr2=[];
+
+		for (var i = 0; i < aUl.length; i++) {
+			change(aUl[i]);
+
+		};
+		function change(ul){
+			var aLi=ul.getElementsByTagName('li');
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].onOff=true;
+				aLi[i].onclick=function(){
+					if (this.onOff) {
+						this.className="select";
+					}else{
+						this.className="";
+					}
+					this.onOff=!this.onOff;
+					toCon();
+				}
+			}
+			
+		}
+		
+		function toCon(){
+			var arr1=getByClass(aUl[0],'select'); //高明之处
+			var arr2=getByClass(aUl[1],'select'); //高明之处
+			
+			for (var i = 0; i < aInp.length; i++) {
+				aInp[i].disabled=true;
+			}
+			if (arr1.length && arr2.length==0) {
+				aInp[0].disabled=false;
+			}
+			if (arr1.length==0 && arr2.length) {
+				aInp[1].disabled=false;
+			};
+			if (arr1.length && arr2.length) {
+				aInp[2].disabled=false;
+			}
+			aInp[0].onclick=function(){
+				for (var i = 0; i < arr1.length; i++) {
+					aUl[1].appendChild(arr1[i]);  //剪切操作，不必在乎aul1
+					resetFn(arr1[i])
+				};
+			}
+
+			aInp[1].onclick=function(){
+				for (var i = 0; i < arr2.length; i++) {
+					aUl[0].appendChild(arr2[i]);
+					resetFn(arr2[i])
+				};
+			}
+
+			aInp[2].onclick=function(){
+				aInp[0].onclick();
+				aInp[1].onclick();
+			}
+		}
+		function getByClass(oParent,sClass){
+			var elems=oParent.getElementsByTagName('*');
+			var result=[];
+			for (var i = 0; i < elems.length; i++) {
+				if(elems[i].className==sClass){
+					result.push(elems[i])
+				}
+			}
+
+			return result;
+		}
+		function resetFn(li){  //  ！！性能！！没必要重置所有的li，只需重置选择后的li
+			li.className='';
+			li.onOff=true;
+			for (var i = 0; i < aInp.length; i++) {
+				aInp[i].disabled=true;
+			}
+		}	
+
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul1">
+			<li>11111111</li>
+			<li>22222222222</li>
+			<li>333333333333</li>
+			<li>44444444444</li>
+			<li>5555555555555</li>
+			<li>66666666666</li>
+			<li>7777777777777</li>
+		</ul>
+		<div>
+			<input type="button" value="→" disabled >
+			<input type="button" value="←" disabled>
+			<input type="button" value="← →" disabled>
+		</div>
+		<ul id="ul2">
+			<li>AAAAAAAAAAAAA</li>
+			<li>BBBBBBBBBBBBB</li>
+			<li>CCCCCCCCCCCCC</li>
+			<li>DDDDDDDDDDDDDDD</li>
+			<li>EEEEEEEEEEEEE</li>
+			<li>FFFFFFFFFFFF</li>
+			<li>GGGGGGGGGGGG</li>
+		</ul>
+	</div>
+</body>
+</html>

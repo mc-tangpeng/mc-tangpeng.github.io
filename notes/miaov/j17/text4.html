@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	#div1 {width: 1000px;height: 500px;margin: 20px auto;border: 5px solid #000;position: relative;}
+	#div2 {width:100px;height:100px;background:red;position: absolute;left: 0;top: 0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		drag(oDiv2)
+		function drag(obj){
+			var oParent=obj.offsetParent;
+			obj.onmousedown=function(ev){
+				var ev=ev || window.event;
+				var disX=ev.clientX-obj.offsetLeft; 
+				var disY=ev.clientY-obj.offsetTop;
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					var iLeft=ev.clientX-disX;
+					var iTop=ev.clientY-disY;
+					if (iLeft>oParent.offsetWidth-obj.offsetWidth-10) {  //不要包括父级的border，不需要。也可以用clientWidth
+						iLeft=oParent.offsetWidth-obj.offsetWidth-10;
+					}
+					if (iLeft<0) {
+						iLeft=0
+					};
+
+					if (iTop<0) {   
+						iTop=0;
+					};
+					if (iTop>oParent.clientHeight-obj.offsetHeight) {
+						iTop=oParent.clientHeight-obj.offsetHeight;
+					};
+					obj.style.left=iLeft+'px';
+					obj.style.top=iTop+'px';
+
+
+
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onkeyup=null;
+					if (obj.releaseCapture) {
+						obj.releaseCapture();
+					};
+				}
+				return false; //阻止默认事件，如图片拖拽
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">222222</div>
+	</div>
+</body>
+</html>

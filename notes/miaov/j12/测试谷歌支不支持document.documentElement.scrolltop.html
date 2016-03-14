@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body style="height:2000px">
+	<script type="text/javascript">
+	//chrome 不支持document.documentElement.scrollTop,onscroll的时候弹出来的一直是0，但是ff也不支持document.body.scrollTop;
+	window.onscroll=function(){
+		var scrollY=document.body.scrollTop;
+		alert(scrollY);
+	}
+	
+	</script>
+</body>
+</html>

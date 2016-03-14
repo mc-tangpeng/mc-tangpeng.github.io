@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding:0;}
+	img {border: none;margin-left: 10px;position: relative;}
+	#box {position:absolute; top:40px;left: 30px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aImg=document.getElementsByTagName('img');
+		// var oDate=new Date();
+		// var iH=oDate.getHours();
+		// var iM=oDate.getMinutes();
+		// var iS=oDate.getSeconds();
+		// var str=toZero(iH)+':'+toZero(iM)+':'+toZero(iS);
+		// //console.log(str)
+		// for (var i = 0; i < aImg.length; i++) {
+		// 	aImg[i].src="img/"+str.charAt(i)+".JPG";
+		// };
+		var oldstr='';
+		change();
+		setInterval(change,1000)
+		function change(){
+			var oDate=new Date();
+			var iH=oDate.getHours();
+			var iM=oDate.getMinutes();
+			var iS=oDate.getSeconds();
+			var str=toZero(iH)+':'+toZero(iM)+':'+toZero(iS);
+			//console.log(str)
+			//var oldstr=''; //若果放在函数内，每一次执行函数change时，都会把oldstr=''；所以都会整体跳动。所以放在外面。
+			for (var i = 0; i < aImg.length; i++) {
+				aImg[i].src="img/"+str.charAt(i)+".JPG";
+			};
+
+			for (var i = 0; i < str.length; i++) {
+				if(str.charAt(i)!=oldstr.charAt(i)){
+					shake(aImg[i],'top')
+				}
+			};
+			oldstr=str;
+			console.log('oldstr'+oldstr+',,,'+'str'+str)
+		}
+	}
+	function toZero(num){
+		if (num<10) {
+			return '0'+num;
+		}else{
+			return ''+num;
+		};
+	}
+	function shake(obj,attr){
+		
+		var len=18;
+		var arr=[];
+		var num=0;
+		for (var i = len; i > 0; i-=2) {
+			arr.push(i,-i)
+		};
+		arr.push(0);
+		var timer=setInterval(function(){
+			var iCur=parseInt(getStyle(obj,attr));
+			obj.style[attr]=iCur+arr[num]+'px';
+			num++;
+			if (num>arr.length) {
+				clearInterval(timer)
+			};
+			
+		},30)
+		
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<img src="img/0.JPG">
+		<img src="img/0.JPG">
+		<img src="img/colon.JPG">
+		<img src="img/0.JPG">
+		<img src="img/0.JPG">
+		<img src="img/colon.JPG">
+		<img src="img/0.JPG">
+		<img src="img/0.JPG">
+	</div>
+</body>
+</html>

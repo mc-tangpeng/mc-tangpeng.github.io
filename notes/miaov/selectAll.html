@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全选反选取消</title>
+</head>
+<body>
+<input type="button" value="全选" id="btn1">
+<input type="button" value="反选" id="btn2">
+<input type="button" value="取消" id="btn3">
+<hr>
+<div id="box">
+
+</div>
+<script>
+var oBtn1=document.getElementById('btn1');
+var oBtn2=document.getElementById('btn2');
+var oBtn3=document.getElementById('btn3');
+var oBox=document.getElementById('box');
+var aBox=oBox.getElementsByTagName('input');
+var onOff=true;
+var str="";
+for (var i = 0; i < 20; i++) {
+	str+="<input type='checkbox'>";
+};
+
+oBox.innerHTML=str;
+oBtn1.onclick=function(){
+	for(var i=0;i<aBox.length;i++){
+		aBox[i].checked=true;	
+	}
+	//alert(str)
+}
+oBtn2.onclick=function(){
+	for(var i=0;i<aBox.length;i++){
+		
+		/**此处可以取反
+		if(aBox[i].checked==true){
+			aBox[i].checked=false;
+			
+		}else{
+			aBox[i].checked=true;
+		}
+		**/	
+		aBox[i].checked=!aBox[i].checked;
+	}	
+}
+oBtn3.onclick=function(){
+	for(var i=0;i<aBox.length;i++){
+		aBox[i].checked=false;	
+	}
+}
+</script>
+</body>
+</html>

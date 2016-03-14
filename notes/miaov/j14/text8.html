@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<textarea id="t1" style="width:300px;height:400px">
+		
+	</textarea>
+	<input type="button" value="运行" id="btn">
+	<script type="text/javascript">
+	var t1=document.getElementById('t1');
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		var newWindow=null;
+		var val=t1.value;
+		newWindow=window.open('');
+		newWindow.document.write(val)
+	}
+	</script>
+</body>
+</html>

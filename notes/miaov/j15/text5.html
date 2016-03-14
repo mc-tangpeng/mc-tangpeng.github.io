@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+	document.onclick=function(ev){
+		var ev=ev || window.event;
+		// alert(ev.clientY)  //相对于可视区
+		alert(ev.clientY+getScrollY())  //相对于整个文档
+	}
+	function getScrollY(){
+		return document.body.scrollTop ||　document.documentElement.scrollTop;
+	}
+	</script>
+</body>
+</html>

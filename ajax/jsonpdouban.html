@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#header {width: 100%;height: 50px;text-align:center;background: #ccc}
+	#header p {height: 50px;line-height: 50px;}
+	#text {width: 300px;height: 25px;padding: 10px;margin: 0 5px;}
+	#search {width: 60px;height: 40px;}
+
+	#ul1 {list-style: none;}
+	#ul1 li {width:100%;border-bottom: 1px dashed #000;padding: 10px;height: 150px}
+	#ul1 li img {float: left;}
+	#ul1 li .info {float: left;margin-left: 20px}
+	#ul1 li .info p {width: 700px;height: 100px;overflow: hidden;text-overflow:ellipsis;}
+	#result {padding: 10px;}
+	#showmore {width: 100%;height: 30px;background: #0cf;border: none;margin: 10px 0;display: none;}
+	</style>
+	<script type="text/javascript">
+	function wstp(data){
+		console.log(data)
+		var oUl1 = document.getElementById('ul1');
+		var oShowmore = document.getElementById('showmore');
+		var oResult = document.getElementById('result');
+		var oText = document.getElementById('text');
+		var pages =Math.ceil(data.total/data.count);
+		var books = data.books;
+		var html = '';
+		if (data.start <= pages) {
+			oResult.innerHTML = '搜索'+oText.value+','+'共'+data.total+'条 , '+'共'+pages+'页 , '+'当前页:'+data.start;
+			for (var i = 0; i < books.length; i++) {
+				html += '<li><img src="'+books[i].images['medium']+'"><div class="info"><h3>'+books[i].title+'</h3><p>'+books[i].summary+'</p></div></li>';
+			};
+			oUl1.innerHTML += html;
+			oShowmore.style.display = "block";
+		} else {
+			
+			
+			oShowmore.style.display = "none";
+			
+		}
+		
+
+	}
+	window.onload = function() {
+		var oText = document.getElementById('text');
+		var oSearch = document.getElementById('search');
+		var oShowmore = document.getElementById('showmore');
+		var oUl1 = document.getElementById('ul1');
+		var iPage = 1;
+		var prevVal = '';
+		oSearch.onclick = function() {
+			if (prevVal != oText.value) {
+				oUl1.innerHTML = '';
+				iPage = 1;
+			}
+				if (oText.value) {
+
+					var oScript = document.createElement('script');
+					oScript.src='https://api.douban.com/v2/book/search?q='+oText.value+'&alt=xd&callback=wstp&start='+iPage;
+					document.body.appendChild(oScript);
+
+				};
+			
+			
+			prevVal = oText.value;
+		}
+		oShowmore.onclick = function() {
+			iPage++;
+			var oScript = document.createElement('script');
+			oScript.src='https://api.douban.com/v2/book/search?q='+oText.value+'&alt=xd&callback=wstp&start='+iPage;
+			document.body.appendChild(oScript);
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div id="header">
+		<p>jsonp模拟豆瓣图书搜索 : <input type="text" id="text" autocomplete="off" /><input type="button" value="搜索" id="search" /></p>
+	</div>
+	<p id="result">在输入框中输入书籍名称或者作者：</p>
+	<ul id="ul1">
+		
+		<!-- <li>
+			<img src="img/book.jpg">
+			<div class="info">
+				<h3>javascript</h3>
+				<p>Douglas Crockford / 赵泽欣、鄢学鹍 / 电子工业出版社 / 2009年 / 35.00</p>
+			</div>
+			
+		</li>  -->
+	</ul>
+	<input type="button" value="加载更多" id="showmore" />
+</body>
+</html>

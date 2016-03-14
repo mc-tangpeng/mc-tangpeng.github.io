@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#box span {background: yellow}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInp=document.getElementsByTagName('input');
+		var text=document.getElementById('box');
+		var str=text.innerHTML
+		aInp[1].onclick=function(){   //查找
+			// 
+			var val=aInp[0].value;
+			if(!val) return;
+			text.innerHTML=str.split(val).join('<span>'+(val)+'</span>')
+		}
+		
+		aInp[2].onclick=function(){   //查找
+			// 
+			var val=aInp[0].value;
+			if(!val) return;
+			var val2=aInp[1].value;
+			text.innerHTML=str.split(val).join('<span>'+(val2)+'</span>');
+			alert(typeof text.innerHTML)
+		}
+
+
+	}
+	</script>
+</head>
+<body>
+	<p>PS:删除操作，只要输入第一个输入框，点击替换即可</p>
+	<input type="text"><input type="text"><input type="button" value="替换">
+	<div id="box">
+		VANCL休闲裤频道提供多款休闲裤,短裤,背带裤,工装裤,卡其裤价格,图片,评论,促销等相关信息,为您购买休闲裤,短裤,背带裤,工装裤,卡其裤提供最有价值的参考内容。
+	</div>
+</body>
+</html>

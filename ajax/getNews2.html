@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="ajaxTP.js"></script>
+	<script type="text/javascript">
+	window.onload = function() {
+		var oBtn = document.getElementById('btn');
+		var oUl = document.getElementById('ul1');
+
+		getNews();
+		function getNews() {
+			ajax({
+				method : 'GET',
+				url : 'getNews.php',
+				data : '',
+				async : true,
+				timeout : function(){},
+				success : function(data){
+					var d = JSON.parse(data);
+					console.log(d)
+					var html = '';
+
+					for (var i = 0; i < d.length; i++) {
+						html += '<li>'+d[i].title+'<span>'+d[i].date+'</span></li>'
+					};
+					oUl.innerHTML = html;
+				},
+				error : function(){}
+			})
+			// 'get','getNews.php','',function(data) {
+			// 				var d = JSON.parse(data);
+			// 				console.log(d)
+			// 				var html = '';
+
+			// 				for (var i = 0; i < d.length; i++) {
+			// 					html += '<li>'+d[i].title+'<span>'+d[i].data+'</span></li>'
+			// 				};
+			// 				oUl.innerHTML = html;
+			// 			}
+		}
+		oBtn.onclick = function() {
+			setInterval(getNews,2000)
+		}
+		// ajax('get','getNews.php','',function(data) {
+		// 	var d = JSON.parse(data);
+		// 	// alert(d.length)
+		// 	var html = '';
+		// 	for (var i = 0; i < d.length; i++) {
+		// 		html += '<li>'+ d[i].title +'<span>'+ d[i].date +'</span></li>'
+		// 	};
+		// 	oUl.innerHTML = html;
+
+		// })
+
+		// oBtn.onclick = function() {
+		// 	setInterval(function() {
+		// 		ajax('get','getNews.php','',function(data) {
+		// 			var d = JSON.parse(data);
+		// 			// alert(d.length)
+		// 			var html = '';
+		// 			for (var i = 0; i < d.length; i++) {
+		// 				html += '<li>'+ d[i].title +'<span>'+ d[i].date +'</span></li>'
+		// 			};
+		// 			oUl.innerHTML = html;
+
+		// 		})
+		// 	},2000)
+		// }
+		
+	}
+	</script>
+</head>
+<body>
+	
+	<input type="button" value="提交" id="btn" />
+	<ul id="ul1"></ul>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 300px;height: auto;border: 1px solid #000;position: absolute;top: 200px;left: 400px}
+	.tips {width: 100px;background: yellow;position: absolute;left: 0;top: 0;}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		三年的努力，就是<a href="#" tips="不是因为，只是所以">因为</a>你和你爹在高速公路上开车打电话给毁了。 亲爱的小陈：我不管以后你爸是开车<a href="#" tips="请不要打电话">打电话</a>啊 还是开飞机打电话 你就直接上去两嘴巴子 扇得他找不到方向盘 千万记着手指并拢一气呵成 你这一个举报 可难为了奋斗了十来年的考生 以后告诉<a href="#" tips="是隔壁老王，啊">你爸</a>千万别开车打电话 不然就嘴巴子抽
+	</div>
+	<script type="text/javascript">
+	var oDiv1=document.getElementById('div1');
+	var aTips=oDiv1.getElementsByTagName('a');
+	for (var i = 0; i < aTips.length; i++) {
+		tips(aTips[i])
+	};
+	function tips(obj){
+		var oTip=null;
+		obj.onmouseover=function(){
+			if (!oTip) {
+				oTip=document.createElement('div');
+				oTip.className="tips";
+				oTip.innerHTML=this.getAttribute('tips');
+				oTip.style.left=posLeft(this)+'px';
+				oTip.style.top=posTop(this)+30+'px';
+			};
+			document.body.appendChild(oTip);
+		}
+		obj.onmouseout=function(){
+			document.body.removeChild(oTip);
+			oTip=null;
+		}
+	}
+	function posLeft(obj){
+		var result=0;
+		while(obj){
+			result+=obj.offsetLeft;
+			obj=obj.offsetParent;
+		}
+		return result;
+	}
+	function posTop(obj){
+		var result=0;
+		while(obj){
+			result+=obj.offsetTop;
+			obj=obj.offsetParent;
+		}
+		return result;
+	}
+	</script>
+	
+</body>
+</html>

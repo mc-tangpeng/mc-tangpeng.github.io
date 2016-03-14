@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<style type="text/css">
+	#box li{margin: 5px 0}
+	#box span {margin: 0 5px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aLi=oBox.getElementsByTagName('li');
+		var num=document.getElementById('goods');
+		var sum=document.getElementById('sum');
+		for (var i = 0; i < aLi.length; i++) {
+			aa(aLi[i])
+		};
+		function aa(obj){
+			var aInp=obj.getElementsByTagName('input');
+			var aSpan=obj.getElementsByTagName('span');
+			var num=1;
+			var price=parseFloat(aSpan[1].innerHTML);
+			aInp[1].onclick=function(){
+
+				aSpan[0].innerHTML=num+'件';
+				aInp[2].value=num*price+'元';
+				num++;
+				getSum();
+				getNum();
+			}
+			aInp[0].onclick=function(){
+				if (num==0) {
+					alert('数量为0了哦');
+					return;
+				}else{
+					num--;
+					aSpan[0].innerHTML=num+'件';
+					aInp[2].value=num*price+'元'
+				};
+				getSum();
+				getNum();
+			}
+
+		}
+		function getNum(){
+			var result=0;
+			
+			//var allSum=num.getElementsByTagName('input')[2];
+
+			for (var i = 0; i < aLi.length; i++) {
+				var oNum=aLi[i].getElementsByTagName('span')[0];
+				result+=parseInt(oNum.innerHTML);
+			};
+			num.value=result+'件';
+		}
+		function getSum(){
+			var result=0;
+			
+			//var allSum=num.getElementsByTagName('input')[2];
+
+			for (var i = 0; i < aLi.length; i++) {
+				var oSum=aLi[i].getElementsByTagName('input')[2];
+				//result+=parseFloat(oSum.value); //不能够和求num一样直接算，得先判断是否有value值，不然和空相加会得NAN。
+				if (oSum.value) {
+					result+=parseFloat(oSum.value);
+				};
+				console.log(result)
+			};
+			sum.value=result+'元';
+
+		}
+	}
+	</script>
+</head>
+<body>
+	<ul id="box">
+
+		 <li><input type="button" value="-"> <span>0件</span> <input type="button" value="+"> <span>6元</span> 结果: <input type="text"></li>
+		 <li><input type="button" value="-"> <span>0件</span> <input type="button" value="+"> <span>7元</span> 结果: <input type="text"></li>
+		 <li><input type="button" value="-"> <span>0件</span> <input type="button" value="+"> <span>6.5元</span> 结果: <input type="text"></li>
+		 <li><input type="button" value="-"> <span>0件</span> <input type="button" value="+"> <span>11元</span> 结果: <input type="text"></li>
+
+	</ul>	
+	<label for="goods">商品总计：
+		<input type="text" id="goods">
+	</label>
+	<label for="sum">价格总计：
+		<input type="text" id="sum">
+	</label>
+</body>
+</html>

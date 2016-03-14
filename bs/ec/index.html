@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >  <!--ie使用最新的渲染引擎,如果安装了chrome，使用chrome frame-->
+	<meta name="renderer" content="webkit">  <!--html打开强制为极速模式-->
+	<meta name="viewport" content="width=device-width,initinal-scale=1, user-scalable=no, target-densityDpi=device-dpi">
+	<title>电子商务网站</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<style type="text/css">
+	/*#navbar-affix-top {
+		width: 100%;
+		top: 0;
+	}
+	.sidebar {
+		position: relative;
+		right: 10px;
+		top: 30px;
+		width: 50px;
+		height: 300px;
+		background: red
+	}*/
+	#sidebar {
+		top: 230px;
+	}
+	.affix-top {
+	    position: relative;
+	}
+	.affix {
+	    top: 0px;
+	}
+	.affix,
+	.affix-bottom {
+	    width: 100%;
+	}
+	.affix-bottom {
+	    position: absolute;
+	}
+	</style>
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+	<header role="banner">
+		<div class="container">
+			<a href="javascript:;" class="banner-brand visible-sm visible-md visible-lg"><img src="img/logo.png" width="160"></a>
+			<ul class="utility-nav">
+				<li>
+					<a href="#dialog" data-toggle="modal"><i class="icon-user icon-large"></i> <span data-toggle="modal" data-target="#login">登陆</span></a><a href="#"><span>注册</span></a>
+				</li>
+				<li>
+					 <a href="#"><i class=" icon-shopping-cart icon-large"></i> <span>购物车</span></a>
+				</li>
+			</ul>
+		</div>
+		<div id="navbar-affix-top"  data-spy="affix" data-offset-top="78" data-offset-bottom="540">
+		<nav class="navbar navbar-static-top navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" >
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="javascript:;" class="navbar-brand visible-xs" ><img src="img/logo.png" width="120"></a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="dropdown active">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Shoes <i class="caret"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+								<li class="divider"></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Clothing</a></li>
+						<li><a href="#">Accessories</a></li>
+						<li><a href="#">Man</a></li>
+						<li><a href="#">Woman</a></li>
+						<li><a href="#">Kids</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">All Departments <i class="caret"></i>
+							</a>
+							<ul class="dropdown-menu  dropdown-menu-right">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+								<li class="divider"></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		</div>
+	</header>
+	<div role="main">
+		<div class="container">
+		<ul class="breadcrumb">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Lib</a></li>
+			<li class="active">Data</li>
+		</ul>
+		<div class="page-header">
+			<h1>Product Category Name <small>with expanatory text</small></h1>
+		</div>
+			<div class="row">
+				<div class="grids-options col-sm-3">
+					<h2 class="clearfix">Narrow your selection
+						<button type="button" class=" btn btn-primary options-panel-toggle pull-right" data-toggle="collapse" data-target="#options-panel"><span class=" icon-cog"></span></button>
+					</h2>
+					<div class="collapse" id="options-panel">
+						<a href="javascript:;" class="btn btn-feature choose-clearance" id="options-panel">
+							<span class="icon  icon-tag icon-3x"></span>
+							<h3>Clearance Sale</h3>
+							<p>View clearance items</p>
+						</a>
+						<h3>Categories</h3>
+						<ul class="options-list options-categories">
+						   <li><a href="#"> Option 1</a></li>
+						   <li><a href="#"> Option 2</a></li>
+						   <li><a href="#"> Option 3</a></li>
+						   <li><a href="#"> Option 4</a></li>
+						   <li><a href="#"> Option 5</a></li>
+						   <li><a href="#"> Option 6</a></li>
+						   <li><a href="#"> Option 7</a></li>
+						   <li><a href="#"> Option 8</a></li>
+						   <li><a href="#"> Option 9</a></li>
+						   <li><a href="#"> Option 10</a></li>
+						</ul>
+
+						<h3>Brands</h3>
+						<ul class="options-list options-brands">
+						   <li><a href="#"> Option 1</a></li>
+						   <li><a href="#"> Option 2</a></li>
+						   <li><a href="#"> Option 3</a></li>
+						   <li><a href="#"> Option 4</a></li>
+						   <li><a href="#"> Option 5</a></li>
+						   <li><a href="#"> Option 6</a></li>
+						   <li><a href="#"> Option 7</a></li>
+						   <li><a href="#"> Option 8</a></li>
+						   <li><a href="#"> Option 9</a></li>
+						   <li><a href="#"> Option 10</a></li>
+						</ul>
+
+						<h3>Another Filter</h3>
+						<ul class="options-list options-other">
+						   <li><a href="#">  Option 1</a></li>
+						   <li><a href="#">  Option 2</a></li>
+						   <li><a href="#">  Option 3</a></li>
+						   <li><a href="#">  Option 4</a></li>
+						   <li><a href="#">  Option 5</a></li>
+						   <li><a href="#">  Option 6</a></li>
+						   <li><a href="#">  Option 7</a></li>
+						   <li><a href="#">  Option 8</a></li>
+						   <li><a href="#">  Option 9</a></li>
+						   <li><a href="#">  Option 10</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="products-grid col-sm-9">
+					<div class="row">
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample  product" /></a>
+						   <h2><a href="#">Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough or maybe a little more</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample  product" /></a>
+						   <h2><a href="#">Longer Product Title</a></h2>
+						   <p>This text describes the above product a little not too much</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Even Longer Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough -- or maybe we'll go on even longer on this one just because it's fun and, well, this product just really deserves it!</p>
+						  <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Exceptional Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Even Longer Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough -- or maybe we'll go on even longer on this one just because it's fun and, well, this product  just really deserves it!</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough or maybe a little more</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Longer Product Title</a></h2>
+						   <p>This text describes the above product a little not too much</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Even Longer Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough -- or maybe we'll go on even longer on this one just because it's fun and, well, this product just really deserves it!</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+						<div class="product-item col-xs-6 col-md-4">
+						   <a href="#"><img src="img/pic.jpg" width="300" height="200" alt="sample product" /></a>
+						   <h2><a href="#">Product Title</a></h2>
+						   <p>This text describes the above product a little not too much but just enough or maybe a little more</p>
+						   <a class="btn btn-default btn-xs pull-right" href="#">View this product <i class="glyphicon glyphicon-arrow-right"></i></a>
+						</div>
+					</div>
+					<div class="row pagination-wrap">
+						<ul class="pagination">
+							<li><a href="#">&laquo;</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer role="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-md-2">
+					<h3>Categories</h3>
+					<ul>
+					  <li><a href="#">Shoes</a></li>
+					  <li><a href="#">Clothing</a></li>
+					  <li><a href="#">Accessories</a></li>
+					  <li><a href="#">Men</a></li>
+					  <li><a href="#">Women</a></li>
+					  <li><a href="#">Kids</a></li>
+					  <li><a href="#">Pets</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-md-2">
+					<h3>Styles</h3>
+					<ul>
+					  <li><a href="#">Athletic</a>  </li>
+					  <li><a href="#">Casual</a></li>
+					  <li><a href="#">Dress</a></li>
+					  <li><a href="#">Everyday</a></li>
+					  <li><a href="#">Other Days</a></li>
+					  <li><a href="#">Alternative</a></li>
+					  <li><a href="#">Otherwise</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-md-2">
+					<h3>Other</h3>
+					<ul>
+					  <li><a href="#">Link</a></li>
+					  <li><a href="#">Another link</a></li>
+					  <li><a href="#">Link again</a></li>
+					  <li><a href="#">Try this</a></li>
+					  <li><a href="#">Don't you dare</a></li>
+					  <li><a href="#">Oh go ahead</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<h3>About Us</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse euismod congue bibendum. Aliquam erat volutpat. Phasellus eget justo lacus. Vivamus pharetra ullamcorper massa, nec ultricies metus gravida egestas. Duis congue viverra arcu, ac aliquet turpis rutrum a. Donec semper vestibulum dapibus. Integer et sollicitudin metus. Vivamus at nisi turpis. Phasellus vel tellus id felis cursus hendrerit.</p>
+					<p><a class="btn btn-default btn-xs pull-right" href="#">Learn more <span class="icon-arrow-right"></span></a></p>
+				</div>
+			</div>
+			<ul class="socail">
+			  <li><a href="#" title="Twitter Profile"><span class="icon-twitter-sign"></span></a></li>
+			  <li><a href="#" title="Facebook Page"><span class=" icon-facebook-sign"></span></a></li>
+			  <li><a href="#" title="LinkedIn Profile"><span class=" icon-linkedin-sign"></span></a></li>
+			  <li><a href="#" title="Google+ Profile"><span class=" icon-google-plus-sign"></span></a></li>
+			  <li><a href="#" title="GitHub Profile"><span class="icon-github-alt"></span></a></li>
+			</ul>
+
+			<p class="footer-brand"><a href="index.html"><img src="img/logo.png" width="80" alt="Bootstrappin'"></a></p>
+		</div>
+	</footer>
+	<!-- 登录框-->
+	<div class="modal fade" id="login">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4>万能的淘宝</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label>用户名: </label>
+							<input type="text" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label>密 码:</label>
+							<input type="password" class="form-control" />
+						</div>
+						<div class="checkbox">
+							<label><input type="checkbox" />记住密码</label>
+						</div>
+						
+						
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit"  class="btn btn-primary">登陆</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div data-spy="affix" data-offset="74"  id="sidebar">
+		<div class="sidebar">
+			11
+		</div>
+	</div> -->
+	
+</body>
+</html>

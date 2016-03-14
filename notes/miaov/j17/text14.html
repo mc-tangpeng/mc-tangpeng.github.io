@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {-background: blue}
+	#img {position: absolute;left: 330px;top: 270px;z-index: 9}
+	#div1 {width: 200px;height: 200px;background: #00f;position: relative;left: 200px;top: 70px;z-index: 8}
+	#div2 {width: 20px;height: 20px;background: yellow;position: absolute;right: 0;bottom: 0;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+
+		oDiv2.onmousedown=function(ev){
+			var ev=ev || window.event;
+			var oParent=oDiv2.offsetParent;
+			var offsetW=oParent.offsetWidth;
+			var offsetH=oParent.offsetHeight;
+			var iL=posLeft(oParent);
+			var iT=posTop(oParent);
+			var disX=ev.clientX;  //到整个文档
+			var disY=ev.clientY;
+		
+			document.onmousemove=function(ev){
+				var iW=ev.clientX-disX+offsetW;
+				var iH=ev.clientY-disY+offsetH;
+
+				if (iW<100) {
+					iW=100;
+				};
+				if (iH<100) {
+					iH=100;
+				};
+				if (iW>700) {
+					iW=700
+				};
+				if (iH>500) {
+					iH=500
+				};
+				oParent.style.left=iL+'px';
+				oParent.style.top=iT+'px';
+				
+				oParent.style.width=iW+'px';
+				oParent.style.height=iH+'px';
+			}
+
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			}
+
+		}
+		function posLeft(obj){  
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+	}
+	</script>
+</head>
+<body>
+	<img src="web.png" id="img">
+	<div id="div1">
+		<div id="div2"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr=[32,45,23,56,12,23,56];
+
+	function doWeight(arr){
+		var result=[];
+		result.push(arr[0]);
+		for (var i = 0; i < arr.length; i++) {
+			if(toCom(arr[i])){
+				result.push(arr[i]);
+			}
+		};
+
+		function toCom(val){
+			for (var i = 0; i < result.length; i++) {
+				if (val == result[i]) { //技巧，不要用！=来先判断true；
+					return false;
+				}
+			};
+			return true; //for循环结束后才返回，这样得到的绝对是true。
+		}
+		return result;
+	}
+	console.log(doWeight(arr))
+	</script>
+</body>
+</html>

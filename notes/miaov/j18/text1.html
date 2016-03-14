@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0;}
+	div {width: 100px;height: 100px;position: absolute;}
+	#div1 {left: 50px;top: 50px;background: red}
+	#div2 {left: 650px;top: 350px;background: green}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		1
+	</div>
+	<div id="div2">
+		2
+	</div>
+	<script type="text/javascript">
+	var oDiv1=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	drag(oDiv1);
+	function drag(obj){
+		obj.onmousedown=function(ev){
+			var ev=ev||window.event;
+			var disX=ev.clientX-obj.offsetLeft;
+			var disY=ev.clientY-obj.offsetTop;
+			if (obj.setCapture) {
+				obj.setCapture();
+			};
+
+			document.onmousemove=function(ev){
+				var ev=ev||window.event;
+				var iL=ev.clientX-disX;
+				var iT=ev.clientY-disY;
+				obj.style.left=iL+'px';
+				obj.style.top=iT+'PX';
+				var div1L=div1.offsetLeft;
+				var div1T=div1.offsetTop;
+				var div1R=div1.offsetLeft+div1.offsetWidth;
+				var div1B=div1.offsetTop+div1.offsetHeight;
+
+				var div2L=div2.offsetLeft;
+				var div2T=div2.offsetTop;
+				var div2R=div2.offsetLeft+div2.offsetWidth;
+				var div2B=div2.offsetTop+div2.offsetHeight;
+				if (div1R<div2L || div1L>div2R || div1T>div2B || div1B<div2T) {
+					div2.style.background="green";
+
+				}else{
+					div2.style.background="yellow";
+				}
+			}
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+				if (obj.releaseCapture) {
+					obj.releaseCapture();
+				};
+			}
+			return false;
+		}
+	}
+	</script>
+</body>
+</html>

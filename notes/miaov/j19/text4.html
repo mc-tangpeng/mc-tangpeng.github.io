@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 300px;height: 300px;position: relative;left: 40px;top: 50px}
+	#div1 img {width: 300px;height: 300px;}
+	#div1 span {width: 100px;height: 100px;background:rgba(244,244,244,.5);position: absolute;left: 0;top: 0;display: none;}
+	#div2 {width: 500px;height: 450px;position:absolute;left: 500px;top: 50px;overflow: hidden;}
+	#div2 img {position: absolute;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oSpan=oDiv1.getElementsByTagName('span')[0];
+		var oDiv2=document.getElementById('div2');
+		var oImg2=oDiv2.getElementsByTagName('img')[0];
+
+		oDiv1.onmouseenter=function(){
+
+			oSpan.style.display="block";
+		}
+
+		oDiv1.onmouseleave=function(){
+			oSpan.style.display="none";
+
+		}
+		oDiv1.onmousemove=function(ev){
+			var ev=ev || window.event;
+			var iLeft=ev.clientX-oDiv1.offsetLeft-oSpan.offsetWidth/2;
+			var iTop=ev.clientY-oDiv1.offsetTop-oSpan.offsetHeight/2;
+			if (iLeft<0) {
+				iLeft=0;
+			}else if(iLeft>oDiv1.clientWidth-oSpan.clientWidth){
+				iLeft=oDiv1.clientWidth-oSpan.clientWidth;
+			}
+
+			if (iTop<0) {
+				iTop=0
+			}else if(iTop>oDiv1.clientHeight-oSpan.clientHeight){
+				iTop=oDiv1.clientHeight-oSpan.clientHeight;
+			}
+			oSpan.style.left=iLeft+'px';
+			oSpan.style.top=iTop+'px';
+
+			var scaleX=iLeft/(oDiv1.clientWidth-oSpan.clientWidth);
+			var scaleY=iTop/(oDiv1.clientHeight-oSpan.clientHeight);
+			console.log(-scaleX*(oImg2.offsetWidth-oDiv2.offsetWidth))
+			oImg2.style.left=-scaleX*(oImg2.offsetWidth-oDiv2.offsetWidth)+'px';
+			oImg2.style.top=-scaleY*(oImg2.offsetHeight-oDiv2.offsetHeight)+'px';
+
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<img src="a.jpg">
+		<span></span>
+	</div>
+	<div id="div2">
+		<img src="a.jpg" />
+	</div>
+</body>
+</html>

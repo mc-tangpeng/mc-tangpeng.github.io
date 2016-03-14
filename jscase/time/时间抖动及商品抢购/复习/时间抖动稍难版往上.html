@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	img {border:none;outline: none;display: block;}
+	#box {width: 1080px;height: 172px;margin: 170px auto;overflow: hidden;}
+	#box ul {list-style: none;width: 1600px;height: 172px;background: red}
+	#box ul li {width: 122px;height: 354px;float: left;padding-left: 10px;position: relative;left:0;-border: 1px solid #000 }
+	
+	</style>
+	<script type="text/javascript" src="doMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oList=document.getElementById('list');
+		var aLi=oList.getElementsByTagName('li');
+		var aUp=getClassName(oList,'up');
+		var aDown=getClassName(oList,'down');
+		var aCenter=getClassName(oList,'center');
+		var oldTime='';
+		ini();
+		
+		setInterval(ini,1000)
+		function ini(){
+			var oDate=new Date();
+			var str=toZero(oDate.getHours())+':'+toZero(oDate.getMinutes())+':'+toZero(oDate.getSeconds());
+			for (var i = 0; i < aUp.length; i++) {
+				aUp[i].src="img/"+str.charAt(i)+".jpg";
+				aCenter[i].src="img/"+str.charAt(i)+".jpg";
+				aDown[i].src="img/"+str.charAt(i)+".jpg";
+
+			};
+			for (var i = 0; i < aLi.length; i++) {
+				//console.log(aLi[i].style.top)
+				var arr=[-172,0,172];
+				if (str.charAt(i) != oldTime.charAt(i)) {
+					doMove(aLi[i],'top',arr[1]);
+					//console.log(aLi[i].style.top)
+					if (aLi[i].style.top=0+'px') {
+						doMove(aLi[i],'top',arr[0]);
+						
+					};
+					
+				};
+			};
+			oldTime=str;
+			/*for (var i = 0; i < aLi.length; i++) {
+				var arr=[-172,0,172];
+				if (str.charAt(i) != oldTime.charAt(i)) {
+					var that=aLi[i];
+					// doMove(aLi[2],'top',arr[0],function(){
+					// 	
+					// 	if(that.style.top=-172+'px'){
+					// 		that.style.top=0+'px';
+					// 	}
+					// });
+					doMove(aLi[i],'top',arr[0]);
+					if(that.style.top=0+'px'){
+						doMove(that,'top',arr[0])
+					}
+						
+					
+				};
+				
+			};
+			*/
+		}
+	}
+	
+	function toZero(num){
+		if (num<10) {
+			return "0"+num;
+		}else{
+			return ''+num;
+		};
+	}
+	function getClassName(oParent,sClassName){
+		var elems=oParent.getElementsByTagName('*');
+		var result=[];
+		for (var i = 0; i < elems.length; i++) {
+			if(elems[i].className==sClassName){
+				result.push(elems[i])
+			}
+		};
+		return result;
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+	}
+	</script>
+</head>
+<body>
+	<p id="text"></p>
+	<div id="box">
+		<ul id="list">
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+
+			<li><img src="img/colon.jpg" class="up">
+				<img src="img/colon.jpg" class="center">
+				<img src="img/colon.jpg" class="down">
+			</li>
+			
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+
+			<li><img src="img/colon.jpg" class="up">
+				<img src="img/colon.jpg" class="center">
+				<img src="img/colon.jpg" class="down">
+			</li>
+
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+			<li><img src="img/0.jpg" class="up">
+				<img src="img/0.jpg" class="center">
+				<img src="img/0.jpg" class="down">
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

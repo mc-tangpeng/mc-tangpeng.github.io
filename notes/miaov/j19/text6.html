@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 600px;height: 400px;border: 3px solid #0cf;position: relative;margin:0 auto }
+	#box div {position: absolute;}
+	.img {width: 300px;height: 300px;display: block;position: absolute;top: 50px;left: 10px;}
+	.img img {width: 100%;height: 100%;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInp=document.getElementsByTagName('input');
+		var oImg=document.getElementById('img');
+		var oBox=document.getElementById('box');
+		var aDiv=oBox.getElementsByTagName('div');
+		var gridSize=0;
+		var gridCols=0;
+		var gridRows=0;
+		var oBoxW=oBox.clientWidth;
+		var oBoxH=oBox.clientHeight;
+		var zIndex=1;
+		var arr=[]; //装adiv的位置
+		var oPlay=document.getElementById('paly');
+		// oPlay.onclick=function(){
+
+		// 	sortImg(arr)
+		// }
+		for (var i = 0; i < aInp.length-1; i++) {
+			aInp[i].index=i;
+			aInp[i].onclick=function(){
+				arr=[];
+				aDiv.length=0;
+				createDiv(this.index);
+				sortImg(arr)
+			}
+		};
+		
+		function createDiv(num){  //初始图片网格大小及数量
+			switch(num){
+				case 0:
+				gridSize=200;
+				gridCols=3;
+				gridRows=2;
+				break;
+
+				case 1:
+				gridSize=100;
+				gridCols=6;
+				gridRows=4;
+				break;
+
+				case 2:
+				gridSize=50;
+				gridCols=12;
+				gridRows=8;
+				break;
+			}
+
+			var str='';
+			var imgSrc=oImg.getAttribute('src');
+			
+			oBox.style.width=oBoxW+gridCols-1+'px';
+			oBox.style.height=oBoxH+gridRows-1+'px';
+			// -background: url(4.jpg) -30px -30px no-repeat
+			for (var i = 0; i < gridRows; i++) {
+				for (var j = 0; j < gridCols; j++) {
+					str+='<div style="width:'+(gridSize)+'px;height:'+(gridSize)+'px;left:'+(j* (gridSize+1) )+'px;top:'+(i* (gridSize+1))+'px;background:url('+imgSrc+') '+(-j*gridSize)+'px '+(-i*gridSize)+'px no-repeat;"></div>'
+					arr.push( [ j* (gridSize+1),i* (gridSize+1)] )
+				};
+			};
+			
+			oBox.innerHTML=str;
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].index=i;
+				drag(aDiv[i])
+				
+			};
+		}
+		function sortImg(arr){//重新排列
+			arr.sort(function(){  
+				return Math.random()-0.5;
+			})
+			
+
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].style.left=arr[i][0]+'px';
+				aDiv[i].style.top=arr[i][1]+'px';
+			};
+
+		}
+		function drag(obj){
+			
+			obj.onmousedown=function(ev){
+				zIndex++;
+				var ev=ev || window.event;
+				var disX=ev.clientX-obj.offsetLeft;
+				var disY=ev.clientY-obj.offsetTop;
+				obj.style.zIndex=zIndex;
+				if (ev.setCapture) {
+					ev.setCapture();
+				};
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					var iLeft=ev.clientX-disX;
+					var iTop=ev.clientY-disY;
+					if (iLeft<0) {
+						iLeft=0;
+					};
+					if (iLeft>obj.parentNode.offsetWidth-obj.offsetWidth) {
+						iLeft=obj.parentNode.offsetWidth-obj.offsetWidth;
+					};
+					if (iTop<0) {
+						iTop=0;
+					};
+					if (iTop>obj.parentNode.offsetHeight-obj.offsetHeight) {
+						iTop=obj.parentNode.offsetHeight-obj.offsetHeight;
+					};
+					obj.style.left=iLeft+'px';
+					obj.style.top=iTop+'px';
+					
+					var nL=nearLi(obj);
+					for (var i = 0; i < aDiv.length; i++) {
+						aDiv[i].style.border="";
+					};
+					if (nL) {
+						nL.style.border="1px solid #f00";
+					};
+
+				}
+				document.onmouseup=function(ev){
+					var ev=ev || window.event;
+					document.onmousemove=null;
+					document.onmouseup=null;
+					if (ev.releaseCapture) {
+						ev.releaseCapture();
+					};
+					var temp=0;
+					var nL=nearLi(obj);
+					if (nL) {
+						obj.style.left=arr[nL.index][0]+'px';
+						obj.style.top=arr[nL.index][1]+'px';
+
+						nL.style.left=arr[obj.index][0]+'px';
+						nL.style.top=arr[obj.index][1]+'px';
+
+						temp=nL.index;
+						nL.index=obj.index;
+						obj.index=temp;
+						nL.style.border="";
+					};
+					
+					
+				}
+				return false;
+			}
+			
+		}
+		function nearLi(obj){
+			var value=9999;
+			var index=-1;
+			for (var i = 0; i < aDiv.length; i++) {
+				if (toCon(obj,aDiv[i]) && obj!=aDiv[i] ) {
+					var c=j1(obj,aDiv[i]);
+					if (value>c) {
+						value=c;
+						index=i;
+					};
+				};
+				
+			};
+			
+			return aDiv[index];
+		}
+		function j1(obj1,obj2){
+			var a=obj1.offsetLeft-obj2.offsetLeft;
+			var b=obj1.offsetTop-obj2.offsetTop;
+			var c=Math.sqrt(a*a+b*b);
+			return c;
+		}
+		function toCon(obj1,obj2){
+			var L1 = obj1.offsetLeft;
+			var R1 = obj1.offsetLeft + obj1.offsetWidth;
+			var T1 = obj1.offsetTop;
+			var B1 = obj1.offsetTop + obj1.offsetHeight;
+			
+			var L2 = obj2.offsetLeft;
+			var R2 = obj2.offsetLeft + obj2.offsetWidth;
+			var T2 = obj2.offsetTop;
+			var B2 = obj2.offsetTop + obj2.offsetHeight;
+			
+			if( R1<L2 || L1>R2 || B1<T2 || T1>B2 ){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+		
+	}
+	</script>
+</head>
+<body>
+	<input type="button" value="初级" />
+	<input type="button" value="中级" />
+	<input type="button" value="高级" />
+	<input type="button" value="开始" id="paly" />
+	<div class="img">
+		<img src="4.jpg" id="img" />
+
+	</div>
+	<div id="box">
+		<!-- <div></div> -->
+	</div>
+</body>
+</html>

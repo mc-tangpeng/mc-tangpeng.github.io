@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#wrap {width: 425px;border:1px solid #000;margin: 30px auto}
+	#box {width: 425px;height: 260px;border-bottom: 5px solid #000}
+	#box img {position: absolute;z-index: 8}
+	#box a {position: absolute;z-index: 9;outline: none;}
+	#wrap ul {width: 425px;list-style: none;}
+	#wrap ul li {width: 100px;margin-right: 5px;float: left;}
+	#wrap ul li.active {border:2px solid #f00;}
+	#wrap ul li img {width: 100px;height: 160px;}
+	.next {cursor: url(img/arr_left.cur),auto;}
+	.prev {cursor: url(img/arr_right.cur),auto;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oImg=oBox.getElementsByTagName('img')[0];
+		var aLi=document.getElementById('wrap').getElementsByTagName('ul')[0].getElementsByTagName('li');
+		var oBtn=document.getElementById('btn');
+		var num=0;
+		oImg.src="img/"+(num)+".jpg";
+		aLi[0].className="active";
+		var iHalf=Math.floor(oBox.offsetWidth/2);
+
+		
+	
+			
+			oImg.onmousemove=function(ev){
+				var ev=ev||window.event;
+				var wMax=posLeft(oImg)+oImg.offsetWidth;
+				var disX=ev.clientX-posLeft(oImg);
+				if (disX<=iHalf && disX>=0) {
+					oBtn.style.display="block";
+					oBtn.className="prev";
+					oBtn.onclick=function(){
+						num++;
+						if (num==aLi.length) {
+							num=0;
+						};
+						oImg.src="img/"+(num)+".jpg";
+						for (var i = 0; i < aLi.length; i++) {
+							aLi[i].className="";
+						};
+						aLi[num].className="active";
+					}
+				}else if(disX>iHalf && disX <=wMax){
+					oBtn.style.display="block";
+					oBtn.className="next";
+					oBtn.onclick=function(){
+						num--;
+						if (num<=0) {
+							num=aLi.length-1;
+						};
+						oImg.src="img/"+(num)+".jpg";
+						for (var i = 0; i < aLi.length; i++) {
+							aLi[i].className="";
+						};
+						aLi[num].className="active";
+					}
+				}
+				
+				oBtn.style.left=ev.clientX+'px';
+				oBtn.style.top=ev.clientY+'px';	
+			}
+
+		
+		function posLeft(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="box">
+			<img src="">
+			<a href="javascript:;" id="btn">&nbsp;</a>
+			
+		</div>
+		<ul>
+			<li><img src="img/0.jpg"></li>
+			<li><img src="img/1.jpg"></li>
+			<li><img src="img/2.jpg"></li>
+			<li><img src="img/3.jpg"></li>
+		</ul>
+	</div>
+</body>
+</html>

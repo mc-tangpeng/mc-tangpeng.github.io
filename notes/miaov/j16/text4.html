@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="text" >
+	<input type="button" value="提交"> 
+	<ul id="ul1">
+		
+	</ul>
+	<script type="text/javascript" >
+	var oText=document.getElementById('text');
+	var oUl=document.getElementById('ul1');
+	var onoff1=false;
+	var onoff2=false;
+	oText.onkeydown=function(ev){
+		var ev=ev||window.event;
+		var val=oText.value;
+		if (val) {
+			if (ev.keyCode==13) {
+				onoff1=true;
+			};
+			if (ev.keyCode==17) {
+				onoff2=true;
+			};
+			if (onoff1 && onoff2) {
+				var oLi=document.createElement('li');
+				oLi.innerHTML=val;
+				oUl.appendChild(oLi);
+				
+			};
+		};
+		
+	}
+	oText.onkeyup=function(ev){
+		var ev=ev||window.event;
+		if (ev.keyCode==13) {
+				onoff1=false;
+		};
+		if (ev.keyCode==17) {
+			onoff2=false;
+		};
+	}
+	</script>
+
+</body>
+</html>

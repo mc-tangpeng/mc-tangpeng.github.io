@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>评分</title>
+	<style type="text/css">
+		#ul1 li {width:30px;height: 30px;float: left;margin: 20px 0;display:inline;background:url(star.jpg) 0 -73px;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl1=document.getElementById('ul1');
+		var aLi=oUl1.getElementsByTagName('li');
+		var onOff=true;
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].index=i;
+
+			aLi[i].onmouseover=function(){
+				for (var i = 0; i < this.index+1; i++) {
+					aLi[i].style.background='url(star.jpg) 0 0';
+				};
+			}
+
+			aLi[i].onmouseout=function(){
+				if (onOff) {
+					this.style.background='url(star.jpg) 0 -73px';
+				};
+				
+				
+			}
+			aLi[i].onclick=function(){
+
+				onOff=false;
+			
+			}
+			
+		};
+		oUl1.onmouseout=function(){
+			if (onOff) {
+				for (var i = 0; i < aLi.length; i++) {
+					aLi[i].style.background='url(star.jpg) 0 -73px';
+				}
+			};
+			
+		}
+		oUl1.onmouseover=function(){
+			onOff=true;
+		}
+		
+
+	}
+	</script>
+</head>
+<body>
+<ul id="ul1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>	
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin:0;padding: 0}
+	#parent {width: 600px;height: 500px;margin: 20px auto;position: relative;}
+	#div1 {width: 600px;height: 500px;background: url(img/start.png) 0 0 no-repeat;position: absolute;left: 0;top: 0;z-index: 3;-display: none;}
+	#player {position: absolute;width: 96px;height: 56px;left: 430px;top: 375px;cursor: pointer;}
+	#div2 {width:width: 600px;height: 500px;position: absolute;left: 0;top: 0;z-index: 2}
+	#title { width:100%; height:30px; font-size:30px;}
+	#time	{ width:100%; height:30px;}
+	#time div{ width:100%; height:100%; background:red;}
+	#main {width:600px;height:440px;background: url(img/bg.png) 0 0 no-repeat;}
+	#tips {width: 100%;height: 30px;position: absolute;top: 50%;text-align: center;font-size: 60px;font-weight: bold;}
+	#main div {width: 110px;height: 110px;background-size: cover;margin:0 20px;float: left;}
+	#main .sty1{ background-image:url(img/a.png);}
+	#main .sty2{ background-image:url(img/b.png);}
+	#main .sty3{ background-image:url(img/c.png);}
+	#main .sty4{ background-image:url(img/d.png);}
+	#main .sty5{ background-image:url(img/e.png);}
+	#main .sty6{ background-image:url(img/f.png);}
+	#main .sty7{ background-image:url(img/g.png);}
+	#main .sty8{ background-image:url(img/h.png);}
+
+	#main .styFlip{ background-image:url(img/w.png);}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var data=[
+			{group:2,time:10,score:10},
+			{group:4,time:10,score:20},
+			{group:2,time:8,score:30},
+			{group:2,time:8,score:35}
+		]
+		var oPlay=$('player');
+		var oDiv1=$('div1');
+		var oTips=$('tips');
+		var oTitle=$('title');
+		var oTime=$('time');
+		var oTimeDiv=oTime.getElementsByTagName('div')[0];
+		var aSpan=oTitle.getElementsByTagName('span');
+		var oMain=$('main');
+		var oMainDiv=oMain.getElementsByTagName('div')
+		var iNow=0;
+		var score=0;
+		var changeTimer = null;
+
+		oPlay.onclick=function(){
+			oDiv1.style.display="none";
+			countDown();
+		}
+		function countDown(){  //倒计时
+			clearInterval(changeTimer);  //停止倒计时进度条
+			oTimeDiv.style.width = '100%'; //宽度初始化100%
+			var num=3;
+			oTips.style.display="block";
+			oTips.innerHTML='第'+(iNow+1)+'关';
+			aSpan[0].innerHTML='第'+(iNow+1)+'关';
+			var timer=setInterval(function(){
+				if (num != 0) {
+					oTips.innerHTML=num;
+					num--;
+				}else{
+					clearInterval(timer);
+					oTips.style.display="none";
+					nextGK();
+				};
+			},1000)
+		}
+		function nextGK(){  //下一关
+			var arr=getRandomSty();
+			//console.log(arr)
+			creatImg(arr);
+			flipImg();
+			bindImg(arr);
+
+		}
+		function getRandomSty(){  //获取随机数组
+			var group=data[iNow].group;
+			var arr=[];
+			for (var i = 1; i <= group; i++) {
+				arr.push(i,i)
+			};
+			arr.sort(function(num1,num2){
+				return Math.random()-0.5; ////0~1 - 0.5 : -0.5 ~ 0.5
+			})
+			return arr;
+		}
+		function creatImg(arr){  //创建图片
+			var str='';
+			for (var i = 0; i < arr.length; i++) {
+				str+='<div class="sty'+(arr[i])+'"></div>'
+			};
+			//console.log(str)
+			oMain.innerHTML=str;
+		}
+		function flipImg(){   //将图片换成白板的
+			setTimeout(function(){
+				for (var i = 0; i < oMainDiv.length; i++) {
+					oMainDiv[i].className="styFlip";
+				};
+				changeTime();
+			},2000)
+			
+		}
+		function bindImg(arr){     //操纵图片
+			//虽然 flipImg函数把div的className换成了styFlip，但是之前的arr中[1,2,2,1]//，依然存在，因为之前图片的className设定就是它。
+			var arrImg=[];
+			var count=0;
+			for (var i = 0; i < oMainDiv.length; i++) {
+				oMainDiv[i].index=i;
+				oMainDiv[i].onclick=function(){
+					if (this.className == 'styFlip' && count!=2) {
+						this.className='sty'+arr[this.index];
+						arrImg.push(this);
+						count++;
+						//console.log(arrImg)  
+						console.log(arrImg)  //// [div.sty1, div.sty2]
+						if (count==2) {
+							setTimeout(function(){
+								toCom();
+								count=0;
+								arrImg=[];
+								if(isNextGK()){
+									iNow++;
+									if (iNow==data.length) {
+										clearInterval(changeTimer);
+										oTips.style.display="block";
+										oTips.innerHTML="恭喜你，通过了！"
+									}else{
+										countDown();
+									};
+								}
+							},500)
+						};
+					}
+				}
+
+			};
+
+			function toCom(){      //比较是否相同
+				var img1=arrImg[0];
+				var img2=arrImg[1];
+				if (img1.className == img2.className) {
+					img1.className="";
+					img2.className="";
+					setScore();
+				}else{
+					img1.className="styFlip";
+					img2.className="styFlip";
+				};
+			}
+
+			function isNextGK(){  //是否进入下一关
+				for (var i = 0; i < oMainDiv.length; i++) {
+					if(oMainDiv[i].className != ''){   //好好想想为什么不能用oMainDiv[i].className == ''{return true}
+						return false;
+					};
+				};
+				return true;
+			}
+		}
+		function changeTime(){   //时间进度
+			var time=data[iNow].time;
+			var oldTime=time;
+			changeTimer=setInterval(function(){
+				if (time==0) {
+					clearInterval(changeTimer);
+					oTips.style.display = 'block';
+					oTips.innerHTML = '很遗憾，游戏结束啦';
+					oMain.innerHTML = '';
+				}else{
+					time--;  //放下放上有区别，放在上可以到0，放在下到不了0
+					oTimeDiv.style.width=time/oldTime*100+"%";
+					
+				};
+			},1000)
+			
+		}
+		function setScore(){  //设置分数
+			score+=data[iNow].score;
+			aSpan[1].innerHTML='积分'+score;
+		}
+	}
+	function $(id){
+		return document.getElementById(id);
+	}
+	</script>
+</head>
+<body>
+	<div id="parent">
+		<div id="div1">
+			<div id="player"></div>
+		</div>
+		<div id="div2">
+			<div id="title">
+				<span style="float:left">第一关</span>
+				<span style="float:right">积分：0</span>
+			</div>
+			<div id="time">
+				<div></div>
+			</div>
+			<div id="main">
+				<!-- <div class="sty1"></div>
+				<div class="sty2"></div>
+				<div class="sty3"></div>
+				<div class="sty4"></div>
+				<div class="sty5"></div> -->
+			</div>
+			<div id="tips"></div>
+		</div>
+	</div>
+</body>
+</html>

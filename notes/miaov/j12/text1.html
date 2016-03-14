@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+
+	#div1 {background: red;width: 100px;height: 100px;padding: 50px;border: 10px solid #000;position: relative;top: 40px;left: 70px}
+	#div2 {background: yellow;width: 80px;height: 80px;border: 10px solid #000;position: absolute;}
+	
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv2=document.getElementById('div2');
+		//元素到整个页面的距离，不是可视区
+		// alert(oDiv2.offsetTop)  //60，没有包含自己的topBorder,这是必须的.如果要包括border，需要用getBoudingClientRect
+		// alert(oDiv2.offsetLeft)  //60;
+		// alert(posLeft(oDiv2))  //标准下，120；ie6-8:120 比没有包括父级的border-left
+		alert(posTop(oDiv2))  //90
+		function posLeft(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetLeft;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+
+		function posTop(obj){
+			var result=0;
+			while(obj){
+				result+=obj.offsetTop;
+				obj=obj.offsetParent;
+			}
+			return result;
+		}
+		
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">
+			2
+		</div>
+	</div>
+</body>
+</html>

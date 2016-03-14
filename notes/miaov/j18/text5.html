@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	body {height: 2000px}
+	#div1 {width: 100px;height: 100px;background:red;}
+	</style>
+</head>
+<body>
+	<div id="div1">11</div>
+	<script type="text/javascript">
+	var oDiv=document.getElementById('div1');
+
+	// oDiv.onmousewheel=function(){  //chrom 和 ie支持，firfox不支持
+	// 	show()
+	// }
+	// oDiv.addEventListener('DOMMouseScroll',show,false) //仅firfox支持，且必须用绑定事件
+
+
+	//兼容处理：
+	if (oDiv.addEventListener) {  //可以避开ie，虽然chrome不支持，但是不会报错或者其它影响
+		oDiv.addEventListener('DOMMouseScroll',show,false);
+	};
+	oDiv.onmousewheel=show;
+	function show(ev){
+		var ev=ev || window.event;
+		// alert(ev.detail)  //标准下：ev.detail  -3表示上  3：下
+		 // alert(ev.wheelDelta) //ie下：ev.wheelDelta 120：上  -120：下
+
+		 // 兼容处理： 用开关来控制
+		var bBtn=true;
+		if (ev.detail) {
+			ev.detail < 0 ? bBtn=true : bBtn=false;
+		}else{
+			ev.wheelDelta > 0 ? bBtn=true : bBtn=false;
+		}
+		if (bBtn) {  //up
+			alert('up')
+		}else{  //down
+			alert('down')
+		}	
+	}
+
+
+	//默认事件的阻止
+	
+	function preDefault(ev){
+		var ev=ev || window.event;
+		if (ev.preventDefault) {
+			ev.preventDefault();
+		}else{
+			return false;
+		}
+
+	}
+	</script>
+</body>
+</html>

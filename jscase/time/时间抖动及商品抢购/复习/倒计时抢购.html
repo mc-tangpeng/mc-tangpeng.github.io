@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 187px;height: 400px;background: red;margin: 40px auto;background: url(img/none.gif) 0px 30px no-repeat;}
+	#time {font-size:12px;font-style: normal;height: 30px;background: #ccc;width: 187px;display: block;text-align: center;line-height: 30px}
+	#img {width: 187px;height: 340px;background: yellow;position: relative;top: 0;left: 0}
+	#box input {width: 187px;height: 30px;font-size:18px; border: none;}
+	#img p {font-size: 20px;color: #fff;text-align: center;margin-top: 380px}
+	</style>
+	<script type="text/javascript" src="startMove.js"></script>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var oTime=document.getElementById('time');
+		var oImg=document.getElementById('img');
+		var oBtn=oBox.getElementsByTagName('input')[0];
+		var newDate=new Date(2015,4,9,14,45,40);
+		
+		getTime();
+
+		var timer=setInterval(getTime,1000);
+
+		function getTime(){
+
+			var nowDate=new Date();
+			 var t=Math.floor((newDate-nowDate)/1000);  //秒
+			 var iDate=Math.floor(t/86400);
+			 var iH=Math.floor(t%86400/3600);
+			 var iM=Math.floor(t%86400%3600/60);
+			 var iS=t%60;
+			if (t>=0) {
+				
+				var str=toZero(iDate)+'天'+toZero(iH)+'小时'+toZero(iM)+'分钟'+toZero(iS)+'秒';
+				oTime.innerHTML='还剩'+str;
+			 	
+			}else{
+				var onOff=false;
+				clearInterval(timer);
+				oTime.innerHTML="不好意思，售罄了！";
+			 	oBtn.disabled=true;
+				shake(oImg,'left',function(){
+					startMove(oImg,{top:140,opacity:0},function(){  //一定要注意命名，不要发生冲突。比如此处的obj，timer1，和startMove中的obj.timer
+						alert('关了');
+					})
+				});
+						
+			}
+		}
+		function shake(obj,attr,endFn){
+			var iCur=parseInt(getStyle(obj,attr));
+			var len=18;
+			var arr=[];
+			var num=0;
+			for (var i = 18; i >0; i-=2) {
+				arr.push(i,-i);
+			};
+			arr.push(0);
+			obj.timer1=setInterval(function(){
+				obj.style[attr]=iCur+arr[num]+'px';
+				num++;
+				if (num==arr.length) {
+					clearInterval(obj.timer1);
+					onOff=true;
+					obj.style[attr]=iCur+'px';  //暂停之时等于原来的值。必须有
+					endFn && endFn();
+					
+				};
+			},30)
+			
+		}
+		
+		function toZero(num){
+			if ( num < 10 ) {
+				return '0'+num;  //str类型
+			}else{
+				return ''+num; //为了保持一致，str
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<em id="time">11111</em>
+		<div id="img"><img src="img/aa.gif" /></div>
+		<input type="button" value="购买"   />
+	</div>
+</body>
+</html>

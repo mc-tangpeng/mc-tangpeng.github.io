@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBtn=document.getElementsByTagName('input')[0];
+		var aLi=document.getElementsByTagName('li');
+		var onoff=1
+		var arr=[];
+		for (var i = 0; i < aLi.length; i++) {
+			arr[i]=aLi[i].innerHTML;
+		};
+
+		oBtn.onclick=function(){
+			var aa=arr.sort(function(num1,num2){
+				return onoff*(num1-num2);
+				})
+			console.log(arr)
+			for (var i = 0; i < aa.length; i++) {
+			aLi[i].innerHTML=aa[i]
+			};
+			onoff*=-1;
+		}
+		
+		
+	}
+	</script>
+</head>
+<body>
+	<input type="button" value="排序" />
+	<ul>
+		<li>23</li>
+		<li>10</li>
+		<li>22</li>
+		<li>4</li>
+		<li>6</li>
+		<li>55</li>
+	</ul>
+</body>
+</html>

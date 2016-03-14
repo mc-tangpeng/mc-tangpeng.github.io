@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 300px;height: 400px;border:1px solid #000;overflow: auto;margin: 30px auto}
+	#div2 {width: 100%;}
+	#btn {display: none;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		var oBtn=document.getElementById('btn');
+		alert(oDiv1.offsetHeight)  //402
+		alert(oDiv2.offsetHeight)  //638
+	
+		oDiv1.onscroll=function(){
+			var scrollTop= oDiv1.scrollTop
+			if ( (scrollTop+oDiv1.offsetHeight ) == oDiv2.offsetHeight+2 ) {  //需要加上border
+				oBtn.style.display="block";
+
+			};
+			console.log(scrollTop+oDiv1.offsetHeight,oDiv2.offsetHeight)
+		}
+		document.onclick=function(){
+			alert(oDiv1.scrollTop)
+		}
+		oBtn.onclick=function(ev){
+			var ev=ev || window.event;
+			ev.cancelBubble=true;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2">本次培训为期3天，共安排了10场专题讲座，既有校园法律方面的前沿理论问题探讨，也有针对学生权益维护方面的事务对策研究，力求通过对理论和方法两方面的系统讲授，全面提升学员的职业素养。省委教育工委专职委员、省教育厅党组成员陈飞跃，省委宣传部理论处学习办副主任彭永博士、我校欧爱民教授、倪洪涛教授等就“网络时代大学生思想政治教育的特点与对策”、“微时代的意识形态较量”、“学生管理中的法律问题”、“大学法治与校园法律风险防范”等不同专题进行了解读。周益春在讲话中指出，高校辅导员在培养人、教育人、服务人的过程中，需要用法治思维和法治方式解决学生思想政治教育和事务管理中相关问题。各位学员要通过此次法律法规专题培训，加强学习与交流，切实提高理论和业务水平，进一步促进学生思想政治教育管理工作的法治化、规范化和科学化。周益春在讲话中指出，高校辅导员在培养人、教育人、服务人的过程中，需要用法治思维和法治方式解决学生思想政治教育和事务管理中相关问题。各位学员要通过此次法律法规专题培训，加强学习与交流，切实提高理论和业务水平，进一步促进学生思想政治教育管理工作的法治化、规范化和科学化。S</div>
+	</div>
+	<input type="button" value="注册" id="btn"> 
+</body>
+</html>

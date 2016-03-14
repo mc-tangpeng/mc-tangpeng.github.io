@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 1040px;height: 172px;position: relative;margin: 170px auto}
+	img {border:none;outline: none;display: block;position: absolute;top: 0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aImg=document.getElementsByTagName('img');
+		var oldTime='';
+		ini();
+		setInterval(ini,1000)
+		function ini(){
+			var oDate=new Date();
+			var str=toZero(oDate.getHours())+':'+toZero(oDate.getMinutes())+':'+toZero(oDate.getSeconds());
+			for (var i = 0; i < aImg.length; i++) {
+				aImg[i].style.left=i*130+'px';
+				
+					aImg[i].src='img/'+ str.charAt(i)+'.jpg';
+				
+				
+			};
+			//比如第一次str是12：12：12，和oldTime.charAt(i)都不等，所以整体跳一下。
+			//然后将12：12：12赋值给oldTime，然后str=12：12：13;在与oldTime.charAt(i)(此时oldtime等于12：12：12)；
+			//所以最后一个数动。
+			for (var i = 0; i < str.length; i++) {
+				if (str.charAt(i) != oldTime.charAt(i)) {
+					toShake(aImg[i]);
+				};
+			};
+			oldTime=str;
+		}
+	}
+	function toZero(num){
+		if (num<10) {
+			return "0"+num;
+		}else{
+			return ''+num;
+		};
+	}
+	function toShake(obj){
+		var arr=[];
+		var iNow=0;
+
+		for (var i = 10; i >0; i-=2) {
+			arr.push(i,-i);   //不会添加到0；所以for后补个0
+		};
+		arr.push(0);
+
+		var timer=setInterval(function(){
+			obj.style.top=arr[iNow]+'px';
+			iNow++;
+			if (iNow==0) {
+				clearInterval(timer)
+			};
+		},30)
+	}
+	</script>
+</head>
+<body>
+	<p id="text"></p>
+	<div id="box">
+		<img src="img/0.jpg">
+		<img src="img/0.jpg">
+		<img src="img/colon.jpg">
+		<img src="img/0.jpg">
+		<img src="img/0.jpg">
+		<img src="img/colon.jpg">
+		<img src="img/0.jpg">
+		<img src="img/0.jpg">
+	</div>
+</body>
+</html>

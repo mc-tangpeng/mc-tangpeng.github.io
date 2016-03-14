@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	div {width: 200px;min-height: 20px;border: 1px solid #000 }
+	</style>
+</head>
+<body>
+	<input type="button" value="展开" />
+	<input type="button" value="收缩" />
+	<div></div>
+
+	<script type="text/javascript">
+	var aInput=document.getElementsByTagName('input');
+	var oDiv=document.getElementsByTagName('div')[0];
+	var str="您好,感谢您购买本产品下载链接com/s/1XR9Wxni4请您查看后30分钟内确认收货,好评后会赠送您大量礼品!如遇需要解压密码,统一为:shop35184756.ta";
+	var num=0;   //我需要的是覆盖，新生成别的数据,而不是追加。
+	 var timer=null;//我要在aInput[1].onclick关它，所以必须是全局变量。
+	aInput[0].onclick=function(){
+		
+		timer=setInterval(function(){
+			var val=str.substring(0,num++);
+			oDiv.innerHTML=val;
+			if(val == str){
+				clearInterval(timer)
+			}
+		},60)
+	}
+	aInput[1].onclick=function(){
+		clearInterval(timer)
+		timer=setInterval(function(){
+			var val=str.substring(0,num--);
+			oDiv.innerHTML=val;
+			if(val == 0){
+				clearInterval(timer)
+				alert('官罗')
+			}
+		},60)
+	}
+	</script>
+</body>
+</html>

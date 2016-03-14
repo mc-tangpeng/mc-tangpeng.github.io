@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oText=document.getElementById('text');
+		var week=['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+		getTime();
+		function getTime(){
+			var oDate=new Date();
+			var iYear=oDate.getFullYear();
+			var iMonth=oDate.getMonth()+1;
+			var iDate=oDate.getDate();
+			var iDay=oDate.getDay();
+			var iH=oDate.getHours();
+			var iMin=oDate.getMinutes();
+			var iS=oDate.getSeconds();
+			oText.innerHTML=iYear+'年 '+iMonth+'月 '+iDate+'日 '+toZero(iH)+'时 '+toZero(iMin)+'分 '+toZero(iS)+'秒 '+week[iDay];
+		}
+		
+		setInterval(getTime,1000)
+		
+
+		function toZero(num){
+			if (num < 10) {
+				return '0'+num;
+			}else{
+				return ''+num;
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+	<p id="text"></p>
+</body>
+</html>

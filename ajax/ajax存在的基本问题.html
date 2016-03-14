@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	1、get方式的缓存问题 ：
+	在url？后面连接一个随机数，时间戳
+	xhr.open('get','shoname.php?username=BOB&age=100&'+new Date().getTime(),true)
+
+	2、get方式乱码，编码encodeURI
+	xhr.open('get',"shoname.php?username='+encodeURI('老王')+'&age=100&"+new Date().getTime(),true)
+
+	3、post方式：数据放在send()方法里作为参数传递
+	（1）请求头：指定发送的文档类型（编码）
+	xhr.setRequestHeader('content-type','application/x-www-form-urlencode');
+	(2)传参,如果传递username=老王，不需要编码encodeURI了，因为请求头已经声明了
+	xhr.send('username=BOB&age=100')
+
+	4、post没有缓存问题。
+
+	5、stringify ： 把一个对象转成对应的字符串
+	6、parse ： 把字符串转成对应的对象，字符串格式的json的key值，必须用双引号引起来。
+	
+
+</body>
+</html>

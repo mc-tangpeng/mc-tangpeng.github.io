@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var arr=[12,2,34,56,31,22,56,93,160]
+	function bubbling(arr){
+		for (var i = 0; i < arr.length; i++) {
+			for (var j = 0; j < arr.length; j++) {
+				//toCon(arr[j],arr[j+1])
+				toCon(j,j+1)
+			};
+		};
+
+		function toCon(prev,next){
+			var temp='';
+			if (arr[prev]>arr[next]) {
+				temp=arr[prev];
+				arr[prev]=arr[next];
+				arr[next]=temp;
+			}
+		}
+		return arr;
+	}
+	console.log(bubbling(arr))
+	</script>
+</body>
+</html>

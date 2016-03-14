@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aInput=document.getElementsByTagName('input');
+		var num=0;
+		var timerUp=null;
+		var timerStop=null;
+		var timerStop2=null;
+		var timerDown=null;
+		var iStop=3;
+		aInput[1].onclick=function(){
+			
+			this.disabled=true;
+			timerUp=setInterval(up,500);
+		}
+
+		function up(){
+			aInput[0].value=num++;
+			if(num==5){
+				num=4;
+				clearInterval(timerUp);
+				timerStop=setInterval(stop,500)
+			}
+		}
+		function stop(){
+			aInput[1].value="暂停"+iStop+"秒";
+			iStop--;
+			if (iStop<0) {
+				iStop=3;
+				aInput[1].value="确定";
+				clearInterval(timerStop);
+				timerDown=setInterval(down,500)
+			};
+		}
+		function down(){
+			aInput[0].value=num--;
+			if(num<0){
+				num=0;
+				clearInterval(timerDown);
+				timerStop2=setInterval(stop2,500);
+				
+			}
+		}
+		function stop2(){
+			aInput[1].value="暂停"+iStop+"秒";
+			iStop--;
+			if (iStop<0) {
+				iStop=3;
+				aInput[1].value="确定";
+				clearInterval(timerStop2);
+				timerUp=setInterval(up,500);
+			};
+		} 
+	}
+	</script>
+</head>
+<body>
+<input type="text" value="0" /><input type="button" value="确定">	
+</body>
+</html>

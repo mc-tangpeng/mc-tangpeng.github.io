@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	.active {background: red}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aUl=document.getElementsByTagName('ul');
+		var oBox=document.getElementById('box');
+		
+		for (var i = 0; i < aUl.length; i++) {
+		
+			change(aUl[i]);
+		};
+		function change(ul){
+			var aLi=ul.getElementsByTagName('li');
+			var oP=null;
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].onclick=function(){
+					for (var i = 0; i < aLi.length; i++) {
+						aLi[i].className='';
+					};
+					this.className="active";
+					if (!oP) {
+						oP=document.createElement('p');
+						oBox.appendChild(oP)
+					}
+					oP.innerHTML=this.innerHTML;
+					
+					
+				}
+			};
+		}
+		
+	}
+	</script>
+</head>
+<body>
+	<ul id="price">
+		<li>100000</li>
+		<li>10000</li>
+		<li>1000</li>
+		<li>100</li>
+		<li>10</li>
+	</ul>
+
+	<ul id="place">
+		<li>北京</li>
+		<li>上海</li>
+		<li>广州</li>
+		<li>深圳</li>
+		<li>长沙</li>
+	</ul>
+
+	<ul id="house">
+		<li>5居室</li>
+		<li>4居室</li>
+		<li>3居室</li>
+		<li>2居室</li>
+		<li>1居室</li>
+	</ul>
+	<div id="box">
+		
+	</div>
+</body>
+</html>

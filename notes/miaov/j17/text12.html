@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 500px;height: 30px;background: #0cf;position: relative;margin: 40px auto}
+	#div2 {width: 30px;height: 30px;background:#00f;position: absolute;left: 0;top: 0 }
+	#box {width: 300px;height: 300px;position: absolute;top: 70px;left: 70px;background: yellow;filter:alpha(opacity:0);opacity: 0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv1=document.getElementById('div1');
+		var oDiv2=document.getElementById('div2');
+		var oBox=document.getElementById('box');
+		drag(oDiv2)
+		function drag(obj){
+			obj.onmousedown=function(ev){
+				var ev=ev || window.event;
+				var disX=ev.clientX-obj.offsetLeft; 
+				if(obj.setCapture){
+					obj.setCapture();
+				}
+				
+				document.onmousemove=function(ev){
+					var ev=ev || window.event;
+					var iLeft=ev.clientX-disX;
+					if (iLeft<0) {
+						iLeft=0;
+					};
+					if (iLeft>obj.offsetParent.offsetWidth-obj.offsetWidth) {
+						iLeft=obj.offsetParent.offsetWidth-obj.offsetWidth;
+					};
+					var scale=iLeft/(obj.offsetParent.offsetWidth-obj.offsetWidth)
+					obj.style.left=iLeft+'px';
+					
+					document.title=scale;
+					oBox.style.opacity=scale;
+					oBox.style.filter='alpha(opacity:'+(100*scale)+')'
+
+					// oBox.style.width=scale*400+'px';
+					// oBox.style.height=scale*400+'px';
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onkeyup=null;
+					
+					if (obj.releaseCapture) {
+						obj.releaseCapture();
+					};
+				}
+				return false; //阻止默认事件，如图片拖拽
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<div id="div2"></div>
+	</div>
+	<div id="box">
+		1111
+	</div>
+</body>
+</html>

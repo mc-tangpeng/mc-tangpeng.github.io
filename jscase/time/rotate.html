@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {width: 1010px;height: 172px;margin:50px auto;background:#ccc;}
+	#box img {transition:.7s transform;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementById('box');
+		var aImg=oBox.getElementsByTagName('img');
+		var oldSrc='';
+		var oBtn=true;
+		getDate();
+		setInterval(getDate,1000)
+		function getDate(){
+			var nowTime=new Date();
+			var iHours=nowTime.getHours();
+			var iMin=nowTime.getMinutes();
+			var iSeconds=nowTime.getSeconds();
+			var src=toNum(iHours)+':'+toNum(iMin)+':'+toNum(iSeconds);
+
+			document.title=src;
+			for (var i = 0; i < aImg.length; i++) {
+				if (oBtn) {
+					aImg[i].trange=0;
+				};
+				oBtn=false;
+				if (src.charAt(i) != oldSrc.charAt(i)) {
+					if (aImg[i].trange==0) {
+						aImg[i].style.transform='rotateX(360deg)';
+						aImg[i].trange=360;
+					}else{
+						aImg[i].style.transform='rotateX(0deg)';
+						aImg[i].trange=0;
+					}
+				}
+				
+				aImg[i].src='img/'+(src.charAt(i))+'.jpg';
+			};
+			
+			oldSrc=src;
+		}
+		function toNum(num){
+			if (num<10) {
+				return '0'+num;
+			}else{
+				return ''+num;
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<img src="img/0.jpg" />
+		<img src="img/0.jpg" />
+		<img src="img/colon.jpg">
+		<img src="img/0.jpg" />
+		<img src="img/0.jpg" />
+		<img src="img/colon.jpg">
+		<img src="img/0.jpg" />
+		<img src="img/0.jpg" />
+	</div>
+</body>
+</html>

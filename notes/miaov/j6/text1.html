@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+*{ margin:0; padding:0;}
+#div1{ width:500px; height:500px; border:10px #000 solid; margin:20px auto; position:relative;}
+#div2{ width:100px; height:100px; background:red; position:absolute; left:0; top:0;}
+</style>
+<script>
+window.onload = function(){
+	var oDiv1 = document.getElementById('div1');
+	var oDiv2 = document.getElementById('div2');
+	
+	var arr1 = ['left','top','left','top'];
+	var arr2 = [10,10,-10,-10];
+	var arr3 = [400,400,0,0];
+
+	
+	var iNow = 0;
+	setInterval(function(){
+		if (parseInt(getStyle(oDiv2,arr1[iNow]))==arr3[iNow]) {
+			if (iNow==3) {
+				iNow=0
+			}else{
+				iNow++;
+			};
+		};
+		oDiv2.style[arr1[iNow]]=parseInt(getStyle(oDiv2,arr1[iNow]))+arr2[iNow]+'px';
+	},30)
+	/*setInterval(function(){
+		if(parseInt(getStyle(oDiv2,arr1[iNow]))==arr3[iNow]){
+			if(iNow==3){  //重复执行
+				iNow=0
+			}else{
+				iNow++;
+				//alert(parseInt(getStyle(oDiv2,'left')))	
+			}
+			
+		}
+		oDiv2.style[ arr1[iNow] ] = parseInt(getStyle(oDiv2,arr1[iNow])) + arr2[iNow] + 'px';
+		
+	},30);*/
+	
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}
+		else{
+			return getComputedStyle(obj,false)[attr];
+		}
+	}
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div id="div2"></div>
+</div>
+</body>
+</html>

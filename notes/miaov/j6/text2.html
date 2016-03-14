@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>切换div</title>
+	<style type="text/css">
+	div{width: 100px;height: 100px;position: absolute;}
+	.div1 {background: red;left: 150px;top: 200px}
+	.div2 {background: yellow;left: 300px;top: 100px}
+	.div3 {background: blue;left: 450px;top: 200px}
+	.div4 {background: black;left: 300px;top: 300px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var btn=document.getElementsByTagName('input')[0];
+		var aDiv=document.getElementsByTagName('div');
+		//var num=0;
+		var arr=[];
+		for (var i = 0; i < aDiv.length; i++) {
+			arr.push([getStyle(aDiv[i],'left'),getStyle(aDiv[i],'top')])
+		};
+		/*btn.onclick=function(){
+			var num1=arr.pop();
+			var num2=arr.unshift(num1);
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].style.left=arr[i][0];
+				aDiv[i].style.top=arr[i][1];
+			};
+		}*/
+		console.log(arr)
+		btn.onclick=function(){
+			var val=arr.pop();
+			arr.unshift(val);
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].style.left=arr[i][0];
+				aDiv[i].style.top=arr[i][1];
+			};
+		}
+
+	}
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else{
+			return getComputedStyle(obj,false)[attr]
+		}
+	}
+	</script>
+</head>
+<body>
+	<input type="button" value="切换" />
+	<div class="div1"></div>
+	<div class="div2"></div>
+	<div class="div3"></div>
+	<div class="div4"></div>
+</body>
+</html>

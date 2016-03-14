@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业2</title>
+	<style type="text/css">
+	li:hover {background: #90c}
+	</style>
+</head>
+<body>
+<ul id="ul1"></ul>
+<script type="text/javascript">
+var oUl=document.getElementById('ul1');
+var aLi=oUl.getElementsByTagName('li');
+var str="";
+
+for(var i=0;i<9;i++){
+	str+="<li></li>"
+}	
+oUl.innerHTML=str;
+for (var i = 1; i < aLi.length+1; i++) {
+	aLi[i-1].index=i-1;
+	if (i<4) {
+		this.yellow=3*i-2;
+		this.red=3*(i-1);
+		this.blue=3*i-1;
+		aLi[this.red].style.background="red";
+		aLi[this.yellow].style.background="yellow";
+		aLi[this.blue].style.background="blue";
+
+	};
+	
+};
+for (var i = 0; i < aLi.length; i++) {
+	aLi[i].index=i;
+	aLi[i].bBtn=true;
+	aLi[i].oldColor=aLi[i].style.background;
+	aLi[i].onOff=true;
+	aLi[i].onmouseover=function(){
+		oldColor=this.oldColor;
+		//用的aLi[i].onOff=true;来判断
+		if(this.bBtn){
+			this.style.background="#90c";
+		}
+		
+	}
+	//这里没有进行判断
+	aLi[i].onmouseout=function(){
+		if(this.bBtn){
+			this.style.background=oldColor;
+		}
+		
+	}
+	aLi[i].onclick=function(){
+		oldColor=this.oldColor;
+		if(this.bBtn){
+			this.style.background="#000";
+			this.bBtn=false;
+		}else{
+			this.style.background=oldColor;
+			this.bBtn=true;
+			this.onOff=true;
+		}
+	};
+}
+</script>	
+</body>
+</html>

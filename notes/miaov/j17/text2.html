@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#box {border: 1px solid #000;position: absolute;}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+	
+	document.onmousedown=function(ev){
+		var ev=ev || window.event;
+		var L=ev.clientX;
+		var T=ev.clientY;
+		var timer=null;
+		var oBox=null;
+		if (!oBox) {
+			oBox=document.createElement('div');
+			oBox.id="box";
+			document.body.appendChild(oBox);
+			// oBox.style.left=L+'px';  //注意滚动条
+			// oBox.style.top=T+'px';
+		};
+
+		document.onmousemove=function(ev){
+			var ev=ev || window.event;
+			oBox.style.left=Math.min(L,ev.clientX)+'px';  //注意滚动条
+			oBox.style.top=Math.min(T,ev.clientY)+'px';
+			oBox.style.width=Math.abs(ev.clientX-L)+'px';
+			oBox.style.height=Math.abs(ev.clientY-T)+'px';
+		}
+
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			timer=setTimeout(function(){
+				document.body.removeChild(oBox);
+				oBox=null;
+			},300)
+
+		}
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	#div1 {width: 100px;height: 100px;background: red}
+
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('div1');
+		oDiv.onclick=function(){
+			// 1、call
+			// show.call(oDiv)
+			// show.call(oDiv,'background','blue')
+
+			// 2、apply
+			// show.apply(oDiv)
+			show.apply(oDiv,['background','yellow']);
+			// show.apply(this,['background','yellow']);  因为这个this就是在oDiv.onclick调用的，也就odiv
+		}
+		function show(attr,val){
+			// alert(this)  //没有改变this之前是window。
+			this.style[attr]=val
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="div1">
+		
+	</div>
+</body>
+</html>

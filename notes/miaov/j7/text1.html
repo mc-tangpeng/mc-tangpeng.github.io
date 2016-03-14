@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	img {border: none;}
+	ul {list-style: none;}
+	a {text-decoration: none;}
+	#box {width: 902px;height: 400px;margin:30px auto;border: 2px solid #000;position:relative;overflow: hidden;}
+	#box #nav {position: absolute;left: 0px;top: 0;width: 100px;height: 400px;}
+	#box #nav li {width: 100px;height: 130px;margin-bottom: 5px;background: #f05;text-align: center;;line-height: 130px;font-size: 20px;color: #fff;cursor: pointer;}
+	#box #nav li.current {background: #f90}
+	#box #content {width: 800px;height: 400px;position: absolute;left: 102px;top: 0}
+	#content ul {display: none;}
+
+	#content ul.active {display: block;}
+	#content ul li {display: none;text-align: center;}
+	#content ul li span{display: inline-block;height: 40px;background: #ccc;text-align: center;line-height: 40px;cursor: pointer; }
+	#content ul li span.btnNow {background: #f60}
+	#content ul li.show {display: block;}
+	#content .active li:last-child {display: block;width: 800px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oCon=document.getElementById('content');
+		var aNavLi=document.getElementById('nav').getElementsByTagName('li');
+		var aUl=oCon.getElementsByTagName('ul');
+		//alert(aUl.length)
+		var aBtn=getClassName(oCon,'btn');
+		for (var i = 0; i < aBtn.length; i++) {
+			var aSpan=aBtn[i].getElementsByTagName('span');
+			for (var j = 0; j < aSpan.length; j++) {
+				if(aSpan.length==2){
+					aSpan[j].style.width='48%';
+				}else if (aSpan.length==3) {
+					aSpan[j].style.width='31%';
+				}else if(aSpan.length==4){
+					aSpan[j].style.width='23%';
+				};
+			};
+			
+		};
+		for (var i = 0; i < aNavLi.length; i++) {
+
+			show(aNavLi[i],aUl[i]);
+		};
+		function show(ali,aul){
+			var aLi=aul.getElementsByTagName('li');
+			var aSpan=aul.getElementsByTagName('span');
+			aLi[0].className='show';
+			aSpan[0].className="btnNow";
+			aLi[aLi.length-1].className='show';
+			ali.onclick=function(){
+				for (var i = 0; i < aNavLi.length; i++) {
+					aNavLi[i].className="";
+					aUl[i].style.display="none";
+				};
+				this.className='current';
+				aul.style.display="block";
+			}
+			for (var i = 0; i < aSpan.length; i++) {
+				aSpan[i].index=i;
+				aSpan[i].onclick=function(){
+					for (var i = 0; i < aSpan.length; i++) {
+						aSpan[i].className='';
+						aLi[i].className='';
+					};
+					this.className='btnNow';
+					aLi[this.index].className='show'
+				}
+			};
+		}
+		/*tab(aUl[0]); //让第一个运动。
+		for (var i = 0; i < aNavLi.length; i++) {
+			aNavLi[i].index=i;
+			aNavLi[i].onclick=function(){
+				for (var i = 0; i < aNavLi.length; i++) {
+					aNavLi[i].className='';
+					aUl[i].className='';
+				};
+				this.className="current";
+				aUl[this.index].className='active';
+				tab(aUl[this.index]);
+			}
+
+		};
+		function tab(ul){
+			var aLi=ul.getElementsByTagName('li');
+			var aBtn=ul.getElementsByTagName('span');
+			
+			for (var i = 0; i <aBtn.length ; i++) {   //此处是重点，如果不初始化操作，会导致上一个aBtn的索引值影响到下一个选择，去掉此处和box的overflow；就会看到问题。
+				aLi[0].className='show';
+				aBtn[0].className='btnNow';
+				aBtn[i].className='';
+				aLi[i].className="";
+			}
+			for (var i = 0; i < aBtn.length; i++) {
+				aBtn[i].index=i;
+				aBtn[i].onmouseover=function(){
+					for (var i = 0; i <aBtn.length ; i++) {
+						aBtn[i].className='';
+						aLi[i].className="";
+					}
+					this.className='btnNow';
+					aLi[this.index].className="show";
+					console.log(this.index)
+				}
+			};
+			
+		}*/
+	}
+	function getClassName(oParent,sClass){
+		var elems=oParent.getElementsByTagName('*');
+		var result=[];
+		for (var i = 0; i < elems.length; i++) {
+			if(elems[i].className==sClass){
+				result.push(elems[i])
+			}
+		};
+		return result;
+	}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<ul id="nav">
+			<li class="current">风景</li>
+			<li>美女</li>
+			<li>动漫</li>
+		</ul>
+		<div id="content">
+			<ul class="active">
+				<li class="show"><a href="javascript:;"><img src="img/s1.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/s2.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/s3.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/s4.jpg" /></a></li>
+				<li class="btn"><span  class="btnNow">选项1</span> <span>选项2</span> <span>选项3</span> <span>选项4</span></li>
+			</ul>
+			<ul>
+				<li><a href="javascript:;"><img src="img/1.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/2.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/3.jpg" /></a></li>
+				<li class="btn"><span>选项1</span> <span>选项2</span> <span>选项3</span></li>
+			</ul>
+			<ul>
+				<li><a href="javascript:;"><img src="img/c2.jpg" /></a></li>
+				<li><a href="javascript:;"><img src="img/c3.jpg" /></a></li>
+				<li class="btn"><span>选项1</span> <span>选项2</span> </li>
+			</ul>	
+		</div>
+	</div>
+</body>
+</html>

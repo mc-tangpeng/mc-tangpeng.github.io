@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+		var aLi=oUl.getElementsByTagName('li');
+		for (var i = 0; i < aLi.length; i++) {
+			change(aLi[i])
+		};
+		function change(obj){
+			var upBtn=obj.getElementsByTagName('input')[0];
+			var downBtn=obj.getElementsByTagName('input')[1];
+			var topBtn=obj.getElementsByTagName('input')[2];
+			var bottomBtn=obj.getElementsByTagName('input')[3];
+
+			upBtn.onclick=function(){
+				if ( prevNode(this.parentNode) ) {
+					oUl.insertBefore(this.parentNode,prevNode(this.parentNode))
+				}else{
+					alert('到头了')
+				}
+			}
+
+			downBtn.onclick=function(){
+				if ( nextNode(this.parentNode) ) {
+					oUl.insertBefore(nextNode(this.parentNode),this.parentNode) //2 3 ,换种思维，3,2  因为insertBefore是剪切操作
+				}else{ 
+					alert('到底了')
+				}
+			}
+
+			topBtn.onclick=function(){
+				if (prevNode(this.parentNode) ) {
+					oUl.insertBefore(this.parentNode,firstNode(oUl) )
+				}else{
+					alert('到顶咯')
+				}
+				
+			}
+
+			bottomBtn.onclick=function(){
+				if (nextNode(this.parentNode)) {
+					oUl.appendChild(this.parentNode)
+				}else{
+					alert('到底咯')
+				}
+			}
+		}
+
+		function firstNode(obj){
+			if (!obj.firstChild) {
+				return false
+			};
+			return obj.firstElementChild || ( obj.firstChild.nodeType==1 ? obj.firstChild : nextNode(obj.firstChild) );
+		}
+		function nextNode(obj){
+			if (!obj.nextSibling) {
+				return false;
+			};
+			return obj.nextElementSibling || (obj.nextSibling.nodeType==1 ? obj.nextSibling : nextNode(obj.nextSibling))
+		}
+		function lastNode(obj){
+			if (!obj.lastChild) {
+				return false;
+			};
+			return obj.lastElementChild || (obj.lastChild.nodeType==1 ? obj.lastChild : prevNode(obj.lastChild) )
+		}
+		function prevNode(obj){
+			if (!obj.previousSibling) {
+				return false;
+			};
+			return obj.previousElementSibling || (obj.previousSibling.nodeType==1 ? obj.previousSibling : prevNode(obj.previousSibling))
+		}
+	}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+			<li>1<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+
+			<li>2<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+			<li>3<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+			<li>4<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+			<li>5<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+			<li>6<input type="button" value="上移" /><input type="button" value="下移" /><input type="button" value="回顶部"><input type="button" value="回底部"></li>
+		</ul>
+</body>
+</html>

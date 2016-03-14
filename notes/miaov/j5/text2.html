@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2v</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		#box {position: relative;left: 0;top:0;}
+		#box div {width: 20px;height: 20px;position: absolute;background: red;text-align: center;line-height: 20px}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oDiv=document.getElementById('box');
+		var aDiv=oDiv.getElementsByTagName('div');
+		var count=0;
+		var count2=8;
+		for (var i = 0; i <40; i++) {
+			if(i%16<=7){
+				if (count>7) {
+					count=0;
+				};
+				count++;
+
+				oDiv.innerHTML+='<div style="left:'+(i+1)*20+'px;top:'+count*20+'px">'+i+'</div>';
+			}else if(i%16 > 7){
+				if (count2<=0) {
+					count2=8;
+				};
+				count2--;
+				oDiv.innerHTML+='<div style="left:'+(i+1)*20+'px;top:'+count2*20+'px">'+i+'</div>';
+			}
+			
+		};
+	}
+	</script>
+</head>
+<body>
+<div id="box">
+	
+</div>	
+</body>
+</html>

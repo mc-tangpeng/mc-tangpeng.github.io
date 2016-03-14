@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<p>例如：border-bottom-color</p>
+<input type="text" /><input type="button" value="开转" />
+<script type="text/javascript">
+	var oText=document.getElementsByTagName('input')[0];
+	var oBtn=document.getElementsByTagName('input')[1];
+
+	oBtn.onclick=function () {
+		var val=oText.value;
+		var arr=val.split('-');
+		//console.log(arr[1].substring(1));
+
+		for (var i = 1; i < arr.length; i++) {
+			arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+
+		};
+		alert(arr.join(''));
+		oText.value=arr.join('');
+	}
+</script>	
+</body>
+</html>

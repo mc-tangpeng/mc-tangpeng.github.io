@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	img {display: block;width: 50px;height: 50px}
+	#wrap {width: 800px;margin: 20px auto;padding: 20px;text-align: center;border: 1px solid}
+	#box {width: 800px;height: 500px;border: 1px solid #000;position: relative;margin-top: -100px;overflow: hidden;}
+	#box img {position: absolute;left: 0;top: -53px;}
+	#msg {width: 150px;height: 100px;border: 1px solid #000;position: relative;top: 100px;left: -151px}
+	#tips {width: 100%;height: 100%;text-align: center;position: absolute;z-index: 99;background: rgba(0,0,0,0.3);left: 0;top: 0;padding: 270px 0;display: none;}
+
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oPlay=document.getElementById('player');
+		var oBox=document.getElementById('box');
+		var oImg=oBox.getElementsByTagName('img')[0];
+		var oMsg=document.getElementById('msg');
+		var aSpan=oMsg.getElementsByTagName('span');
+		var oTips=document.getElementById('tips');
+		var oAgainBtn=document.getElementById('again');
+		var iNum=-1; //控制图片的src
+		var iSpeed=30;
+		var timer1=null;
+		var onOff=true; //控制是否抖动box,也是用来确定oimg的dispalys是否是none
+		var nextGk=true;//控制是否开始下一次
+		var iNum1=0; //控制获得了多少个
+		var iNum2=0; //控制失去了多少个
+		oPlay.onclick=function(){
+			oPlay.disabled=true;
+			nextGk=true
+			oPlay.value="游戏进行中...";
+			tp()
+			
+		}
+		function tp(){
+			if (nextGk) {
+				pos()
+				console.log(iSpeed)
+				timer1=startMove(oImg,iSpeed,{top:500},function(){
+					var iTop=parseInt(getStyle(oImg,'top'));
+					
+					oImg.onclick=function(){
+						onOff=false;
+						This=this;
+						shake(This,'left',function(){
+							tp()
+							iNum1++;
+							aSpan[0].innerHTML=iNum1+'个'
+						})
+					}
+					if (iTop==500 && onOff) {
+						shake(oBox,'top',function(){
+							tp()
+						})
+						iNum2++;
+						aSpan[1].innerHTML=iNum2+'个';
+						if (iNum2==8) {
+							nextGk=false;
+							
+						};
+					}
+				})
+			}else{
+				clearInterval(timer1);
+				oTips.style.display="block";
+				return;
+			}
+		}
+		function pos(){
+			iNum++;
+			if(iNum==12){
+				iNum=0
+			}
+			iSpeed-=1;
+			if (iSpeed==0) {
+				clearInterval(timer1);
+				oTips.style.display="block"
+				return
+			};
+			onOff=true;
+			oImg.style.display="block";
+			oImg.style.top='-51px';
+			var iLeft=Math.floor(Math.random()*751);
+			oImg.style.left=iLeft+'px';
+			oImg.src='img/'+(iNum)+'.gif';
+		}
+		oAgainBtn.onclick=function(){
+			oTips.style.display="none";
+			iNum=-1; //控制图片的src
+			iSpeed=30;
+			onOff=true; //控制是否抖动box,也是用来确定oimg的dispalys是否是none
+			iNum1=0; //控制获得了多少个
+			iNum2=0; //控制失去了多少个
+
+			aSpan[0].innerHTML=iNum1+'个';
+			aSpan[1].innerHTML=iNum2+'个';
+
+			oPlay.disabled=false;
+			oPlay.value="开始游戏";
+		}
+	}
+	function startMove(obj,iSpeed,json,endFn){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			var oBtn=true;
+			for(var attr in json){
+				var iCur=0;
+				if (attr == 'opacity') {
+					iCur=Math.round( Math.floor( parseFloat( getStyle(obj,attr) )*100 ) )
+				}else{
+					iCur=parseInt(getStyle(obj,attr))
+				}
+				var speed=(json[attr]-iCur)/iSpeed;
+				speed=speed>0 ? Math.ceil(speed) : Math.floor(speed);
+				if (json[attr] != iCur) oBtn=false;
+				if (attr=='opacity') {
+					obj.style.opacity=(iCur+speed)/100;
+					obj.style.filter='alpha(opacity:'+(iCur+speed)+')';
+				}else{
+					obj.style[attr]=iCur+speed+'px';
+				}
+			}
+			if (oBtn) {
+				clearInterval(obj.timer);
+				endFn && endFn();
+			}
+		},30)
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr];
+	}
+	function shake(shake,attr,fnEnd){
+		if (shake.oBtn) {return};
+		shake.oBtn=true;
+		var iCur=parseInt(getStyle(shake,attr));
+		var arr=[];
+		var len=20;
+		var num=0;
+		for (var i = 20; i > 0; i-=2) {
+			arr.push(i,-i)
+		}
+		arr.push(0);
+		clearInterval(shake.timer);
+		shake.timer=setInterval(function(){
+			shake.style[attr]=iCur+arr[num]+'px';
+			num++;
+			// console.log(iCur)
+			if (num==arr.length) {
+				clearInterval(shake.timer);
+				fnEnd && fnEnd();
+				shake.oBtn=false;
+			};
+		},30)
+	}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<h3>猛点表情，才能消除噢</h3>
+		<p>失去8个，就game over</p>
+		<input type="button" value="开始游戏" id="player">
+		<div id="msg">
+			<p>成功消除：<span>0个</span></p>
+			<p>逃跑掉：<span>0个</span></p>
+		</div>
+		<div id="box">
+			<img src="img/0.gif">
+			
+		</div> 
+	</div>
+	<div id="tips">
+		<p style="color:#fff;font-weight:blod">很遗憾，你失败了!!</p>
+		<input type="button" value="重新开始" id="again" >
+	</div>
+</body>
+</html>

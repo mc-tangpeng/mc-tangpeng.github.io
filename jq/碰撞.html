@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin:0; padding: 0;}
+	body {height: 2000px;}
+	#box {position: absolute;left: 0px;top: 0px;width: 100px;height: 100px;background: red}
+	</style>
+	<script type="text/javascript">
+	window.onload = function() {
+		var oBox = document.getElementById('box');
+		var viewWidth = document.documentElement.clientWidth;
+		var viewHeight = document.documentElement.clientHeight;
+		var timer = null;
+		var scrollTop = 0;
+		var disX = 0;
+		var disY = 0;
+
+		var prevX = 0;
+		var prevY = 0;
+
+		var ispeedX = 0;
+		var ispeedY = 0;
+		oBox.onmousedown = function(ev) {
+			var ev = ev || window.event;
+			disX = ev.clientX - oBox.offsetLeft;
+			disY = ev.clientY - oBox.offsetTop;
+			prevX = ev.clientX;
+			prevY = ev.clientY;
+			document.onmousemove = function(ev) {
+				var ev = ev || window.event;
+				var iLeft = ev.clientX - disX;
+				var iTop = ev.clientY - disY;
+
+				if (iLeft >= viewWidth - oBox.offsetWidth) {
+					iLeft = viewWidth - oBox.offsetWidth;
+				} else if (iLeft <= 0) {
+					iLeft = 0;
+				}
+
+				oBox.style.left = iLeft + 'px';
+				oBox.style.top = iTop + 'px';
+
+				ispeedX = ev.clientX - prevX;
+				ispeedY = ev.clientY - prevY;
+
+				prevX = ev.clientX;
+				prevY = ev.clientY;
+
+			}
+			document.onmouseup = function() {
+				document.onmousemove = null;
+				document.onmouseup = null;
+				startMove();
+
+			}
+			return false;
+ 		}
+
+ 		function startMove() {
+ 			clearInterval(timer);
+ 			timer = setInterval(function() {
+ 				ispeedY += 3;  //不能写在57行下面
+ 				var iLeft = oBox.offsetLeft + ispeedX;
+ 				var iTop = oBox.offsetTop + ispeedY;
+ 				
+ 				if (iTop >= viewHeight + scrollTop - oBox.offsetHeight) {
+ 					iTop = viewHeight + scrollTop - oBox.offsetHeight;
+ 					ispeedY*=-1;
+ 					ispeedY *= 0.75;
+ 					ispeedX *=0.75;
+ 				} else if (iTop <= 0) {
+ 					iTop = 0;
+ 					ispeedY *= -1;
+ 					ispeedY*=0.75;
+ 					
+ 				}
+ 				if (iLeft >= viewWidth - oBox.offsetWidth) {
+ 					iLeft = viewWidth - oBox.offsetWidth;
+ 					ispeedX *= -1;
+ 					ispeedX *= 0.75;
+ 				} else if (iLeft <= 0) {
+ 					iLeft = 0;
+ 					ispeedX *= -1;
+ 					ispeedX *= 0.75;
+ 				}
+ 				oBox.style.left = iLeft + 'px';
+ 				oBox.style.top = iTop + 'px';
+ 				if (Math.floor(Math.abs(ispeedY)) <= 1 && iTop==viewHeight + scrollTop -oBox.offsetHeight) {
+ 					clearInterval(timer)
+ 				};
+ 			},30)
+ 		}
+ 		window.onscroll = function() {
+ 			scrollTop = scrollY()
+ 			startMove()
+ 			console.log( 222 )
+ 		}
+ 		function scrollY() {
+ 			return document.body.scrollTop || document.documentElement.scrollTop;
+ 		}
+ 	}	
+
+	
+	</script>
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+</body>
+</html>

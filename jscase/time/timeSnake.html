@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#box {width: 1200px;margin: 120px auto}
+	#ul1 li {float: left;list-style:none;margin: 0 10px;position: relative;left: 0;top: 0}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aLi=document.getElementsByTagName('li');
+		var aImg=document.getElementsByTagName('img');
+		var div1=document.getElementById('div1');
+		var oldStr='';
+		getTime();
+		setInterval(getTime,1000)
+		function getTime(){
+			var oDate=new Date();
+			
+			var str=toZero(oDate.getHours())+':'+toZero(oDate.getMinutes())+':'+toZero(oDate.getSeconds());
+			for (var i = 0; i < aImg.length; i++) {
+				if (i!=2 && i!=5) {
+					aImg[i].src="img/"+(str.charAt(i))+".JPG" ;  
+				}
+			}
+			for (var i = 0; i < aLi.length; i++) {
+				 if (str.charAt(i) != oldStr.charAt(i)) {
+					toShake(aLi[i],'top');
+					console.log('oldStr'+oldStr+','+'str'+str)
+				 }
+			}
+			oldStr=str;
+		}
+	}
+	
+	function toZero(num){
+		if (num<10) {
+			return '0'+num;
+		}else{
+			return ''+num;
+		};
+	}
+	function toShake(obj,attr){
+		if(obj.oBtn){return};
+		obj.oBtn=true;
+		var arr=[];
+		var len=16;
+		var num=0;
+		var shakeTimer=null;
+		var iCur=parseInt(getStyle(obj,attr))
+		for (var i = len; i > 0; i-=2) {
+			arr.push(i,-i)
+		}
+		arr.push(0);
+		//console.log(arr)
+		clearInterval(shakeTimer)
+		shakeTimer=setInterval(function(){
+			obj.style[attr]=iCur+arr[num]+'px';
+			num++;
+			if (num==arr.length) {
+				clearInterval(shakeTimer);
+				obj.oBtn=false;
+				num=0;
+				console.log('iCur'+iCur)
+			}
+		},30)
+	}
+	function getStyle(obj,attr){
+		return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj,false)[attr]
+	}
+	</script>
+</head>
+<body>
+	<!-- <div id="div1" style="width:100px;height:100px;background:red;position:absolute;left:100px;top:100px"></div> -->
+	<!-- <div style="width:1px;height:600px;position:absolute;left:99px;background:red;"></div> -->
+	<div id="box">
+		<ul id="ul1">
+			<li><img src="img/1.JPG" /></li>
+			<li><img src="img/1.JPG" /></li>
+			<li><img src="img/colon.JPG" /></li>
+			<li><img src="img/1.JPG" /></li>
+			<li><img src="img/1.JPG" /></li>
+			<li><img src="img/colon.JPG" /></li>
+			<li><img src="img/1.JPG" /></li>
+			<li><img src="img/1.JPG" /></li>
+		</ul>
+	</div>
+</body>
+</html>

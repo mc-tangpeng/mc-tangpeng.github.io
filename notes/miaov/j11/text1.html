@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	window.onload=function(){
+		var oUl=document.getElementById('ul1');
+
+		var first=firstNode(oUl);
+		first.innerHTML="red";
+
+		var next=nextNode(first);
+		next.style.background="yellow";
+
+		var last=lastNode(oUl);
+		last.style.background="red";
+
+		var prev=prevNode(last);
+		prev.style.background="blue"
+
+		function firstNode(obj){
+			if (!obj.firstChild) {
+				return false
+			};
+			return obj.firstElementChild || ( obj.firstChild.nodeType==1 ? obj.firstChild : nextNode(obj.firstChild) );
+		}
+		function nextNode(obj){
+			if (!obj.nextSibling) {
+				return false;
+			};
+			return obj.nextElementSibling || (obj.nextSibling.nodeType==1 ? obj.nextSibling : nextNode(obj.nextSibling))
+		}
+		function lastNode(obj){
+			if (!obj.lastChild) {
+				return false;
+			};
+			return obj.lastElementChild || (obj.lastChild.nodeType==1 ? obj.lastChild : prevNode(obj.lastChild) )
+		}
+		function prevNode(obj){
+			if (!obj.previousSibling) {
+				return false;
+			};
+			return obj.previousElementSibling || (obj.previousSibling.nodeType==1 ? obj.previousSibling : prevNode(obj.previousSibling))
+		}
+	}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		我是捣蛋的1
+		<li>1111111</li>
+		<li>22222</li>
+		<li>33333333</li>
+		<li>4444444444</li>
+		<li>55555555</li>
+		<li>6666666666</li>
+		我是捣蛋的2
+	</ul>
+</body>
+</html>

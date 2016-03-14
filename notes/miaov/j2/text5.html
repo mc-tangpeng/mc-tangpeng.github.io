@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	div {width: 50px;height: 50px;background: red;position: absolute;text-align: center;line-height: 50px}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+	var aDiv=document.getElementsByTagName('div');
+	var len=49;
+	var str='';
+	for (var i = 0; i <= 9; i++) {
+		for (var j = 0; j <= 9; j++) {
+			str+='<div style="left:'+(j*55)+'px;top:'+(i*51)+'px" >'+j+'</div>'
+		}
+	}
+
+	// for (var i = 0; i <= 9; i++) {
+	// 	var iLeft=i%10;
+	// 	var iTop=i/10
+	// };
+	document.body.innerHTML=str;
+	for (var i = 0; i < aDiv.length; i++) {
+		aDiv[i].onmouseover=function(){
+			this.style.background="#0cf"
+		}
+		aDiv[i].onmouseout=function(){
+			this.style.background="#f00"
+		}
+	};
+	</script>
+</body>
+</html>

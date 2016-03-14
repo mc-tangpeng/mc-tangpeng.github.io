@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0}
+	div {width: 20px;height: 20px;background: red;position: absolute;}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+		var aDiv=document.getElementsByTagName('div')
+		var str='';
+		for (var i = 0; i < 20; i++) {
+			str+='<div></div>'
+		}
+		document.body.innerHTML=str;
+		//情况1：
+		// document.onmousemove=function(ev){
+		// 	var ev=ev || window.event;
+		// 	aDiv[0].style.left=ev.clientX+'px';
+		// 	aDiv[0].style.top=ev.clientY+'px';
+		// 	for (var i = 1; i < aDiv.length; i++) {  //应该是i < aDiv.length-1，因为最后一个下面没有了，不用循环它
+		// 		aDiv[i].style.left=aDiv[i-1].offsetLeft+20+'px';
+		// 		aDiv[i].style.top=aDiv[i-1].offsetTop+20+'px';
+		// 	};
+		// }
+
+		//情况2：
+		document.onmousemove=function(ev){
+			var ev=ev || window.event;
+			aDiv[0].style.left=ev.clientX+'px';
+			aDiv[0].style.top=ev.clientY+'px';
+
+			for (var i=aDiv.length-1; i > 0; i--) {
+				aDiv[i].style.left=aDiv[i-1].offsetLeft+20+'px';
+				aDiv[i].style.top=aDiv[i-1].offsetTop+20+'px';
+			};
+		}
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
